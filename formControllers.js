@@ -305,6 +305,7 @@ async function requestMaterial(req, res) {
  async function createUserResourceSharingRequests(formconfig, language, request, requestInput, citation_type, format, user_id, override) {
     let title = "";
     let journaltitle = "";
+    let abbrjournaltitle ="";
     let requestInputkey='form';
 
     try {
@@ -326,13 +327,13 @@ async function requestMaterial(req, res) {
             || request.form.genre == 'article' 
             || request.form.genre == 'proceeding') 
             &&  (request.form.jtitle)) {
-                let journaltitle = request.form.jtitle;
+                journaltitle = request.form.jtitle;
             }
 
             if((request.form.genre == 'journal' 
             || request.form.genre == 'article') 
             &&  (request.form.stitle)) {
-                let abbrjournaltitle = request.form.stitle;
+                abbrjournaltitle = request.form.stitle;
             }
         }
 
