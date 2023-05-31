@@ -56,7 +56,6 @@ async function sendmail(to, from, fromname, subject, bodytext, inlineimage = '',
 
     try {
         //logger.debug(JSON.stringify(edgemailoptions))
-        console.log(mailoptions)
         let contactmemailinfo = await transporter.sendMail(mailoptions);
     } catch (err) {
         //TODO
@@ -126,38 +125,38 @@ async function createmailbody(formconfig, bodytext, genre, cost, fullname, almap
         dateneededby = request.form.dateneededby
     }
     
-    bodytext.replace('@@title', title);
-    bodytext.replace('@@btitle', request.form.btitle);
-    bodytext.replace('@@atitle', request.form.atitle);
-    bodytext.replace('@@ctitle', request.form.ctitle);
-    bodytext.replace('@@stitle', request.form.stitle);
-    bodytext.replace('@@jtitle', request.form.jtitle);
-    bodytext.replace('@@dbtitle', request.form.dbtitle);
-    bodytext.replace('@@genre', genre);
-    bodytext.replace('@@au', author);
-    bodytext.replace('@@edition', request.form.edition);
-    bodytext.replace('@@issue', request.form.issue);
-    bodytext.replace('@@pages', request.form.pages);
-    bodytext.replace('@@issn', request.form.issn);
-    bodytext.replace('@@isbn', request.form.isbn);
-    bodytext.replace('@@place', request.form.place);
-    bodytext.replace('@@publisher', request.form.publisher);
-    bodytext.replace('@@year', request.form.year);
-    bodytext.replace('@@volume', request.form.volume);
-    bodytext.replace('@@source', request.form.source);
-    bodytext.replace('@@pickup', almalibraryname);
-    bodytext.replace('@@doi', request.form.doi);
-    bodytext.replace('@@coursecode', request.form.coursecode);
-    bodytext.replace('@@fullname', fullname);
-    bodytext.replace('@@iam', iam);
-    bodytext.replace('@@username', request.form.username);
-    bodytext.replace('@@emailadress', almapreferredemail);
-    bodytext.replace('@@cost', cost);
-    bodytext.replace('@@dateneededby', dateneededby);
-    bodytext.replace('@@message', request.form.message);
+    bodytext = bodytext.replace(/@@title/g, title);
+    bodytext = bodytext.replace(/@@btitle/g, request.form.btitle);
+    bodytext = bodytext.replace(/@@atitle/g, request.form.atitle);
+    bodytext = bodytext.replace(/@@ctitle/g, request.form.ctitle);
+    bodytext = bodytext.replace(/@@stitle/g, request.form.stitle);
+    bodytext = bodytext.replace(/@@jtitle/g, request.form.jtitle);
+    bodytext = bodytext.replace(/@@dbtitle/g, request.form.dbtitle);
+    bodytext = bodytext.replace(/@@genre/g, genre);
+    bodytext = bodytext.replace(/@@au/g, author);
+    bodytext = bodytext.replace(/@@edition/g, request.form.edition);
+    bodytext = bodytext.replace(/@@issue/g, request.form.issue);
+    bodytext = bodytext.replace(/@@pages/g, request.form.pages);
+    bodytext = bodytext.replace(/@@issn/g, request.form.issn);
+    bodytext = bodytext.replace(/@@isbn/g, request.form.isbn);
+    bodytext = bodytext.replace(/@@place/g, request.form.place);
+    bodytext = bodytext.replace(/@@publisher/g, request.form.publisher);
+    bodytext = bodytext.replace(/@@year/g, request.form.year);
+    bodytext = bodytext.replace(/@@volume/g, request.form.volume);
+    bodytext = bodytext.replace(/@@source/g, request.form.source);
+    bodytext = bodytext.replace(/@@pickup/g, almalibraryname);
+    bodytext = bodytext.replace(/@@doi/g, request.form.doi);
+    bodytext = bodytext.replace(/@@coursecode/g, request.form.coursecode);
+    bodytext = bodytext.replace(/@@fullname/g, fullname);
+    bodytext = bodytext.replace(/@@iam/g, iam);
+    bodytext = bodytext.replace(/@@username/g, request.form.username);
+    bodytext = bodytext.replace(/@@emailadress/g, almapreferredemail);
+    bodytext = bodytext.replace(/@@cost/g, cost);
+    bodytext = bodytext.replace(/@@dateneededby/g, dateneededby);
+    bodytext = bodytext.replace(/@@message/g, request.form.message);
 
-    if (bodytext.indexOf('showcritera=\'\'') > -1) {
-        bodytext = bodytext.replace('showcritera=\'\'', 'style="mso-hide:all;display:none;max-height:0px;overflow:hidden;"');
+    if (bodytext.indexOf('showcritera=\'undefined\'') > -1) {
+        bodytext = bodytext.replace(/showcritera=\'undefined\'/g, 'style="mso-hide:all;display:none;max-height:0px;overflow:hidden;"');
     }
     return bodytext;
 }
