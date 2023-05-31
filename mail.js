@@ -32,13 +32,14 @@ async function sendmail(to, from, fromname, subject, bodytext, inlineimage = '',
 
     }
     */
-    edgemailoptions = {
+    mailoptions = {
         from: {
             name: fromname,
             address: from
         },
         to: to,
         subject: subject,
+        html: bodytext 
         //template: 'edge_email_sv',
         /*
         context:{
@@ -55,7 +56,7 @@ async function sendmail(to, from, fromname, subject, bodytext, inlineimage = '',
 
     try {
         //logger.debug(JSON.stringify(edgemailoptions))
-        let contactmemailinfo = await transporter.sendMail(edgemailoptions);
+        let contactmemailinfo = await transporter.sendMail(mailoptions);
     } catch (err) {
         //TODO
         //logger.debug(JSON.stringify(err))
