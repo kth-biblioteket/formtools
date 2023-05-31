@@ -56,6 +56,7 @@ async function sendmail(to, from, fromname, subject, bodytext, inlineimage = '',
 
     try {
         //logger.debug(JSON.stringify(edgemailoptions))
+        console.log(mailoptions)
         let contactmemailinfo = await transporter.sendMail(mailoptions);
     } catch (err) {
         //TODO

@@ -179,8 +179,8 @@ async function requestMaterial(req, res) {
 
         // Skapa mailinnehåll till edge och beställaren
         let request = req.body
-        emailtobodyedge = mail.createmailbody(formconfig, emailtobodyedge, genre, cost, almafullname, almapreferredemail, almalibraryname, request);
-        emailtobodyuser = mail.createmailbody(formconfig, emailtobodyuser, genre, cost, almafullname, almapreferredemail, almalibraryname, request);
+        emailtobodyedge = await mail.createmailbody(formconfig, emailtobodyedge, genre, cost, almafullname, almapreferredemail, almalibraryname, request);
+        emailtobodyuser = await mail.createmailbody(formconfig, emailtobodyuser, genre, cost, almafullname, almapreferredemail, almalibraryname, request);
        
         // Skicka beställing och/eller mail beroende på källa och materialtyp
         let create_request = false
