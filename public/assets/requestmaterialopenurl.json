@@ -1,0 +1,1839 @@
+{
+  "id": "requestmaterial",
+  "name" : "Beställ material",
+  "documentation": [
+    "Detta formulär används för att beställa material via en openurl-länk",
+    "från extern källa(Primo, Libris etc)",
+    "Materialtyperna Bok, Artikel och Kapitel i bok hamnar som en request i Alma",
+    "Typerna Tidskrift och Databas hamnar som ett ärende i RT/EDGE",
+    "Ett bekräftelsemail(emailtobodyuser) går ut för Alma-requests till den address",
+    "beställaren har i Alma",
+    "RT/EDGE-ärenden går till emailtoaddressedge med innehåll(emailtobodyedge)",
+    "RT/EDGE skickar sedan ett mail till beställaren om mottaget ärende."
+  ],
+  "header" : {
+      "swedish": "Beställ material",
+      "english": "Request material"
+  },
+  "status": "open",
+  "description": {
+    "open": {
+      "swedish": "Behöver du en bok, artikel, tidskrift eller annat material som biblioteket inte har tillgång till idag? I de flesta fall kan vi beställa materialet till dig genom fjärrlån, d.v.s. lån från ett annat bibliotek, eller inköp. Gör en beställning eller lämna ett inköpsförslag genom att fylla i formuläret nedan så återkommer vi till dig.",
+      "english": ""
+    },
+    "closed": {
+      "swedish": "Stängt p.g.a underhåll",
+      "english": "Closed for maintenance"
+    }
+  },
+  "posturl": "/webservices/kthbforms/api/v1/requestmaterial",
+  "loaderurl": "/kthbforms/assets/ajax_loader_blue_512.gif",
+  "loaderinfo": {
+    "swedish": "Skickar beställning...",
+    "english": "Sending request..."
+  },
+  "postresponseinfo" : {
+    "header": {
+      "swedish": "Tack för din beställning.",
+      "english": "Thank you for ordering."
+    },
+    "text": {
+      "swedish": "Vi meddelar dig när materialet är tillgängligt. Gäller beställningen en artikel skickas den av upphovsrättsliga skäl i utskrivet format till din kontorsadress. Kontrollera att den adress du angivit på ditt bibliotekskonto <a href='https://www.kth.se/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001'>https://www.kth.se/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001</a> är korrekt. Om du inte har en kontorsadress ange hemadress. <strong>Observera att KTH Biblioteket inte tar ansvar för artiklar som kommer i retur på grund av felaktigt angiven adress.</strong>",
+      "english": "We will let you know when the material is available. Due to copyright law, article copies will be sent in print format to the office address registered on your library account <a href='https://www.kth.se/en/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001'>https://www.kth.se/en/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001.</a> Please make sure that the address is correct. In case you do not have an office address, register your home address. <strong>NB: the KTH Library is not responsible for articles that are undeliverable due to an inaccurate address.</strong>"
+    }
+  },
+  "posterrorresponseinfo" : {
+    "header": {
+      "swedish": "Något gick fel!",
+      "english": "Something went wrong!"
+    },
+    "text": {
+      "swedish": "Kontrollera att du har fyllt i alla fält korrekt. Om felet kvarstår kontakta biblioteket.",
+      "english": "Please check that all the fields have been filled out correctly. If the problem remains please contact the library."
+    }
+  },
+  "emailtoaddressedge": {
+    "emailaddress": "media-kthb@kth.se",
+    "name": {
+      "swedish": "Edge",
+      "english": "Edge"
+    }
+  },
+  "emailtosubjectedge": {
+    "swedish": "Förslag på prenumeration / Beställning",
+    "english": "Suggestion for subscription / Request"
+  },
+  "emailtobodyedge": {
+    "swedish": [
+      "<p><strong>Materialtyp</strong></p>",
+      "<p>@@genre</p>",
+      "<br>",
+      "<p><strong>Bibliografisk information</strong></p>",
+      "<p showcritera='@@btitle'>Boktitel: @@btitle</p>",
+      "<p showcritera='@@atitle'>Artikeltitel: @@atitle</p>",
+      "<p showcritera='@@jtitle'>Tidskriftstitel: @@jtitle</p>",
+      "<p showcritera='@@dbtitle'>Databas: @@dbtitle</p>",
+      "<p showcritera='@@au'>Författare: @@au</p>",
+      "<p showcritera='@@edition'>Upplaga: @@edition</p>",
+      "<p showcritera='@@issue'>Nummer: @@issue</p>",
+      "<p showcritera='@@pages'>Sidor: @@pages</p>",
+      "<p showcritera='@@issn'>ISSN: @@issn</p>",
+      "<p showcritera='@@isbn'>ISBN: @@isbn</p>",
+      "<p showcritera='@@place'>Plats: @@place</p>",
+      "<p showcritera='@@publisher'>Förlag: @@publisher</p>",
+      "<p showcritera='@@year'>År: @@year</p>",
+      "<p showcritera='@@volume'>Volym: @@volume</p>",
+      "<p showcritera='@@ctitle'>Kapitel: @@ctitle</p>",
+      "<p showcritera='@@doi'>DOI: @@doi</p>",
+      "<p showcritera='@@coursecode'>Kurskod KTH: @@coursecode</p>",
+      "<p><strong>Källa för beställningen</strong></p>",
+      "<div>@@source</div>",
+      "<p showcritera='@@pickup'><strong>Önskar hämta på</strong></p>",
+      "<div>@@pickup</div>",
+      "<p><strong>Beställarens namn</strong></p>",
+      "<div>@@fullname</div>",
+      "<p><strong>Kategori</strong></p>",
+      "<div>@@iam</div>",
+      "<p><strong>Användarid</strong></p>",
+      "<div>@@username</div>",
+      "<p><strong>E-postadress</strong></p>",
+      "<div>@@emailadress</div>",
+      "<p showcritera='@@cost'><strong>Accepterar kostnad</strong></p>",
+      "<div>@@cost</div>",
+      "<p showcritera='@@dateneededby'><strong>Jag behöver min beställning senast</strong></p>",
+      "<div>@@dateneededby</div>",
+      "<p showcritera='@@message'><strong>Meddelande från beställare</strong></p>",
+      "<div>@@message</div>"
+    ],
+    "english": [
+      "<p><strong>Material type</strong></p>",
+      "<p>@@genre</p>",
+      "<br>",
+      "<p><strong>Bibliografic information</strong></p>",
+      "<p showcritera='@@btitle'>Book title: @@btitle</p>",
+      "<p showcritera='@@atitle'>Article title: @@atitle</p>",
+      "<p showcritera='@@jtitle'>Journal title: @@jtitle</p>",
+      "<p showcritera='@@dbtitle'>Database: @@dbtitle</p>",
+      "<p showcritera='@@au'>Author: @@au</p>",
+      "<p showcritera='@@edition'>Edition: @@edition</p>",
+      "<p showcritera='@@issue'>Issue: @@issue</p>",
+      "<p showcritera='@@pages'>Pages: @@pages</p>",
+      "<p showcritera='@@issn'>ISSN: @@issn</p>",
+      "<p showcritera='@@isbn'>ISBN: @@isbn</p>",
+      "<p showcritera='@@place'>Place: @@place</p>",
+      "<p showcritera='@@publisher'>Publisher: @@publisher</p>",
+      "<p showcritera='@@year'>Year: @@year</p>",
+      "<p showcritera='@@volume'>Volume: @@volume</p>",
+      "<p showcritera='@@ctitle'>Chapter: @@ctitle</p>",
+      "<p showcritera='@@doi'>DOI: @@doi</p>",
+      "<p showcritera='@@coursecode'>Course code KTH: @@coursecode</p>",
+      "<p><strong>Source for the request</strong></p>",
+      "<div>@@source</div>",
+      "<p showcritera='@@pickup'><strong>Pick up at:</strong></p>",
+      "<div>@@pickup</div>",
+      "<p><strong>Name of requester</strong></p>",
+      "<div>@@fullname</div>",
+      "<p><strong>Category</strong></p>",
+      "<div>@@iam</div>",
+      "<p><strong>User id</strong></p>",
+      "<div>@@username</div>",
+      "<p><strong>E-mailaddress</strong></p>",
+      "<div>@@emailadress</div>",
+      "<p showcritera='@@cost'><strong>Accept costs</strong></p>",
+      "<div>@@cost</div>",
+      "<p showcritera='@@dateneededby'><strong>Date needed by</strong></p>",
+      "<div>@@dateneededby</div>",
+      "<p showcritera='@@message'><strong>Message from requester</strong></p>",
+      "<div>@@message</div>"
+    ]
+  },
+  "emailtosubjectuser": {
+    "swedish": "Beställning",
+    "english": "Request"
+  },
+  "emailtobodyuser": {
+    "swedish": [
+      "<div><p>Hej,</p></div>",
+      "<div><p>Tack för din beställning!</p><p>Vi meddelar dig när materialet är tillgängligt. Gäller beställningen en artikel skickas den av upphovsrättsliga skäl i utskrivet format till din kontorsadress. Kontrollera att den adress du angivit på ditt bibliotekskonto <a href='https://www.kth.se/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001'>https://www.kth.se/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001</a> är korrekt. Om du inte har en kontorsadress ange hemadress. <strong>Observera att KTH Biblioteket inte tar ansvar för artiklar som kommer i retur på grund av felaktigt angiven adress.</strong></p></div>",
+      "<div><strong>Materialtyp</strong></div>",
+      "<div>@@genre</div>",
+	    "<br>",
+      "<div><strong>Bibliografisk information</strong></div>",
+      "<div showcritera='@@btitle'>Boktitel: @@btitle</div>",
+      "<div showcritera='@@atitle'>Artikeltitel: @@atitle</div>",
+      "<div showcritera='@@jtitle'>Tidskriftstitel: @@jtitle</div>",
+      "<div showcritera='@@dbtitle'>Databas: @@dbtitle</div>",
+      "<div showcritera='@@au'>Författare: @@au</div>",
+      "<div showcritera='@@edition'>Upplaga: @@edition</div>",
+      "<div showcritera='@@issue'>Nummer: @@issue</div>",
+      "<div showcritera='@@pages'>Sidor: @@pages</div>",
+      "<div showcritera='@@issn'>ISSN: @@issn</div>",
+      "<div showcritera='@@isbn'>ISBN: @@isbn</div>",
+      "<div showcritera='@@place'>Plats: @@place</div>",
+      "<div showcritera='@@publisher'>Förlag: @@publisher</div>",
+      "<div showcritera='@@year'>År: @@year</div>",
+      "<div showcritera='@@volume'>Volym: @@volume</div>",
+      "<div showcritera='@@ctitle'>Kapitel: @@ctitle</div>",
+      "<div showcritera='@@doi'>DOI: @@doi</div>",
+      "<div showcritera='@@coursecode'>Kurskod KTH: @@coursecode</div>",
+      "<br>",
+      "<div><strong>Källa för beställningen</strong></div>",
+      "<div>@@source</div>",
+      "<br>",
+      "<div showcritera='@@pickup'><strong>Önskar hämta på</strong></div>",
+      "<div>@@pickup</div>",
+      "<br>",
+      "<div><strong>Kategori</strong></div>",
+      "<div>@@iam</div>",
+      "<br>",
+      "<div><strong>Användarid</strong></div>",
+      "<div>@@username</div>",
+      "<br>",
+      "<div><strong>E-postadress</strong></div>",
+      "<div>@@emailadress</div>",
+      "<br>",
+      "<div showcritera='@@cost'><strong>Accepterar kostnad</strong></div>",
+      "<div>@@cost</div>",
+      "<br>",
+      "<div showcritera='@@dateneededby'><strong>Jag behöver min beställning senast</strong></div>",
+      "<div>@@dateneededby</div>",
+      "<br>",
+      "<div showcritera='@@message'><strong>Meddelande från beställare</strong></div>",
+      "<div>@@message</div>",
+	    "<br>",
+	    "<div><p>Vänligen</p></div>",
+      "<div>KTH Biblioteket</div>",
+      "<div>Telefon: 08-790 70 88</div>",
+      "<div>www.kth.se/biblioteket</div>"
+    ],
+    "english": [
+      "<div><p>Hi,</p></div>",
+      "<div><p>Thank you for your request! We will let you know when the material is available. Article copies will be sent to the mailing address you have registered in the library system.</p></div>",
+      "<div><strong>Material type</strong></div>",
+      "<div>@@genre</div>",
+	    "<br>",
+      "<div><strong>Bibliographic information</strong></div>",
+      "<div showcritera='@@btitle'>Book title: @@btitle</div>",
+      "<div showcritera='@@atitle'>Article title: @@atitle</div>",
+      "<div showcritera='@@jtitle'>Journal title: @@jtitle</div>",
+      "<div showcritera='@@dbtitle'>Database: @@dbtitle</div>",
+      "<div showcritera='@@au'>Author: @@au</div>",
+      "<div showcritera='@@edition'>Edition: @@edition</div>",
+      "<div showcritera='@@issue'>Issue: @@issue</div>",
+      "<div showcritera='@@pages'>Pages: @@pages</div>",
+      "<div showcritera='@@issn'>ISSN: @@issn</div>",
+      "<div showcritera='@@isbn'>ISBN: @@isbn</div>",
+      "<div showcritera='@@place'>Place: @@place</div>",
+      "<div showcritera='@@publisher'>Publisher: @@publisher</div>",
+      "<div showcritera='@@year'>Year: @@year</div>",
+      "<div showcritera='@@volume'>Volume: @@volume</div>",
+      "<div showcritera='@@ctitle'>Chapter: @@ctitle</div>",
+      "<div showcritera='@@doi'>DOI: @@doi</div>",
+      "<div showcritera='@@coursecode'>Course code KTH: @@coursecode</div>",
+      "<br>",
+      "<div><strong>Request source</strong></div>",
+      "<div>@@source</div>",
+      "<br>",
+      "<div showcritera='@@pickup'><strong>Pickup at</strong></div>",
+      "<div>@@pickup</div>",
+      "<br>",
+      "<div><strong>Category</strong></div>",
+      "<div>@@iam</div>",
+      "<br>",
+      "<div><strong>User id</strong></div>",
+      "<div>@@username</div>",
+      "<br>",
+      "<div><strong>Email address</strong></div>",
+      "<div>@@emailadress</div>",
+      "<br>",
+      "<div showcritera='@@cost'><strong>Accepting fees</strong></div>",
+      "<div>@@cost</div>",
+      "<br>",
+      "<div showcritera='@@dateneededby'><strong>Date needed by</strong></div>",
+      "<div>@@dateneededby</div>",
+      "<br>",
+      "<div showcritera='@@message'><strong>Message from the requester</strong></div>",
+      "<div>@@message</div>",
+	    "<br>",
+	    "<div><p>Kind regards</p></div>",
+      "<div>KTH Library</div>",
+      "<div>Phone: 08-790 70 88</div>",
+      "<div>www.kth.se/en/biblioteket</div>"
+    ]
+  },
+  "emailfromaddresslibrary": {
+    "emailaddress": "noreply@kth.se",
+    "name": {
+      "swedish": "KTH Biblioteket",
+      "english": "KTH Library"
+    }
+  },
+  "optionalfieldtext" : {
+    "swedish": "Valfri",
+    "english": "Optional"
+  },
+  "invalidforminfo": {
+    "header": {
+      "swedish": "Formuläret är inte korrekt ifyllt!",
+      "english": "The form has not been filled out correctly!"
+    },
+    "text": {
+      "swedish": "Se rödmarkerad text nedan.",
+      "english": "Please see text marked as red below"
+    }
+  },
+  "openurlboxlabel": {
+    "swedish": "Beställningsinformation",
+    "english": "Request information"
+  },
+  "genrenames": {
+    "book": {
+      "swedish": "Bok",
+      "english": "Book"
+    },
+    "BK": {
+      "swedish": "Bok",
+      "english": "Book"
+    },
+    "article": {
+      "swedish": "Tidskriftsartikel",
+      "english": "Article in journal"
+    },
+    "CR": {
+      "swedish": "Tidskriftsartikel",
+      "english": "Article in journal"
+    },
+    "bookitem": {
+      "swedish": "Kapitel i bok",
+      "english": "Chapter in book"
+    },
+    "journal": {
+      "swedish": "Tidskrift",
+      "english": "Journal"
+    },
+    "conference": {
+      "swedish": "Konferens",
+      "english": "Conference"
+    },
+    "proceeding": {
+      "swedish": "Proceeding",
+      "english": "Proceeding"
+    },
+    "preprint": {
+      "swedish": "preprint",
+      "english": "preprint"
+    },
+    "issue": {
+      "swedish": "Enstaka nummer",
+      "english": "Single issue"
+    },
+    "unknown": {
+      "swedish": "Okänd",
+      "english": "Unknown"
+    },
+    "database": {
+      "swedish": "Databas",
+      "english": "Database"
+    }
+  },
+  "formfields": {
+    "source": {
+      "value": "kthbforms",
+      "enabled": false,
+      "openurlnames": {
+        "standard": "source",
+        "primo": "source",
+        "info:sid/libris.kb.se:libris": "rfr_id",
+        "LeanLibrary": "source"
+      }
+    },
+    "iam": {
+      "label": {
+        "swedish": "Användarkategori",
+        "english": "User category"
+      },
+      "value": "",
+      "type": "radio",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["any"]
+      }],
+      "options": [
+        {
+          "label": {
+            "swedish": "Student på KTH",
+            "english": "Student at KTH"
+          },
+          "value": "student",
+          "enabled": false,
+          "showcriteria": [{
+            "field": "genre",
+            "values": ["any"]
+          }]
+        },
+        {
+          "label": {
+            "swedish": "Anställd/Doktorand på KTH",
+            "english": "Staff/Doctoral student at KTH"
+          },
+          "value": "employee",
+          "enabled": false,
+          "showcriteria": [{
+            "field": "genre",
+            "values": ["any"]
+          }]
+        },
+        {
+          "label": {
+            "swedish": "Företag",
+            "english": "Business"
+          },
+          "value": "business",
+          "enabled": false,
+          "showcriteria": [{
+            "field": "genre",
+            "values": ["book", "article", "journal"]
+          }]
+        },
+        {
+          "label": {
+            "swedish": "Övrig",
+            "english": "Other"
+          },
+          "value": "other",
+          "enabled": false,
+          "showcriteria": [{
+            "field": "genre",
+            "values": ["book", "article", "journal"]
+          }]
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "kthaffiliation": {
+      "label": {
+        "swedish": "Tillhörighet på KTH",
+        "english": "Affilation at KTH"
+      },
+      "value": "",
+      "type": "radio",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [{
+        "field": "iam",
+        "values": ["employee"]
+      }],
+      "options": [
+        {
+          "label": {
+            "swedish": "ABE",
+            "english": "ABE"
+          },
+          "value": "ABE",
+          "enabled": true
+        },
+        {
+          "label": {
+            "swedish": "CBH",
+            "english": "CBH"
+          },
+          "value": "CBH",
+          "enabled": true
+        },
+        {
+          "label": {
+            "swedish": "EECS",
+            "english": "EECS"
+          },
+          "value": "EECS",
+          "enabled": true
+        },
+        {
+          "label": {
+            "swedish": "ITM",
+            "english": "ITM"
+          },
+          "value": "ITM",
+          "enabled": true
+        },
+        {
+          "label": {
+            "swedish": "SCI",
+            "english": "SCI"
+          },
+          "value": "SCI",
+          "enabled": true
+        },
+        {
+          "label": {
+            "swedish": "VS",
+            "english": "VS"
+          },
+          "value": "VS",
+          "enabled": true
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "coursecode": {
+      "label": {
+        "swedish": "Kurskod på KTH",
+        "english": "Course Code at KTH"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": [
+            "student"
+          ]
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "usernameinfobox": {
+      "label": {
+        "swedish": "usernameinfobox",
+        "english": "usernameinfobox"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "För att kunna beställa material behöver du vara registrerad som användare i bibliotekssystemet.",
+        "english": "To be able to order material you need to be registered as a user in the library system."
+      },
+      "link": {
+        "placement": "after",
+        "swedish" : {
+          "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/logga-in-registrera-dig-1.853001",
+          "text": "Registrera dig som ny användare"
+        },
+        "english" : {
+          "url": "https://www.kth.se/en/biblioteket/anvanda-biblioteket/logga-in-registrera-dig-1.853001",
+          "text": "Register as new user"
+        }
+      },
+      "value": "informationbox",
+      "type": "informationbox",
+      "enabled": false,
+      "openurlenabled": false,
+      "showcriteria": [{
+        "field": "iam",
+        "values": [""]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "username": {
+      "label": {
+        "swedish": "Användarnamn (e-postadress)",
+        "english": "Username (email address)"
+      },
+      "": {},
+      "value": "",
+      "type": "text",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [{
+        "field": "iam",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "genre": {
+      "label": {
+        "swedish": "Jag vill beställa",
+        "english": "I want to order"
+      },
+      "documentation": [
+        "Genre är materialtyp(bok, artikel etc). Det här fältet ska inte visas för openurl-requests som kommer från externa källor(primo, libris etc)",
+        "eftersom genre redan är förvald. Kategori av användare som kan beställa materialet är beroende av värdet på genre",
+        "Openurl-fält ska inte valideras",
+        ""
+      ],
+      "openurl": true,
+      "openurlnames": {
+        "standard": "genre",
+        "primo": "genre",
+        "info:sid/libris.kb.se:libris": "rft.genre",
+        "LeanLibrary": "genre"
+      },
+      "value": "",
+      "type": "radio",
+      "enabled": false,
+      "openurlenabled": true,
+      "hidden": false,
+      "options": [
+        {
+          "label": {
+            "swedish": "Tidskriftsartikel",
+            "english": "Article in journal"
+          },
+          "value": "article",
+          "enabled": true
+        },
+        {
+          "label": {
+            "swedish": "Bok",
+            "english": "Book"
+          },
+          "value": "book",
+          "enabled": true
+        },
+        {
+          "label": {
+            "swedish": "Kapitel i bok",
+            "english": "Chapter in book"
+          },
+          "value": "bookitem",
+          "enabled": true
+        },
+        {
+          "label": {
+            "swedish": "Prenumeration av tidskrift",
+            "english": "Subscription of journal"
+          },
+          "value": "journal",
+          "enabled": true
+        },
+        {
+          "label": {
+            "swedish": "Databas",
+            "english": "Database"
+          },
+          "value": "database",
+          "enabled": true
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "costsbooksinfobox": {
+      "label": {
+        "swedish": "costsbooksinfobox",
+        "english": "costsbooksinfobox"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "Ifall vi behöver låna in boken från ett bibliotek utanför Norden tillkommer det en avgift.",
+        "english": "If we need to borrow the book from a library outside the Nordic countries there will be a fee."
+      },
+      "link": {
+        "placement": "after",
+        "swedish" : {
+          "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/prislista-1.856222",
+          "text": "Prislista"
+        },
+        "english" : {
+          "url": "https://www.kth.se/en/biblioteket/anvanda-biblioteket/prislista-1.856222",
+          "text": "Price list"
+        }
+      },
+      "value": "informationbox",
+      "type": "informationboxalert",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": ["student"]
+        },
+        {
+          "field": "genre",
+          "values": ["book"]
+        }
+      ]
+    },
+    "costsarticleinfobox": {
+      "label": {
+        "swedish": "costsarticleinfobox",
+        "english": "costsarticleinfobox"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "För artikelbeställningar tillkommer det en avgift.",
+        "english": "Article requests are subject to a fee."
+      },
+      "link": {
+        "placement": "after",
+        "swedish" : {
+          "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/prislista-1.856222",
+          "text": "Prislista"
+        },
+        "english" : {
+          "url": "https://www.kth.se/en/biblioteket/anvanda-biblioteket/prislista-1.856222",
+          "text": "Price list"
+        }
+      },
+      "value": "informationbox",
+      "type": "informationboxalert",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": ["student"]
+        },
+        {
+          "field": "genre",
+          "values": ["article"]
+        }
+      ]
+    },
+    "costsbookchaptersinfobox": {
+      "label": {
+        "swedish": "costsbookchaptersinfobox",
+        "english": "costsbookchaptersinfobox"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "För beställningar av kapitel i bok kan det tillkomma en avgift.",
+        "english": "A requests for a chapter in a book can be subject to a fee."
+      },
+      "link": {
+        "placement": "after",
+        "swedish" : {
+          "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/prislista-1.856222",
+          "text": "Prislista"
+        },
+        "english" : {
+          "url": "https://www.kth.se/en/biblioteket/anvanda-biblioteket/prislista-1.856222",
+          "text": "Price list"
+        }
+      },
+      "value": "informationbox",
+      "type": "informationboxalert",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": ["student"]
+        },
+        {
+          "field": "genre",
+          "values": ["bookitem"]
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "costs": {
+      "label": {
+        "swedish": "Jag accepterar eventuella kostnader. Observera att beställningen är bindande och kostnaden läggs på ditt bibliotekskonto.",
+        "english": "I accept any fees. Please note that the request is binding and the fee will be added to Your library account."
+      },
+      "value": "" ,
+      "type": "radio",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": ["student"]
+        },
+        {
+          "field": "genre",
+          "values": ["book","bookitem","article"]
+        }
+      ],
+      "options": [
+        {
+          "label": {
+            "swedish": "Ja",
+            "english": "Yes"
+          },
+          "value": "acceptcost",
+          "enabled": true
+        },
+        {
+          "label": {
+            "swedish": "Nej",
+            "english": "No"
+          },
+          "value": "decline",
+          "enabled": true
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "costsbusinessbooksinfobox": {
+      "label": {
+        "swedish": "costsbusinessbooksinfobox",
+        "english": "costsbusinessbooksinfobox"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "Boklån är avgiftsbelagda för företag.",
+        "english": "Book loans for companies are subject to a fee."
+      },
+      "link": {
+        "placement": "after",
+        "swedish" : {
+          "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/prislista-1.856222",
+          "text": "Prislista"
+        },
+        "english" : {
+          "url": "https://www.kth.se/en/iblioteket/anvanda-biblioteket/prislista-1.856222",
+          "text": "Price list"
+        }
+      },
+      "value": "informationbox",
+      "type": "informationboxalert",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": ["business"]
+        },
+        {
+          "field": "genre",
+          "values": ["book"]
+        }
+      ]
+    },
+    "costsbusinessarticlesinfobox": {
+      "label": {
+        "swedish": "costsbusinessbooksinfobox",
+        "english": "costsbusinessbooksinfobox"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "Artikelbeställningar är avgiftsbelagda för företag.",
+        "english": "Article requests for companies are subject to a fee."
+      },
+      "link": {
+        "placement": "after",
+        "swedish" : {
+          "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/prislista-1.856222",
+          "text": "Prislista"
+        },
+        "english" : {
+          "url": "https://www.kth.se/en/biblioteket/anvanda-biblioteket/prislista-1.856222",
+          "text": "Price list"
+        }
+      },
+      "value": "informationbox",
+      "type": "informationboxalert",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": ["business"]
+        },
+        {
+          "field": "genre",
+          "values": ["article"]
+        }
+      ]
+    },
+    "costsotherbooksinfobox": {
+      "label": {
+        "swedish": "costsotherbooksinfobox",
+        "english": "costsotherbooksinfobox"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "Som privatperson kan du endast göra bokbeställningar från KTH Bibliotekets magasin eller äldre boksamling.",
+        "english": "As a private person you can only make book requests from the KTH Library closed stacks or old book collection."
+      },
+      "value": "informationbox",
+      "type": "informationboxalert",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": ["other"]
+        },
+        {
+          "field": "genre",
+          "values": ["book"]
+        }
+      ]
+    },
+    "costsotherarticlesinfobox": {
+      "label": {
+        "swedish": "costsotherarticlesinfobox",
+        "english": "costsotherarticlesinfobox"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "Som privatperson kan du endast göra artikelbeställningar från KTH Bibliotekets magasin. Artikelbeställningar är avgiftsbelagda för privatpersoner",
+        "english": "As a private person you can only make article requests from the KTH Library stacks. Article requests are subject to a fee for private persons."
+      },
+      "value": "informationbox",
+      "type": "informationboxalert",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": ["other"]
+        },
+        {
+          "field": "genre",
+          "values": ["article"]
+        }
+      ]
+    },
+    "costsotherjournalinfobox": {
+      "label": {
+        "swedish": "costsotherjournalinfobox",
+        "english": "costsotherjournalinfobox"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "Som privatperson kan du endast beställa tidskrifter från KTH Bibliotekets magasin.",
+        "english": "As a private person you can only request journals from the KTH Library stacks."
+      },
+      "value": "informationbox",
+      "type": "informationboxalert",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": ["other"]
+        },
+        {
+          "field": "genre",
+          "values": ["journal"]
+        }
+      ]
+    },
+    "costsbusinessjournalinfobox": {
+      "label": {
+        "swedish": "costsbusinessjournalinfobox",
+        "english": "costsbusinessjournalinfobox"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "Som företag kan du endast beställa tidskrifter från KTH Bibliotekets magasin. Dessa är avgiftsbelagda.",
+        "english": "As a company you can only request journals from the KTH Library stacks. These are subject to a fee."
+      },
+      "link": {
+        "placement": "after",
+        "swedish" : {
+          "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/prislista-1.856222",
+          "text": "Prislista"
+        },
+        "english" : {
+          "url": "https://www.kth.se/en/biblioteket/anvanda-biblioteket/prislista-1.856222",
+          "text": "Price list"
+        }
+      },
+      "value": "informationbox",
+      "type": "informationboxalert",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": ["business"]
+        },
+        {
+          "field": "genre",
+          "values": ["journal"]
+        }
+      ]
+    },
+    "genredetails": {
+      "label": {
+        "swedish": "Detaljer om materialet",
+        "english": "Details about the material"
+      },
+      "value": "details",
+      "type": "grouplabel",
+      "enabled": false,
+      "showcriteria": [
+        {
+          "field": "genre",
+          "values": ["book","article","bookitem","journal","database"]
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "btitle": {
+      "label": {
+        "swedish": "Boktitel",
+        "english": "Book title"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "btitle",
+        "primo": "bookTitle",
+        "info:sid/libris.kb.se:libris": "rft.btitle",
+        "LeanLibrary": "bookTitle"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["book","bookitem"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "ctitle": {
+      "label": {
+        "swedish": "Kapitlets titel",
+        "english": "Chapter title"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "ctitle",
+        "primo": "article",
+        "info:sid/libris.kb.se:libris": "rft.atitle",
+        "LeanLibrary": "article"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["bookitem"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "atitle": {
+      "label": {
+        "swedish": "Artikelns titel",
+        "english": "Article title"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "atitle",
+        "primo": "article",
+        "info:sid/libris.kb.se:libris": "rft.atitle",
+        "LeanLibrary": "article"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["article"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "dbtitle": {
+      "label": {
+        "swedish": "Databasens namn",
+        "english": "Name of the database"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["database"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "jtitle": {
+      "label": {
+        "swedish": "Tidskriftstitel",
+        "english": "Journal title"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "jtitle",
+        "primo": "journal",
+        "info:sid/libris.kb.se:libris": "rft.jtitle",
+        "LeanLibrary": "journal"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["article","journal"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "au": {
+      "label": {
+        "swedish": "Författare",
+        "english": "Author"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "au",
+        "primo": "author",
+        "info:sid/libris.kb.se:libris": "rft.au",
+        "LeanLibrary": "author"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["book","article","bookitem"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "aufirst": {
+      "label": {
+        "swedish": "Författare förnamn",
+        "english": "Author first name"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "aufirst",
+        "primo": "aufirst",
+        "info:sid/libris.kb.se:libris": "rft.aufirst",
+        "LeanLibrary": "aufirst"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": false,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "aulast": {
+      "label": {
+        "swedish": "Författare efternamn",
+        "english": "Author last name"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "aulast",
+        "primo": "aulast",
+        "info:sid/libris.kb.se:libris": "rft.aulast",
+        "LeanLibrary": "aulast"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": false,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "year": {
+      "label": {
+        "swedish": "År",
+        "english": "Year"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "year",
+        "primo": "year",
+        "info:sid/libris.kb.se:libris": "rft.year",
+        "LeanLibrary": "year"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["book","article","bookitem"]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "date": {
+      "label": {
+        "swedish": "Datum",
+        "english": "Date"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "date",
+        "primo": "date",
+        "info:sid/libris.kb.se:libris": "rft.date",
+        "LeanLibrary": "date"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": false,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "isbn": {
+      "label": {
+        "swedish": "ISBN",
+        "english": "ISBN"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "isbn",
+        "primo": "ISBN",
+        "info:sid/libris.kb.se:libris": "rft.isbn",
+        "LeanLibrary": "ISBN"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["book","bookitem"]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "issn": {
+      "label": {
+        "swedish": "ISSN",
+        "english": "ISSN"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "issn",
+        "primo": "ISSN",
+        "info:sid/libris.kb.se:libris": "rft.issn",
+        "LeanLibrary": "ISSN"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["article"]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "edition": {
+      "label": {
+        "swedish": "Upplaga",
+        "english": "Edition"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "edition",
+        "primo": "rft.edition",
+        "info:sid/libris.kb.se:libris": "rft.edition",
+        "LeanLibrary": "rft.edition"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["book","bookitem"]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "volume": {
+      "label": {
+        "swedish": "Volym/Del",
+        "english": "Volume/Part"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "volume",
+        "primo": "volume",
+        "info:sid/libris.kb.se:libris": "rft.volume",
+        "LeanLibrary": "volume"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["book","article","bookitem"]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "issue": {
+      "label": {
+        "swedish": "Nummer",
+        "english": "Issue"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "issue",
+        "primo": "issue",
+        "info:sid/libris.kb.se:libris": "rft.issue",
+        "LeanLibrary": "issue"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["article"]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "pages": {
+      "label": {
+        "swedish": "Sidor",
+        "english": "Pages"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "pages",
+        "primo": "pages",
+        "info:sid/libris.kb.se:libris": "rft.pages",
+        "LeanLibrary": "pages"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["article","bookitem"]
+      }],
+      "validation": {
+        "required": false
+      }
+    },
+    "tpages": {
+      "label": {
+        "swedish": "Totalt antal sidor",
+        "english": "Total number of pages"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "tpages",
+        "primo": "tpages",
+        "info:sid/libris.kb.se:libris": "rft.tpages",
+        "LeanLibrary": "tpages"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": false,
+      "validation": {
+        "required": false
+      }
+    },
+    "doi": {
+      "label": {
+        "swedish": "DOI",
+        "english": "DOI"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "doi",
+        "primo": "rft.doi",
+        "info:sid/libris.kb.se:libris": "rft.doi",
+        "LeanLibrary": "rft.doi"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["article"]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "dateneededby": {
+      "label": {
+        "swedish": "Jag behöver min beställning senast (minimum 14 dagar) ",
+        "english": "Date needed by (minimum is 14 days) "
+      },
+      "value": "",
+      "type": "datebox",
+      "hasdefaultdate": true,
+      "defaultdatevalue": "",
+      "defaultdatedaystoaddremove": 182,
+      "minDatedaystoaddremove": 14,
+      "isgrouped": false,
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["article", "book", "bookitem"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "pub": {
+      "label": {
+        "swedish": "Publicerad av",
+        "english": "Publisher name"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "pub",
+        "primo": "rft.pub",
+        "info:sid/libris.kb.se:libris": "rft.pub",
+        "LeanLibrary": "rft.pub"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": false,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "publisher": {
+      "label": {
+        "swedish": "Publicerad av",
+        "english": "Publisher name"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "publisher",
+        "primo": "publisher",
+        "info:sid/libris.kb.se:libris": "rft.publisher",
+        "LeanLibrary": "publisher"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": false,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "stitle": {
+      "label": {
+        "swedish" : "Förkortad tidskriftstitel",
+        "english":  "Abbreviated Journal title"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "stitle",
+        "primo": "abbrev",
+        "info:sid/libris.kb.se:libris": "rft.stitle",
+        "LeanLibrary": "abbrev"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": false,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "number": {
+      "label": {
+        "swedish" : "Patentnummer",
+        "english":  "Patent number"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "number",
+        "primo": "rft.number",
+        "info:sid/libris.kb.se:libris": "rft.number",
+        "LeanLibrary": "rft.number"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": false,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "eisbn": {
+      "label": {
+        "swedish" : "EISBN",
+        "english":  "EISBN"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "eisbn",
+        "primo": "EISBN",
+        "info:sid/libris.kb.se:libris": "rft.eisbn"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": false,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "eissn": {
+      "label": {
+        "swedish" : "EISSN",
+        "english":  "EISSN"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "eissn",
+        "primo": "EISSN",
+        "info:sid/libris.kb.se:libris": "rft.eissn",
+        "LeanLibrary": "EISSN"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": false,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "place": {
+      "label": {
+        "swedish" : "Publiceringsort",
+        "english":  "Publication place"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "place",
+        "primo": "publiPlace",
+        "info:sid/libris.kb.se:libris": "rft.place",
+        "LeanLibrary": "publiPlace"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": false,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "message": {
+      "label": {
+        "swedish": "Meddelande till biblioteket",
+        "english": "Message to the library"
+      },
+      "value": "",
+      "type": "textarea",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["book","article","bookitem","journal","database"]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "pickup": {
+      "label": {
+        "swedish": "Hämtas i",
+        "english": "Pick up at"
+      },
+      "value": "",
+      "type": "radio",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["book"]
+      }],
+      "options": [
+        {
+          "label": {
+            "swedish": "Huvudbiblioteket",
+            "english": "Main Library"
+          },
+          "value": "MAIN",
+          "enabled": true,
+          "hidden": false
+        },
+        {
+          "label": {
+            "swedish": "Kista",
+            "english": "Kista"
+          },
+          "value": "ELECTRUM",
+          "enabled": false,
+          "hidden": false
+        },
+        {
+          "label": {
+            "swedish": "Södertälje",
+            "english": "Södertälje"
+          },
+          "value": "TELGE",
+          "enabled": true,
+          "hidden": false
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "sendbutton": {
+      "label": {
+        "swedish": "Skicka",
+        "english": "Send"
+      },
+      "value": "",
+      "type": "button",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "id": "kthbforms",
+  "name" : "KTH Biblioteket Forms",
+  "version": "1.1",
+  "description": {
+    "swedish": "",
+    "english": ""
+  },
+  "openurlsourceparameters" : ["source","rfr.id"]
+}

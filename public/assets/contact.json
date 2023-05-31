@@ -1,0 +1,222 @@
+{
+  "id": "contact",
+  "name": "Kontakta biblioteket",
+  "header": {
+    "swedish": "Kontakta oss",
+    "english": "Contact us"
+  },
+  "status": "open",
+  "description": {
+    "open": {
+      "swedish": "",
+      "english": ""
+    },
+    "closed": {
+      "swedish": "Stängt",
+      "english": "Closed"
+    }
+  },
+  "posturl": "/webservices/kthbforms/api/v1/contact",
+  "loaderurl": "/kthbforms/assets/ajax_loader_blue_512.gif",
+  "loaderinfo": {
+    "swedish": "Skickar...",
+    "english": "Sending..."
+  },
+  "postresponseinfo" : {
+    "header": {
+      "swedish": "Tack för din fråga eller feedback",
+      "english": "Thank you for your question or feedback"
+    },
+    "text": {
+      "swedish": "Vi kontaktar dig snart.",
+      "english": "We will contact you soon."
+    }
+  },
+  "posterrorresponseinfo" : {
+    "header": {
+      "swedish": "Något gick fel!",
+      "english": "Something went wrong!"
+    },
+    "text": {
+      "swedish": "Kontrollera att du har fyllt i alla fält korrekt. Om felet kvarstår kontakta biblioteket.",
+      "english": "Please check that all the fields have been filled out correctly. If the problem remains please contact the library."
+    }
+  },
+  "emailtoaddressedge": {
+    "emailaddress": "biblioteket@kth.se",
+    "name": {
+      "swedish": "EDGE",
+      "english": "EDGE"
+    }
+  },
+  "emailtobodyedge": {
+    "swedish": [
+      "<div><p>Fråga till: KTH Biblioteket</p></div>",
+      "<div><p>Från: @@name, @@email</p></div>",
+      "<div><p><h3>Meddelande/fråga</h3></div>", 
+      "<div><p>@@question</p></div>"
+    ],
+    "english": [
+      "<div><p>Question for: KTH Library</p></div>",
+      "<div><p>From: @@name, @@email</p></div>",
+      "<div><p><h3>Message/Question</h3></div>", 
+      "<div><p>@@question</p></div>"
+    ]
+  },
+  "optionalfieldtext": {
+    "swedish": "Valfri",
+    "english": "Optional"
+  },
+  "invalidforminfo": {
+    "header": {
+      "swedish": "Formuläret är inte korrekt ifyllt!",
+      "english": "Form not correct!"
+    }, 
+    "text": {
+      "swedish": "Se rödmarkerad text nedan.",
+      "english": "Please see text marked as red below"
+    }
+  },
+  "formfields": {
+    "contactdetails": {
+        "label": {
+          "swedish": "Kontaktuppgifter",
+          "english": "Contact details"
+        },
+        "value": "details",
+        "type": "grouplabel",
+        "enabled": true,
+        "validation": {
+          "required": {
+            "value": true,
+            "errormessage": {
+              "swedish": "måste fyllas i",
+              "english": "is required"
+            }
+          }
+        }
+      },
+    "name": {
+      "label": {
+        "swedish": "Namn",
+        "english": "Name"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "email": {
+      "label": {
+        "swedish": "E-postadress",
+        "english": "Email address"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^([0-9a-zA-Z]([-._\\w])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$",
+          "errormessage": {
+            "swedish": "måste vara en godkänd e-postadress",
+            "english": "must be a valid email address"
+          }
+        }
+      }
+    },
+    "phone": {
+      "label": {
+        "swedish": "Telefon",
+        "english": "Phone"
+      },
+      "value": "",
+      "type": "text",
+      "ishoneypot": true,
+      "isgrouped": true,
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^([0-9a-zA-Z]([-._\\w])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$",
+          "errormessage": {
+            "swedish": "måste vara ett godkänt nummer",
+            "english": "must be a valid number"
+          }
+        }
+      }
+    },
+    "subject": {
+      "label": {
+        "swedish": "Ämne",
+        "english": "Subject"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "question": {
+      "label": {
+        "swedish": "Din fråga eller synpunkt",
+        "english": "Your question or feedback"
+      },
+      "value": "",
+      "type": "textarea",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "sendbutton": {
+      "label": {
+        "swedish": "Skicka",
+        "english": "Send"
+      },
+      "value": "",
+      "type": "button",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false
+        } 
+      }
+    }
+  }
+}

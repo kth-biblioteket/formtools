@@ -1,0 +1,44 @@
+version: '3.6'
+
+services:
+  formtools:
+    container_name: formtools
+    image: ghcr.io/kth-biblioteket/formtools:${REPO_TYPE}
+    restart: always
+    depends_on:
+      - formtools-db
+    env_file:
+      - formtools.env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.formtools.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`${PATHPREFIX}`)"
+      - "traefik.http.routers.formtools.entrypoints=websecure"
+      - "traefik.http.routers.formtools.tls=true"
+      - "traefik.http.routers.formtools.tls.certresolver=myresolver"
+    volumes:
+      - "/local/docker/formtools/imagebank:/app/imagebank"
+    networks:
+      - "apps-net"
+
+  formtools-db:
+    container_name: formtools-db
+    image: mysql:8.0
+    volumes:
+      - persistent-formtools-db:/var/lib/mysql
+      - ./dbinit:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    networks:
+      - "apps-net"
+
+volumes:
+  persistent-formtools-db:
+
+networks:
+  apps-net:
+    external: true

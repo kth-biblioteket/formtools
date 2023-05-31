@@ -1,0 +1,491 @@
+{
+  "id": "teachingactivity",
+  "name": "Undervisning",
+  "header": {
+    "swedish": "Boka undervisning",
+    "english": "Book a teaching activity"
+  },
+  "status": "open",
+  "description": {
+    "open": {
+      "swedish": "",
+      "english": ""
+    },
+    "closed": {
+      "swedish": "Stängt",
+      "english": "Closed"
+    }
+  },
+  "posturl": "/webservices/kthbforms/api/v1/teachingactivity",
+  "loaderurl": "/kthbforms/assets/ajax_loader_blue_512.gif",
+  "loaderinfo": {
+    "swedish": "Skickar...",
+    "english": "Sending..."
+  },
+  "postresponseinfo" : {
+    "header": {
+      "swedish": "Tack för din förfrågan!",
+      "english": "Thank you for your booking request!"
+    },
+    "text": {
+      "swedish": "Vi kommer att bekräfta din bokning så snart som möjligt.",
+      "english": "We will confirm your booking as soon as possible."
+    }
+  },
+  "posterrorresponseinfo" : {
+    "header": {
+      "swedish": "Något gick fel!",
+      "english": "Something went wrong!"
+    },
+    "text": {
+      "swedish": "Kontrollera att du har fyllt i alla fält korrekt. Om felet kvarstår kontakta biblioteket.",
+      "english": "Please check that all the fields have been filled out correctly. If the problem remains please contact the library."
+    }
+  },
+  "emailtoaddressedge": {
+    "emailaddress": "biblioteket@kth.se",
+    "name": {
+      "swedish": "",
+      "english": ""
+    }
+  },
+  "emailtosubjectedge": {
+    "swedish": "Boka undervisning",
+    "english": "Book a teaching activity"
+  },
+  "emailtobodyedge": {
+    "swedish": [
+      "<div><h3>Kontaktuppgifter</h3></div>",
+      "<div>KTH School/programme: @@program</div>",
+      "<div>Level/semester: @@semester</div>",
+      "<div>Course name: @@coursename</div>",
+      "<div showcritera='@@coursemodule'>Subcourse: @@coursemodule</div>", 
+      "<div>Ladok course code: @@coursecode</div>", 
+      "<div>Course edition code: @@courseedition</div>", 
+      "<div>Number of students: @@numberofstudents</div>",
+      "<div>Contact email: @@email</div>",
+      "<div>Exercises: @@task</div>",
+      "<div>Learning outcomes: @@courseplan</div>",
+      "<div>Tasks: @@goal</div>",
+      "<div>Do you have preferred dates: @@preferreddatesquestion</div>",
+      "<div showcritera='@@preferreddates'><strong>Datum:</strong> @@preferreddates</div>",
+      "<div><strong>Other teaching:</strong> @@otherteaching</div>",
+      "<div><strong>Facility for teaching:</strong> @@ownfacilityquestion</div>",
+      "<div showcritera='@@facility'><strong>Name of own facility:</strong> @@facility</div>"
+    ],
+    "english": [
+      "<div><h3>Kontaktuppgifter</h3></div>",
+      "<div>KTH School/programme: @@program</div>",
+      "<div>Level/semester: @@semester</div>",
+      "<div>Course name: @@coursename</div>",
+      "<div showcritera='@@coursemodule'>Subcourse: @@coursemodule</div>", 
+      "<div>Ladok course code: @@coursecode</div>", 
+      "<div>Course edition code: @@courseedition</div>", 
+      "<div>Number of students: @@numberofstudents</div>",
+      "<div>Contact email: @@email</div>",
+      "<div>Exercises: @@task</div>",
+      "<div>Learning outcomes: @@courseplan</div>",
+      "<div>Tasks: @@goal</div>",
+      "<div>Do you have preferred dates: @@preferreddatesquestion</div>",
+      "<div showcritera='@@preferreddates'><strong>Datum:</strong> @@preferreddates</div>",
+      "<div><strong>Other teaching:</strong> @@otherteaching</div>",
+      "<div><strong>Facility for teaching:</strong> @@ownfacilityquestion</div>",
+      "<div showcritera='@@facility'><strong>Name of own facility:</strong> @@facility</div>"
+    ]
+  },
+  "optionalfieldtext" : {
+    "swedish": "Valfri",
+    "english": "Optional"
+  },
+  "invalidforminfo": {
+    "header": {
+      "swedish": "Formuläret är inte korrekt ifyllt!",
+      "english": "Form not correct!"
+    }, 
+    "text": {
+      "swedish": "Se rödmarkerad text nedan.",
+      "english": "Please see text marked as red below"
+    }
+  },
+  "formfields": {
+    "program": {
+      "label": {
+        "swedish": "Skola/utbildningsprogram",
+        "english": "KTH School/programme"
+      },
+      "description": {
+        "swedish": "",
+        "english": ""
+      },
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+	  "semester": {
+      "label": {
+        "swedish": "Nivå/termin",
+        "english": "Level/semester"
+      },
+      "description": {
+        "swedish": "",
+        "english": ""
+      },
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "coursename": {
+      "label": {
+        "swedish": "Kursnamn",
+        "english": "Course name"
+      }, 
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "coursemodule": {
+      "label": {
+        "swedish": "Namn för delkurs",
+        "english": "Subcourse"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+	  "coursecode": {
+      "label": {
+        "swedish": "Kurskod",
+        "english": "Ladok course code"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "courseedition": {
+      "label": {
+        "swedish": "Kod för kursomgång",
+        "english": "Course edition code"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "numberofstudents": {
+      "label": {
+        "swedish": "Antal studenter",
+        "english": "Number of students"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "email": {
+      "label": {
+        "swedish": "E-postadress till kontaktperson",
+        "english": "Contact E-mail"
+      }, 
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^([0-9a-zA-Z]([-._\\w])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$",
+          "errormessage": {
+            "swedish": "måste vara en godkänd emailadress",
+            "english": "must be valid email address"
+          }
+        }	
+      }
+    },
+    "task": {
+      "label": {
+        "swedish": "Vilken uppgift ska informationssökningen knytas till (pm, hemtentamen, projektarbete, uppsats)?",
+        "english": "Which exercises will be performed during the course (memo, home exam, project work, thesis)?"
+      },
+      "value": "",
+      "type": "textarea",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "courseplan": {
+      "label": {
+        "swedish": "Vilka lärandemål i kursplanen är knutna till informationssökning och hur examineras de?",
+        "english": "Which intended learning outcomes in the syllabus are connected to information searching and how are they examined?"
+      },
+      "value": "",
+      "type": "textarea",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "goal": {
+      "label": {
+        "swedish": "Vad tycker du att studenterna främst behöver övning i?",
+        "english": "What do you think the students need to focus their training on?"
+      },
+      "value": "",
+      "type": "textarea",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "preferreddatesquestion": {
+      "label": {
+        "swedish": "Önskar du speciella datum eller veckor för undervisning?",
+        "english": "Do you have preferred dates for the teaching?"
+      },
+      "value": "",
+      "type": "radio",
+      "enabled": true,
+      "options": [
+        { 
+          "label": {
+            "swedish": "Ja",
+            "english": "Yes"
+          }, 
+          "value": "yes",
+          "enabled": true
+        },
+        { 
+          "label": {
+            "swedish": "Nej",
+            "english": "No"
+          }, 
+          "value": "no",
+          "enabled": true
+        } 
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "preferreddates": {
+      "label": {
+        "swedish": "Vilka datum eller veckor önskar du undervisning för?",
+        "english": "Which dates or weeks do you prefer?"
+      },
+      "value": "",
+      "type": "textarea",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "preferreddatesquestion",
+        "values": ["yes"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+	  "otherteaching": {
+      "label": {
+        "swedish": "Har studenterna annan undervisning den önskade dagen för informationssökning?",
+        "english": "Do the students have lectures or other activities on the day of the instruction?"
+      },
+      "value": "",
+      "type": "radio",
+      "enabled": true,
+      "options": [
+        { 
+          "label": {
+            "swedish": "Ja",
+            "english": "Yes"
+          }, 
+          "value": "yes",
+          "enabled": true
+        },
+        { 
+          "label": {
+            "swedish": "Nej",
+            "english": "No"
+          }, 
+          "value": "no",
+          "enabled": true
+        } 
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+	  "ownfacilityquestion": {
+      "label": {
+        "swedish": "Önskar ni använda bibliotekets lokaler eller boka egna?",
+        "english": "Do you wish to use the library's facilities or book your own?"
+      },
+      "value": "",
+      "type": "radio",
+      "enabled": true,
+      "options": [
+        { 
+          "label": {
+            "swedish": "Maxwell (20 platser)",
+            "english": "Maxwell (20 seats)"
+          }, 
+          "value": "Maxwell",
+          "enabled": true
+        },
+        { 
+          "label": {
+            "swedish": "Egna",
+            "english": "Own facilities"
+          }, 
+          "value": "own",
+          "enabled": true
+        } 
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "facility": {
+      "label": {
+        "swedish": "Ange namn för egen lokal",
+        "english": "Enter the name of the facility"
+      },
+      "value": "",
+      "type": "textarea",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "ownfacilityquestion",
+        "values": ["own"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "sendbutton": {
+      "label": {
+        "swedish": "Skicka",
+        "english": "Send"
+      },
+      "value": "",
+      "type": "button",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false
+        } 
+      }
+    }
+  }
+}

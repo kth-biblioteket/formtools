@@ -1,0 +1,576 @@
+{
+  "id": "libraryaccount",
+  "name": "Ansökan om bibliotekskonto",
+  "header": {
+    "swedish": "Registrera dig",
+    "english": "Register"
+  },
+  "status": "open",
+  "description": {
+    "open": {
+      "swedish": "För att kunna reservera, låna och beställa material från biblioteket behöver du registrera dig som användare i vårt bibliotekssystem.",
+      "english": ""
+    },
+    "closed": {
+      "swedish": "Stängt",
+      "english": "Closed"
+    }
+  },
+  "posturl": "/webservices/kthbforms/api/v1/libraryaccount",
+  "loaderurl": "/kthbforms/assets/ajax_loader_blue_512.gif",
+  "loaderinfo": {
+    "swedish": "Skickar...",
+    "english": "Sending..."
+  },
+  "postresponseinfo" : {
+    "header": {
+      "swedish": "Tack för din registrering!",
+      "english": "Thank you for registering!"
+    },
+    "text": {
+      "swedish": "För att slutföra registreringen måste du besöka något av våra bibliotek. Ta med dig en giltig ID-handling.",
+      "english": "To finish the registration you have to visit one of our libraries. Please bring a valid ID."
+    }
+  },
+  "posterrorresponseinfo" : {
+    "header": {
+      "swedish": "Något gick fel!",
+      "english": "Something went wrong!"
+    },
+    "text": {
+      "swedish": "Kontrollera att du har fyllt i alla fält korrekt. Om problemet kvarstår kontakta biblioteket.",
+      "english": "Please make sure that all the fields have been filled out correctly. If the problem remains please contact the library."
+    }
+  },
+  "emailtosubjectuser": {
+    "swedish": "Lyckad registering av bibliotekskonto",
+    "english": "Successful library account registration"
+  },
+  "emailtobodyuser": {
+    "swedish": [
+      "<div><p>Hej,</p></div>",
+      "<div><p>Tack för din registrering. För att slutföra registreringen måste du besöka något av våra bibliotek. Ta med dig en giltig ID-handling.</p></div>",
+      "<div>Ditt användarnamn är: @@email</div> ",
+      "<div><p>KTH Biblioteket</p></div>",
+      "<div>Telefon: 08-790 70 88</div>",
+      "<div>www.kth.se/biblioteket</div>"
+    ],
+    "english": [
+      "<div><p>Hi,</p></div>",
+      "<div><p>Thank you for registrering. To finish the registration you have to visit one of our libraries. Please bring a valid ID.</p></div>",
+      "<div>Your username is: @@email</div>",
+      "<div><p>KTH Library</p></div>",
+      "<div>Phone: 08-790 70 88</div>",
+      "<div>www.kth.se/en/biblioteket</div>"
+    ]
+  },
+  "emailfromaddresslibrary": {
+    "emailaddress": "biblioteket@kth.se",
+    "name": {
+      "swedish": "KTH Biblioteket",
+      "english": "KTH Library"
+    }
+  },
+  "optionalfieldtext" : {
+    "swedish": "Valfri",
+    "english": "Optional"
+  },
+  "invalidforminfo": {
+    "header": {
+      "swedish": "Formuläret är inte korrekt ifyllt!",
+      "english": "The form has not been filled out correctly!"
+    }, 
+    "text": {
+      "swedish": "Se rödmarkerad text nedan.",
+      "english": "Please see text marked as red below."
+    }
+  }, 
+  "formfields": {
+    "otherinfo": {
+      "label": {
+        "swedish": "Användarkategori",
+        "english": "User category"
+      },
+      "value": "",
+      "type": "radio",
+      "enabled": true,
+      "options": [
+        { 
+          "label": {
+            "swedish": "Över 18 år, folkbokförd i Sverige",
+            "english": "Over 18 years old, registered as a Swedish resident"
+          }, 
+          "value": "other",
+          "enabled": true
+        },
+        { 
+          "label": {
+            "swedish": "Över 18 år, men inte folkbokförd i Sverige",
+            "english": "Over 18 years old but not registered as a Swedish resident"
+          }, 
+          "value": "18_not_swedish",
+          "enabled": true
+        },
+        { 
+          "label": {
+            "swedish": "Mellan 16 och 18 år",
+            "english": "Between 16 and 18 years old"
+          }, 
+          "value": "16_18",
+          "enabled": true
+        },
+        { 
+          "label": {
+            "swedish": "Anställd på Scania",
+            "english": "Scania employee"
+          }, 
+          "value": "scania",
+          "enabled": false
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "informationbox": {
+      "label": {
+        "swedish": "infobox",
+        "english": "Privateperson / övrig"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "Om du är mellan 16 och 18 år och inte är KTH-anknuten behöver du lämna en borgensförbindelse. Samma gäller om du inte är folkbokförd i Sverige. Den som går i borgen ska vara yrkesverksam, folkbokförd i Sverige och över 18 år. Borgenspersonen måste vara närvarande och ska uppvisa ID när bibliotekskontot aktiveras.",
+        "english": "If you are between 16 and 18 years old and not affiliated with KTH you need to fill out a guarantee form. This also applies if you are not registered as a Swedish resident. Anyone who stands surety must be working and registered in Sweden and over 18 years old. The guarantor must be present when the library card is issued and must show a valid ID."
+      },
+      "link": {
+        "placement": "after",
+        "swedish" : {
+          "url": "https://apps.lib.kth.se/kthbforms/assets/borgensforbindelse.pdf",
+          "text": "Ladda ner borgensförbindelse"
+        },
+        "english" : {
+          "url": "https://apps.lib.kth.se/kthbforms/assets/borgensforbindelse.pdf",
+          "text": "Download the guarantee form"
+        }
+      },
+      "value": "informationbox",
+      "type": "informationboxalert",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["16_18","18_not_swedish"]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "informationheader": {
+      "label": {
+        "swedish": "Uppgifter",
+        "english": "Information"
+      },
+      "value": "information",
+      "type": "grouplabel",
+      "enabled": false,
+      "showcriteria": [
+        {
+          "field": "otherinfo",
+          "values": ["any"]
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "firstname": {
+      "label": {
+        "swedish": "Förnamn",
+        "english": "First name"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "lastname": {
+      "label": {
+        "swedish": "Efternamn",
+        "english": "Last name"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "personalnumber": {
+      "label": {
+        "swedish": "Personnummer (ååmmddxxxx)",
+        "english": "Personal number (yymmddxxxx)"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["16_18","other"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^[0-9]{6}[0-9|T]{1}[0-9]{3}$",
+          "errormessage": {
+            "swedish": "måste vara ett godkänt personnummer(ååmmddxxxx)",
+            "english": "must be valid personal number(yymmddxxxx)"
+          }
+        }
+      }
+    },
+    "birthdate": {
+      "label": {
+        "swedish": "Födelsedatum (ååååmmdd)",
+        "english": "Birth date(yyyymmdd)"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["18_not_swedish"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^[0-9]{8}$",
+          "errormessage": {
+            "swedish": "måste vara ett godkänt datum(ååååmmdd)",
+            "english": "must be valid date(yyyymmdd)"
+          }
+        }
+      }
+    },
+    "phone1": {
+      "label": {
+        "swedish": "Telefon 1",
+        "english": "Phone 1"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^\\+?\\d+$",
+          "errormessage": {
+            "swedish": "måste vara ett godkänt telefonnummer",
+            "english": "must be a valid phone number"
+          }
+        }
+      }
+    },
+    "phone2": {
+      "label": {
+        "swedish": "Telefon 2",
+        "english": "Phone 2"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^\\+?\\d+$",
+          "errormessage": {
+            "swedish": "måste vara ett godkänt telefonnummer",
+            "english": "must be a valid phone number"
+          }
+        }
+      }
+    },
+    "email": {
+      "label": {
+        "swedish": "E-post (användarnamn)",
+        "english": "Email (username)"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^([0-9a-zA-Z]([-._\\w])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$",
+          "errormessage": {
+            "swedish": "måste vara en godkänd e-postadress",
+            "english": "must be a valid email address"
+          }
+        }
+      }
+    },
+    "password": {
+      "label": {
+        "swedish": "Lösenord till ditt bibliotekskonto (8 tecken)",
+        "english": "Password for your library account (8 characters)"
+      },
+      "value": "",
+      "type": "password",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": ".{8,}",
+          "errormessage": {
+            "swedish": "måste innehålla minst 8 tecken.",
+            "english": "must contain at least 8 characters."
+          }
+        }
+      }
+    },
+    "pin": {
+      "label": {
+        "swedish": "PIN-kod till låneautomater (4 siffror)",
+        "english": "PIN code for self service machines (4 digits)"
+      },
+      "value": "",
+      "type": "password",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^[0-9]{4}$",
+          "errormessage": {
+            "swedish": "måste vara 4 siffror",
+            "english": "must be 4 digits"
+          }
+        }
+      }
+    },
+    "streetadress": {
+      "label": {
+        "swedish": "Gatuadress",
+        "english": "Street address"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "zipcode": {
+      "label": {
+        "swedish": "Postnummer",
+        "english": "Zip code"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "city": {
+      "label": {
+        "swedish": "Ort",
+        "english": "City"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "accept": {
+      "label": {
+        "swedish": "Jag godkänner KTH Bibliotekets användarvillkor",
+        "english": "I accept the KTH Library terms of use."
+      },
+      "link": {
+        "placement": "after",
+        "swedish" : {
+          "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/anvandarvillkor-1.854843",
+          "text": "Användarvillkor"
+        },
+        "english" : {
+          "url": "https://www.kth.se/en/biblioteket/anvanda-biblioteket/anvandarvillkor-1.854843",
+          "text": "Terms of use"
+        }
+      },
+      "value": "",
+      "type": "checkbox",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "sendbutton": {
+      "label": {
+        "swedish": "Skicka",
+        "english": "Send"
+      },
+      "value": "",
+      "type": "button",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false
+        } 
+      }
+    }
+  }
+}

@@ -1,0 +1,604 @@
+{
+  "id": "libraryaccount",
+  "name": "Ansökan om bibliotekskonto",
+  "header": {
+    "swedish": "Registrera dig",
+    "english": "Register"
+  },
+  "status": "open",
+  "description": {
+    "open": {
+      "swedish": "För att kunna reservera, låna och beställa material från biblioteket behöver du registrera dig som användare i vårt bibliotekssystem.",
+      "english": ""
+    },
+    "closed": {
+      "swedish": "Stängt",
+      "english": "Closed"
+    }
+  },
+  "posturl": "/webservices/kthbforms/api/v1/libraryaccount",
+  "loaderurl": "/kthbforms/assets/ajax_loader_blue_512.gif",
+  "loaderinfo": {
+    "swedish": "Skickar...",
+    "english": "Sending..."
+  },
+  "postresponseinfo" : {
+    "header": {
+      "swedish": "Tack för din registrering!",
+      "english": "Thank you for registering!"
+    },
+    "text": {
+      "swedish": "För att slutföra registreringen måste du besöka något av våra bibliotek. Ta med dig en giltig ID-handling.",
+      "english": "To finish the registration you have to visit one of our libraries. Please bring a valid ID."
+    }
+  },
+  "posterrorresponseinfo" : {
+    "header": {
+      "swedish": "Något gick fel!",
+      "english": "Something went wrong!"
+    },
+    "text": {
+      "swedish": "Kontrollera att du har fyllt i alla fält korrekt. Om problemet kvarstår kontakta biblioteket.",
+      "english": "Please make sure that all the fields have been filled out correctly. If the problem remains please contact the library."
+    }
+  },
+  "emailtosubjectuser": {
+    "swedish": "Lyckad registering av bibliotekskonto",
+    "english": "Successful library account registration"
+  },
+  "emailtobodyuser": {
+    "swedish": [
+      "<div><p>Hej,</p></div>",
+      "<div><p>Tack för din registrering. För att slutföra registreringen måste du besöka något av våra bibliotek. Ta med dig en giltig ID-handling.</p></div>",
+      "<div>Ditt användarnamn är: @@email</div> ",
+      "<div><p>KTH Biblioteket</p></div>",
+      "<div>Telefon: 08-790 70 88</div>",
+      "<div>www.kth.se/biblioteket</div>"
+    ],
+    "english": [
+      "<div><p>Hi,</p></div>",
+      "<div><p>Thank you for registrering. To finish the registration you have to visit one of our libraries. Please bring a valid ID.</p></div>",
+      "<div>Your username is: @@email</div>",
+      "<div><p>KTH Library</p></div>",
+      "<div>Phone: 08-790 70 88</div>",
+      "<div>www.kth.se/en/biblioteket</div>"
+    ]
+  },
+  "emailfromaddresslibrary": {
+    "emailaddress": "biblioteket@kth.se",
+    "name": {
+      "swedish": "KTH Biblioteket",
+      "english": "KTH Library"
+    }
+  },
+  "optionalfieldtext" : {
+    "swedish": "Valfri",
+    "english": "Optional"
+  },
+  "invalidforminfo": {
+    "header": {
+      "swedish": "Formuläret är inte korrekt ifyllt!",
+      "english": "The form has not been filled out correctly!"
+    }, 
+    "text": {
+      "swedish": "Se rödmarkerad text nedan.",
+      "english": "Please see text marked as red below."
+    }
+  }, 
+  "formfields": {
+    "header": {
+      "label": {
+        "swedish": "Test",
+        "english": "Test"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "<h1>Registrera dig</h1><p>För att kunna reservera, låna och beställa material från biblioteket behöver du registrera dig som användare i vårt bibliotekssystem.</p>",
+        "english": "<h1>Register</h1><p>In order to borrow or request materials from the library you need to be registered as a user in our library system.</p>"
+      },
+      "value": "htmltext",
+      "type": "htmltext",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "otherinfo": {
+      "label": {
+        "swedish": "Användarkategori",
+        "english": "User category"
+      },
+      "value": "",
+      "type": "radio",
+      "enabled": true,
+      "options": [
+        { 
+          "label": {
+            "swedish": "Över 18 år, folkbokförd i Sverige",
+            "english": "Over 18 years old, registered as a Swedish resident"
+          }, 
+          "value": "other",
+          "enabled": true
+        },
+        { 
+          "label": {
+            "swedish": "Över 18 år, men inte folkbokförd i Sverige",
+            "english": "Over 18 years old but not registered as a Swedish resident"
+          }, 
+          "value": "18_not_swedish",
+          "enabled": true
+        },
+        { 
+          "label": {
+            "swedish": "Mellan 16 och 18 år",
+            "english": "Between 16 and 18 years old"
+          }, 
+          "value": "16_18",
+          "enabled": true
+        },
+        { 
+          "label": {
+            "swedish": "Anställd på Scania",
+            "english": "Scania employee"
+          }, 
+          "value": "scania",
+          "enabled": false
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "informationbox": {
+      "label": {
+        "swedish": "infobox",
+        "english": "Privateperson / övrig"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "Om du är mellan 16 och 18 år och inte är KTH-anknuten behöver du lämna en borgensförbindelse. Samma gäller om du inte är folkbokförd i Sverige. Den som går i borgen ska vara yrkesverksam, folkbokförd i Sverige och över 18 år. Borgenspersonen måste vara närvarande och ska uppvisa ID när bibliotekskontot aktiveras.",
+        "english": "If you are between 16 and 18 years old and not affiliated with KTH you need to fill out a guarantee form. This also applies if you are not registered as a Swedish resident. Anyone who stands surety must be working and registered in Sweden and over 18 years old. The guarantor must be present when the library card is issued and must show a valid ID."
+      },
+      "value": "informationbox",
+      "type": "informationboxalert",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["16_18","18_not_swedish"]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "informationheader": {
+      "label": {
+        "swedish": "Uppgifter",
+        "english": "Information"
+      },
+      "value": "information",
+      "type": "grouplabel",
+      "enabled": false,
+      "showcriteria": [
+        {
+          "field": "otherinfo",
+          "values": ["any"]
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "firstname": {
+      "label": {
+        "swedish": "Förnamn",
+        "english": "First name"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "lastname": {
+      "label": {
+        "swedish": "Efternamn",
+        "english": "Last name"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "personalnumber": {
+      "label": {
+        "swedish": "Personnummer (ååmmddxxxx)",
+        "english": "Personal number (yymmddxxxx)"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["16_18","other"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^[0-9]{6}[0-9|T]{1}[0-9]{3}$",
+          "errormessage": {
+            "swedish": "måste vara ett godkänt personnummer(ååmmddxxxx)",
+            "english": "must be valid personal number(yymmddxxxx)"
+          }
+        }
+      }
+    },
+    "birthdate": {
+      "label": {
+        "swedish": "Födelsedatum (ååååmmdd)",
+        "english": "Birth date(yyyymmdd)"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["18_not_swedish"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^[0-9]{8}$",
+          "errormessage": {
+            "swedish": "måste vara ett godkänt datum(ååååmmdd)",
+            "english": "must be valid date(yyyymmdd)"
+          }
+        }
+      }
+    },
+    "phone1": {
+      "label": {
+        "swedish": "Telefon 1",
+        "english": "Phone 1"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^\\+?\\d+$",
+          "errormessage": {
+            "swedish": "måste vara ett godkänt telefonnummer",
+            "english": "must be a valid phone number"
+          }
+        }
+      }
+    },
+    "phone2": {
+      "label": {
+        "swedish": "Telefon 2",
+        "english": "Phone 2"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^\\+?\\d+$",
+          "errormessage": {
+            "swedish": "måste vara ett godkänt telefonnummer",
+            "english": "must be a valid phone number"
+          }
+        }
+      }
+    },
+    "email": {
+      "label": {
+        "swedish": "E-post (användarnamn)",
+        "english": "Email (username)"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^([0-9a-zA-Z]([-._\\w])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$",
+          "errormessage": {
+            "swedish": "måste vara en godkänd e-postadress",
+            "english": "must be a valid email address"
+          }
+        }
+      }
+    },
+    "password": {
+      "label": {
+        "swedish": "Lösenord till ditt bibliotekskonto (8 tecken)",
+        "english": "Password for your library account (8 characters)"
+      },
+      "value": "",
+      "type": "password",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": ".{8,}",
+          "errormessage": {
+            "swedish": "måste innehålla minst 8 tecken.",
+            "english": "must contain at least 8 characters."
+          }
+        }
+      }
+    },
+    "pin": {
+      "label": {
+        "swedish": "PIN-kod till låneautomater (4 siffror)",
+        "english": "IN code for self service machines (4 digits)"
+      },
+      "value": "",
+      "type": "password",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^[0-9]{4}$",
+          "errormessage": {
+            "swedish": "måste vara 4 siffror",
+            "english": "must be 4 digits"
+          }
+        }
+      }
+    },
+    "streetadress": {
+      "label": {
+        "swedish": "Gatuadress",
+        "english": "Street address"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "zipcode": {
+      "label": {
+        "swedish": "Postnummer",
+        "english": "Zip code"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "city": {
+      "label": {
+        "swedish": "Ort",
+        "english": "City"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "accept": {
+      "label": {
+        "swedish": "Jag godkänner KTH Bibliotekets användarvillkor",
+        "english": "I accept the KTH Library terms of use."
+      },
+      "value": "",
+      "type": "checkbox",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "sendbutton": {
+      "label": {
+        "swedish": "Skicka",
+        "english": "Send"
+      },
+      "value": "",
+      "type": "button",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false
+        } 
+      }
+    },
+    "termsofuse": {
+      "label": {
+        "swedish": "Användarvillkor",
+        "english": "Terms of use"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "<h1>Användarvillkor</h1><p>Genom att aktivera ditt bibliotekskonto ingår du ett avtal med biblioteket och förbinder dig att följa nedanstående villkor.<br>KTH Biblioteket är öppet för alla men vissa tjänster är förbehållna för studenter och personal på KTH.</p><h2>Bibliotekskonto</h2><p>För att låna och reservera material behöver du ett aktivt låntagarkonto. Folkbokförda i Sverige som fyllt 16 år kan få bibliotekskonto på KTH Biblioteket. Bibliotekskontot är personligt och får inte överlåtas till någon annan. Om du tappar bort ditt kort ska du anmäla det till biblioteket så snabbt som möjligt.</p><h2>Lån</h2><ul><li>Du ansvarar personligen för dina lån tills dessa är avregistrerade.</li><li>Vid lån för annans räkning krävs fullmakt.</li><li>Du är själv skyldig att hålla reda på lånetider.</li><li>Som en service till dig skickar biblioteket ut påminnelser om detta. Du ansvarar för att biblioteket har en korrekt e-postadress till dig.</li><li>Lån som inte längre kan förlängas ska återlämnas senast angivet datum. Tänk på detta t.ex. i samband med resor.</li><li>I vissa fall tas en förseningsavgift ut enligt prislista på webbplatsen. Du blir spärrad för vidare lån om du har för höga förseningsavgifter.</li><li>Du är skyldig att ersätta skadat eller borttappat material. Alla lagningar görs av biblioteket.</li><li>Har material inte återlämnats 17 dagar efter återlämningsdatum spärras du från vidare lån och faktura skickas ut. Fakturan avser dels kostnaden för ersättningsexemplar och dels bibliotekets extra kostnader för återanskaffning. Vi accepterar även att du köper in ett eget ersättningsexemplar som du lämnar till biblioteket.</li></ul><h2>Personuppgifter</h2><ul><li>KTH Biblioteket behandlar dina personuppgifter för att du ska kunna låna och reservera böcker och annat biblioteksmaterial.&shy;&shy;</li><li>Uppgift som rör enskild persons lån, reservation eller annan form av beställning är sekretesskyddad.</li><li>Om du är knuten till KTH som student eller personal hämtas dina personuppgifter från KTH:s centrala register. Om du avslutar din anställning eller dina studier tas dina uppgifter efter en tid automatiskt bort ur bibliotekets system.</li><li>Om du är extern låntagare anger du dina egna uppgifter när du ansöker om lånekort. Om du behöver ändra någon uppgift eller vill bli borttagen som låntagare kontaktar du KTH Biblioteket. Om du slutar använda KTH Biblioteket tas dina uppgifter efter en tid automatiskt bort ur bibliotekets system.</li></ul>",
+        "english": "<h1>Terms of use</h1><p>When using the KTH Library services you agree to the following regulations. By activating the library account, you enter into a formal agreement with KTH Library, consenting to abide by KTH Library regulations. <br>KTH Library is open to the public. Certain services and collections are available only to KTH students and staff.</p><h2>Library account</h2><p>Residents of Sweden who have turned 16 years of age are eligible to apply for a KTH library account. Non-resident researchers and students are also eligible to apply for a KTH Library account. The library account is personal and not transferable to anyone else. In the event of a card being lost or stolen, you should notify the library as soon as possible.</p><h2>Loans</h2><ul><li>You are personally responsible for your loans until these are registered as returned.</li><li>&nbsp;Loans made on behalf of others require written authorization.</li><li>&nbsp;It's your responsibility to keep track of due dates.</li><li>The library is sending out reminders as a service. It is your responsibility to make sure that the library has a valid e-mail account registered.</li><li>Loans should be returned immediately on the due date. Borrowed material must be kept available for immediate return if recalled. Keep this in mind if you are planning to travel.</li><li>An overdue fee is charged for certain books that are not returned by due date. If your overdue fees are too excessive, your account will be inhibited. You are liable to pay for damages of the material. All repairs to damaged material are to be carried out by KTH Library.</li><li>If material has not been returned by 17 days after due date, your account will be inhibited and issued with an invoice. The invoice covers the cost of the replacement material itself plus any extra cost incurred by the library in procuring the replacement material. We also accept replacement copies</li></ul><h2>Processing of personal data</h2><ul><li>The KTH Library processes your personal data in order for you to borrow and request books and other library material.</li><li>If you are a member of KTH as a student or staff, your personal data will be retrieved from KTH's central register. If you finish your employment or studies, your data will automatically be removed from the library system after a while.</li><li>If you are a member of the public, you enter your own data when applying for a library account. If you need to change any information or want to be removed as a borrower, please contact the KTH Library. If you stop using the KTH Library, your data will be automatically removed from the library system after a while.</li></ul>"
+      },
+      "value": "htmltext",
+      "type": "htmltext",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "otherinfo",
+        "values": ["any"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    }
+  }
+}

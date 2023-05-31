@@ -1,0 +1,502 @@
+{
+  "id": "literaturesearch",
+  "type": "upload",
+  "name": "Litteratursökning",
+  "header": {
+    "swedish": "Boka Litteratursökning",
+    "english": "Book a literature search"
+  },
+  "status": "open",
+  "description": {
+    "open": {
+      "swedish": "",
+      "english": ""
+    },
+    "closed": {
+      "swedish": "Stängt",
+      "english": "Closed"
+    }
+  },
+  "posturl": "/webservices/kthbforms/api/v1/literaturesearch",
+  "loaderurl": "/kthbforms/assets/ajax_loader_blue_512.gif",
+  "loaderinfo": {
+    "swedish": "Skickar...",
+    "english": "Sending..."
+  },
+  "postresponseinfo" : {
+    "header": {
+      "swedish": "Tack för din förfrågan!",
+      "english": "Thank you for your booking request!"
+    },
+    "text": {
+      "swedish": "Vi kontaktar dig så snart som möjligt.",
+      "english": "We will contact you as soon as possible."
+    }
+  },
+  "posterrorresponseinfo" : {
+    "header": {
+      "swedish": "Något gick fel!",
+      "english": "Something went wrong!"
+    },
+    "text": {
+      "swedish": "Kontrollera att du har fyllt i alla fält korrekt. Om felet kvarstår kontakta biblioteket.",
+      "english": "Please check that all the fields have been filled out correctly. If the problem remains please contact the library."
+    }
+  },
+  "emailtoaddressedge": {
+    "emailaddress": "biblioteket@kth.se",
+    "name": {
+      "swedish": "EDGE",
+      "english": "EDGE"
+    }
+  },
+  "emailtosubjectedge": {
+    "swedish": "Bokningsförfrågan för litteratursökning",
+    "english": "Booking request for literature search"
+  },
+  "emailtobodyedge": {
+    "swedish": [
+      "<div><p>Tack för din förfrågan! Vi kontaktar dig så snart som möjligt.</p></div>",
+      "<div><h3>Kontaktuppgifter</h3></div>",
+      "<div>Namn: @@name</div>",
+      "<div>Telefon: @@phone</div>",
+      "<div>E-post: @@email</div>",
+      "<div><h3>Ämne: </h3></div>",
+      "<div>@@subject</div>", 
+      "<div><h3>Publikationstyp: </h3><br> @@publicationtype</div>",
+      "<div><h3>Sökord: </h3></div>",
+      "<div>@@searchwords</div>", 
+      "<div><h3>Databaser: </h3></div>",
+      "<div>@@databases</div>",
+      "<div><h3>Nyckelartiklar: </h3></div>",
+      "<div>@@keyarticles</div>",
+      "<div><h3>Leveransformat: </h3></div>",
+      "<div>@@deliveryoption</div>",
+      "<div showcritera='@@otherdelivery'><strong>Annat format:</strong> @@otherdelivery</div>",
+      "<div><h3>Leveransdatum: </h3></div>",
+      "<div>@@deliverydate</div>", 
+      "<div><h3>Förslag på datum:</h3></div>",
+      "<div>@@suggesteddate</div>"
+    ],
+    "english": [
+      "<div><p>Thank you for your request! We will contact you as soon as possible.</p></div>",
+      "<div><h3>Contact details</h3></div>",
+      "<div>Name: @@name</div>",
+      "<div>Phone: @@phone</div>",
+      "<div>E-mail: @@mail</div>",
+      "<div><h3>Subject: </h3></div>",
+      "<div>@@subject</div>",
+      "<div><h3>Publication type: </h3><br> @@publicationtype</div>",
+      "<div><h3>Search words: </h3></div>",
+      "<div>@@searchwords</div>",
+      "<div><h3>Databases: </h3></div>",
+      "<div>@@databases</div>",
+      "<div><h3>Key articles: </h3></div>",
+      "<div>@@keyarticles</div>",
+      "<div><h3>Delivery format: </h3></div>",
+      "<div>@@deliveryoption</div>",
+      "<div showcritera='@@otherdelivery'><strong>Other format:</strong> @@otherdelivery</div>",
+      "<div><h3>Delivery date: </h3></div>",
+      "<div>@@deliverydate</div>", 
+      "<div><h3>Suggested dates:</h3></div>",
+      "<div>@@suggesteddate</div>"
+    ]
+  },
+  "optionalfieldtext" : {
+    "swedish": "Valfri",
+    "english": "Optional"
+  },
+  "invalidforminfo": {
+    "header": {
+      "swedish": "Formuläret är inte korrekt ifyllt!",
+      "english": "The form has not been filled out correctly!"
+    }, 
+    "text": {
+      "swedish": "Se rödmarkerad text nedan.",
+      "english": "Please see text marked as red below"
+    }
+  },
+  "formfields": {
+    "name": {
+      "label": {
+        "swedish": "Namn",
+        "english": "Name"
+      },
+      "description": {
+        "swedish": "",
+        "english": ""
+      },
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "email": {
+      "label": {
+        "swedish": "KTH E-postadress",
+        "english": "KTH Email address"
+      }, 
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^([0-9a-zA-Z]([-._\\w])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$",
+          "errormessage": {
+            "swedish": "måste vara en godkänd emailadress",
+            "english": "must be a valid email address"
+          }
+        }	
+      }
+    },
+    "phone": {
+      "label": {
+        "swedish": "Telefonnummer",
+        "english": "Phone"
+      },
+      "description": {
+        "swedish": "",
+        "english": ""
+      },
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^\\+?\\d+$",
+          "errormessage": {
+            "swedish": "måste vara ett godkänt telefonnummer",
+            "english": "must be a valid phone number"
+          }
+        }
+      }
+    },
+    "subject": {
+      "label": {
+        "swedish": "Ämne (beskriv ämnet i en eller ett par meningar. Om du vill kan du också bifoga dokument som t ex en projektplan)",
+        "english": "Subject (describe the subject in one or a few sentences. If you wish, you can also attach documents such as a project plan)"
+      },
+      "value": "",
+      "type": "textarea",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "publicationtype": {
+      "label": {
+        "swedish": "Planerad publikationstyp (t ex litteraturöversikt, systematisk översikt, scoping review, litteraturstudie, state of the art-artikel)",
+        "english": "Planned publication type (eg literature review, systematic review, scoping review, literature study, state of the art article)"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "searchwords": {
+      "label": {
+        "swedish": "Sökord (ge exempel på sökord och termer som är relevanta för ämnet)",
+        "english": "Search terms (please list some keywords and search terms relevant to the subject)"
+      },
+      "value": "",
+      "type": "textarea",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "databases": {
+      "label": {
+        "swedish": "Databaser (vilka databaser vill du att vi söker i?)",
+        "english": "Databases (what databases do you want us to search?)"
+      },
+      "value": "",
+      "type": "text",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "keyarticles": {
+      "label": {
+        "swedish": "Nyckelartiklar (känner du redan till publikationer om ämnet som så nära som möjligt sammanfaller med den litteratur du vill hitta med sökningen? Ange i så fall referenser/DOI till dessa.)",
+        "english": "Key articles (do you already know publications on the subject that matches as closely as possible with the literature you want to find with the search? If so, enter references / DOI for these.)"
+      },
+      "value": "",
+      "type": "textarea",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "deliveryoption": {
+      "label": {
+        "swedish": "Hur vill du att sökresultatet levereras?",
+        "english": "How would you like the search result to be delivered?"
+      },
+      "value": "",
+      "type": "radio",
+      "enabled": true,
+      "options": [
+        { 
+          "label": {
+            "swedish": "EndNotebibliotek",
+            "english": "EndNote library"
+          }, 
+          "value": "EndNote",
+          "enabled": true
+        },
+        { 
+          "label": {
+            "swedish": "Bibtex-fil (för import till t ex Mendeley och Zotero)",
+            "english": "Bibtex-file (for import to for example Mendeley to Zotero)"
+          }, 
+          "value": "Bibtex",
+          "enabled": true
+        },
+        { 
+          "label": {
+            "swedish": "Csv-fil/tabbsepararad fil (för import till excel)",
+            "english": "Csv-file/tab-separated file (for import to Excel)"
+          }, 
+          "value": "Csv",
+          "enabled": true
+        },
+        { 
+          "label": {
+            "swedish": "Annat format, ange vilket",
+            "english": "Other format, please specify"
+          }, 
+          "value": "Other",
+          "enabled": true
+        },
+        { 
+          "label": {
+            "swedish": "Vet ej",
+            "english": "Don't know"
+          }, 
+          "value": "dontknow",
+          "enabled": true
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "otherdelivery": {
+      "label": {
+        "swedish": "Annat format",
+        "english": "Other format"
+      },
+      "value": "",
+      "type": "textarea",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "deliveryoption",
+        "values": ["Other"]
+      }],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "deliverydate": {
+      "label": {
+        "swedish": "Leverans önskas senast (ange eventuellt önskat sista leveransdatum. Observera att vi normalt behöver två veckor mellan det inledande mötet och leverans)",
+        "english": "Desired delivery date (enter desired delivery date if applicable. Please note that we normally need two weeks between the initial meeting and delivery)"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": false,
+      "group":"",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "suggesteddate": {
+      "label": {
+        "swedish": "Ange minst tre förslag på mötestider och om du föredrar att möte på biblioteket eller via Zoom. Räkna med att mötet tar ca en timme.",
+        "english": "Enter at least three suggestions on meeting times and if you prefer to have the meeting in the library or via Zoom. Expect the meeting to last about an hour."
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": false,
+      "group":"",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "attachments": {
+      "label": {
+          "swedish": "Bilagor.",
+          "english": "Attachments."
+      },
+      "value": "details",
+      "type": "grouplabel",
+      "enabled": true,
+      "validation": {
+          "required": {
+              "value": false,
+              "errormessage": {
+                  "swedish": "måste fyllas i",
+                  "english": "is required"
+              }
+          }
+      }
+    },
+    "file": {
+      "label": {
+          "swedish": "Bilagor",
+          "english": "Attachments"
+      },
+      "value": "",
+      "type": "file",
+      "enabled": true,
+      "validation": {
+          "required": {
+              "value": false,
+              "errormessage": {
+                  "swedish": "måste fyllas i",
+                  "english": "is required"
+              }
+          }
+      }
+    },
+    "files": {
+      "label": {
+          "swedish": "Valda filer",
+          "english": "Chosen files"
+      },
+      "value": "",
+      "type": "files",
+      "enabled": true,
+      "hidden": false,
+      "isgrouped": true,
+      "validation": {
+          "required": {
+              "value": false,
+              "errormessage": {
+                  "swedish": "måste fyllas i",
+                  "english": "is required"
+              }
+          }
+      }
+    },
+    "postforminfo": {
+      "label": {
+        "swedish": "Användarvillkor",
+        "english": "Terms of use"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "Vi återkommer till dig inom två arbetsdagar.",
+        "english": "We will get back to you within two workdays."
+      },
+      "value": "htmltext",
+      "type": "htmltext",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        } 
+      }
+    },
+    "sendbutton": {
+      "label": {
+        "swedish": "Skicka",
+        "english": "Send"
+      },
+      "value": "",
+      "type": "button",
+      "enabled": true,
+      "validation": {
+        "required": {
+          "value": false
+        } 
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../partials/adminhead'); %>
+</head>
+
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+            <a class="navbar-brand" href="#">
+                <img alt="" src="/formtools/images/kthlogo.jpg" width="75" height="75"
+                    class="d-inline-block align-top"> KTH Bibliotekets Form Verktyg
+            </a>
+            <button aria-controls="basic-navbar-nav" type="button" aria-label="Toggle navigation"
+                class="navbar-toggler collapsed"><span class="navbar-toggler-icon"></span></button>
+            <div class="navbar-collapse collapse" id="basic-navbar-nav">
+                <div class="navbar-nav">
+                </div>
+            </div>
+            <form style="flex:2;display:flex;justify-content:flex-end">
+                <button type="button" class="btn btn-outline-success" onclick="logout()">Logout</button>
+            </form>
+            <div id="gradientBorder"></div>
+        </nav>
+    </div>
+</body>
+    <%- include('../partials/adminscript'); %>
+    <script>
+
+        $(document).ready(function(){
+
+    
+        });
+
+        function resetForm(selector) 
+        {
+            $(selector)[0].reset();
+        }
+
+        function logout() {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onload = function () {
+                    if (xhttp.status == 401) {  
+                    }
+                    location.href = "/formtools/admin"
+                };
+                xhttp.open("POST", "/formtools/api/v1/logout", true);
+                xhttp.setRequestHeader('Content-Type', 'application/json');
+                xhttp.send();
+            }
+    </script>
+</html>

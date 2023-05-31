@@ -1,0 +1,348 @@
+{
+    "id": "siyss",
+    "type": "upload",
+    "name": "Ansökan till SIYSS",
+    "header": {
+        "swedish": "Ansök här!",
+        "english": "Apply here!"
+    },
+    "status": "open",
+    "description": {
+        "open": {
+            "swedish": "",
+            "english": ""
+        },
+        "closed": {
+            "swedish": "Stängt",
+            "english": "Closed"
+        }
+    },
+    "posturl": "/webservices/kthbforms/api/v1/siyss",
+    "loaderurl": "/kthbforms/assets/ajax_loader_blue_512.gif",
+    "loaderinfo": {
+        "swedish": "Skickar...",
+        "english": "Sending..."
+    },
+    "postresponseinfo": {
+        "header": {
+            "swedish": "Tack för din ansökan.",
+            "english": "Thank you for your application."
+        },
+        "text": {
+            "swedish": "Vi återkommer till dig när vi har behandlat alla ansökningar.",
+            "english": "We will get back to you as soon as we have processed all the contributions."
+        }
+    },
+    "posterrorresponseinfo": {
+        "header": {
+            "swedish": "Något gick fel!",
+            "english": "Something went wrong!"
+        },
+        "text": {
+            "swedish": "Kontrollera att du har fyllt i alla fält korrekt. Om felet kvarstår kontakta biblioteket.",
+            "english": "Please check that all the fields have been filled out correctly. If the problem remains please contact the library."
+        }
+    },
+    "emailtoaddressedge": {
+        "emailaddress": "biblioteket@kth.se",
+        "name": {
+            "swedish": "EDGE",
+            "english": "EDGE"
+        }
+    },
+    "emailtosubjectedge": {
+        "swedish": "Ansökan till SIYSS",
+        "english": "Application for SIYSS"
+    },
+    "emailtobodyedge": {
+        "swedish": [
+            "<div><p>Namn:</p></div>",
+            "<div><p>@@name</p></div>",
+            "<div><p>Födelsedatum:</p></div>",
+            "<div><p>@@birthdate</p></div>",
+            "<div><p>Mailadress:</p></div>",
+            "<div><p>@@email</p></div>",
+            "<div><p>Telefonnummer:</p></div>",
+            "<div><p>@@phone</p></div>",
+            "<div><p>Projektbeskrivning:</p></div>",
+            "<div><p>@@projectdescription</p></div>",
+            "<div><p>Jag kommer att kunna delta hela SIYSS-veckan:</p></div>",
+            "<div><p>@@canattend</p></div>",
+            "<div><p>Jag har tagit del av all information och intygar att jag uppfyller ovanstående krav:</p></div>",
+            "<div><p>@@accepts</p></div>"
+        ],
+        "english": [
+            "<div><p>Namn:</p></div>",
+            "<div><p>@@name</p></div>",
+            "<div><p>Födelsedatum:</p></div>",
+            "<div><p>@@birthdate</p></div>",
+            "<div><p>Mailadress:</p></div>",
+            "<div><p>@@email</p></div>",
+            "<div><p>Telefonnummer:</p></div>",
+            "<div><p>@@phone</p></div>",
+            "<div><p>Projektbeskrivning:</p></div>",
+            "<div><p>@@projectdescription</p></div>",
+            "<div><p>Jag kommer att kunna delta hela SIYSS-veckan:</p></div>",
+            "<div><p>@@canattend</p></div>",
+            "<div><p>Jag har tagit del av all information och intygar att jag uppfyller ovanstående krav:</p></div>",
+            "<div><p>@@accepts</p></div>"
+        ]
+    },
+    "optionalfieldtext": {
+        "swedish": "Valfri",
+        "english": "Optional"
+    },
+    "invalidforminfo": {
+        "header": {
+            "swedish": "Formuläret är inte korrekt ifyllt!",
+            "english": "Form not correct!"
+        },
+        "text": {
+            "swedish": "Se rödmarkerad text nedan.",
+            "english": "Please see text marked as red below"
+        }
+    },
+    "formfields": {
+        "contactdetails": {
+            "label": {
+                "swedish": "Kontaktuppgifter",
+                "english": "Contact details"
+            },
+            "value": "details",
+            "type": "grouplabel",
+            "enabled": true,
+            "validation": {
+                "required": {
+                    "value": true,
+                    "errormessage": {
+                        "swedish": "måste fyllas i",
+                        "english": "is required"
+                    }
+                }
+            }
+        },
+        "name": {
+            "label": {
+                "swedish": "Namn",
+                "english": "Name"
+            },
+            "value": "",
+            "type": "text",
+            "isgrouped": true,
+            "enabled": true,
+            "validation": {
+                "required": {
+                    "value": true,
+                    "errormessage": {
+                        "swedish": "måste fyllas i",
+                        "english": "is required"
+                    }
+                }
+            }
+        },
+        "birthdate": {
+            "label": {
+                "swedish": "Födelsedatum",
+                "english": "Birthdate"
+            },
+            "value": "",
+            "type": "text",
+            "isgrouped": true,
+            "enabled": true,
+            "validation": {
+                "required": {
+                    "value": true,
+                    "errormessage": {
+                        "swedish": "måste fyllas i",
+                        "english": "is required"
+                    }
+                },
+                "pattern": {
+                    "value": "^([0-9]{8})$",
+                    "errormessage": {
+                        "swedish": "måste vara ett födelsedatum(ååååmmdd)",
+                        "english": "must be a birthdate(yyyymmdd)"
+                    }
+                }
+            }
+        },
+        "email": {
+            "label": {
+                "swedish": "E-postadress",
+                "english": "Email address"
+            },
+            "value": "",
+            "type": "text",
+            "isgrouped": true,
+            "enabled": true,
+            "validation": {
+                "required": {
+                    "value": true,
+                    "errormessage": {
+                        "swedish": "måste fyllas i",
+                        "english": "is required"
+                    }
+                },
+                "pattern": {
+                    "value": "^([0-9a-zA-Z]([-._\\w])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$",
+                    "errormessage": {
+                        "swedish": "måste vara en godkänd e-postadress",
+                        "english": "must be a valid email address"
+                    }
+                }
+            }
+        },
+        "phone": {
+            "label": {
+                "swedish": "Telefonnummer",
+                "english": "Phone number"
+            },
+            "value": "",
+            "type": "text",
+            "isgrouped": true,
+            "enabled": true,
+            "validation": {
+                "required": {
+                    "value": true,
+                    "errormessage": {
+                        "swedish": "måste fyllas i",
+                        "english": "is required"
+                    }
+                },
+                "pattern": {
+                    "value": "^([0-9]*)$",
+                    "errormessage": {
+                        "swedish": "måste innehålla endast siffror",
+                        "english": "must be numbers only"
+                    }
+                }
+            }
+        },
+        "projectdescription": {
+            "label": {
+                "swedish": "Projektbeskrivning",
+                "english": "Project description"
+            },
+            "value": "",
+            "type": "textarea",
+            "maxlength": 3000,
+            "height": "100px",
+            "enabled": true,
+            "validation": {
+                "required": {
+                    "value": false,
+                    "errormessage": {
+                        "swedish": "måste fyllas i",
+                        "english": "is required"
+                    }
+                }
+            }
+        },
+        "attachments": {
+            "label": {
+                "swedish": "Bifoga CV, personligt brev, rekommendationsbrev från handledare samt projektbeskrivning.",
+                "english": "Attach CV, personal letter, recommendation letter from supervisor and a project description."
+            },
+            "value": "details",
+            "type": "grouplabel",
+            "enabled": true,
+            "validation": {
+                "required": {
+                    "value": false,
+                    "errormessage": {
+                        "swedish": "måste fyllas i",
+                        "english": "is required"
+                    }
+                }
+            }
+        },
+        "file": {
+            "label": {
+                "swedish": "Välj fil",
+                "english": "Choose file"
+            },
+            "value": "",
+            "type": "file",
+            "enabled": true,
+            "validation": {
+                "required": {
+                    "value": false,
+                    "errormessage": {
+                        "swedish": "måste fyllas i",
+                        "english": "is required"
+                    }
+                }
+            }
+        },
+        "files": {
+            "label": {
+                "swedish": "Valda filer",
+                "english": "Chosen files"
+            },
+            "value": "",
+            "type": "files",
+            "enabled": true,
+            "hidden": false,
+            "isgrouped": true,
+            "validation": {
+                "required": {
+                    "value": false,
+                    "errormessage": {
+                        "swedish": "måste fyllas i",
+                        "english": "is required"
+                    }
+                }
+            }
+        },
+        "canattend": {
+            "label": {
+              "swedish": "Jag kommer att kunna delta hela SIYSS-veckan (4-11 december)",
+              "english": "I will be able to attend the whole SIYSS week (4-11 december)"
+            },
+            "value": "",
+            "type": "checkbox",
+            "enabled": true,
+            "validation": {
+              "required": {
+                "value": false,
+                "errormessage": {
+                  "swedish": "måste fyllas i",
+                  "english": "is required"
+                }
+              } 
+            }
+        },
+        "accepts": {
+            "label": {
+              "swedish": "Jag har tagit del av all information och intygar att jag uppfyller ovanstående krav. Ofullständiga ansökningar kommer inte att behandlas.",
+              "english": "I have read all the information and certify that I meet the above requirements. Incomplete applications will not be processed."
+            },
+            "value": "",
+            "type": "checkbox",
+            "enabled": true,
+            "validation": {
+              "required": {
+                "value": true,
+                "errormessage": {
+                  "swedish": "måste fyllas i",
+                  "english": "is required"
+                }
+              } 
+            }
+        },
+        "sendbutton": {
+            "label": {
+                "swedish": "Skicka",
+                "english": "Send"
+            },
+            "value": "",
+            "type": "button",
+            "enabled": true,
+            "validation": {
+                "required": {
+                    "value": false
+                }
+            }
+        }
+    }
+}

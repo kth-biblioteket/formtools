@@ -1,0 +1,13 @@
+node_modules
+*.log.*
+*.log
+.env
+*.env
+.DS_Store
+imagebank/*.jpg
+imagebank/*.jpeg
+imagebank/*.png
+*.db
+formobject.json
+actionform.json
+hearts.html

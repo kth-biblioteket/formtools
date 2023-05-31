@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+    </style>
+</head>
+
+<body>
+   
+                <p>
+                    Användare: {{email}}
+                </p>
+                <p>
+                    Jag är:
+                </p>
+                <p>
+                    {{usertype}}
+                </p>
+                <p>
+                    Min skola:
+                </p>
+                <p>
+                    {{schoolname}}
+                </p>
+                <p>
+                    Vald kategori:
+                </p>
+                <p>
+                    {{action}}
+                </p>
+                <p>
+                    Vill ha stöd:
+                </p>
+                {{#each sessionchoices}}
+                <p>
+                    {{ name }}
+                </p>
+                <p>
+                    {{ message }}
+                </p>
+                {{/each}}
+</body>
+
+</html>
