@@ -351,9 +351,9 @@ async function requestMaterial(req, res) {
         //Hantera publisher (kan vara både pub och publisher som openurl)
 
         let bib_note = (request.form.volume) ? request.form.volume : "";
-        (request.form.issue) ? $bib_note += "(" . request.form.issue + ")" : "";        
-        (request.form.year) ? $bib_note += " " . request.form.year : "";
-        (request.form.pages) ? $bib_note += " pp " . request.form.pages : "";
+        (request.form.issue) ? bib_note += "(" + request.form.issue + ")" : "";        
+        (request.form.year) ? bib_note += " " + request.form.year : "";
+        (request.form.pages) ? bib_note += " pp " + request.form.pages : "";
 
         //Hantera kostnader
         let willing_to_pay
