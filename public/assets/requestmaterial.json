@@ -25,8 +25,8 @@
       "english": "Closed for maintenance"
     }
   },
-  "posturl": "/webservices/kthbforms/api/v1/requestmaterial",
-  "loaderurl": "/kthbforms/assets/ajax_loader_blue_512.gif",
+  "posturl": "/formtools/api/v1/requestmaterial",
+  "loaderurl": "/formtools/images/ajax_loader_blue_512.gif",
   "loaderinfo": {
     "swedish": "Skickar beställning...",
     "english": "Sending request..."
