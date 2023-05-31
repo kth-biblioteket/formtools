@@ -39,7 +39,7 @@ async function sendmail(to, from, fromname, subject, bodytext, inlineimage = '',
         },
         to: to,
         subject: subject,
-        html: bodytext 
+        html: bodytext, 
         //template: 'edge_email_sv',
         /*
         context:{
