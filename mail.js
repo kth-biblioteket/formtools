@@ -78,7 +78,7 @@ async function sendmail(to, from, fromname, subject, bodytext, inlineimage = '',
      * "<div>@@cost</div>",
      * 
      */
-async function createmailbody(formconfig, bodytext, genre, cost, fullname, almapreferredemail, almalibraryname, request) {
+async function createmailbody(formconfig, bodytext, genre, cost, fullname, almapreferredemail, almalibraryname, request, language) {
         
     //hantera titel
     let title = '';
@@ -114,11 +114,10 @@ async function createmailbody(formconfig, bodytext, genre, cost, fullname, almap
     //Hantera kategori
     let iam='';
     for (const option in formconfig.formfields.iam.options ) {
-        if(option.value == request.form.iam) {
-            iam =  option.label[request.language];
+        if(formconfig.formfields.iam.options[option].value == request.form.iam) {
+            iam = formconfig.formfields.iam.options[option].label[language];
         }
     }
-
     //Hantera datum
     let dateneededby = "";
     if(request.form.dateneededby) {
