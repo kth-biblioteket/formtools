@@ -114,8 +114,8 @@ async function createmailbody(formconfig, bodytext, genre, cost, fullname, almap
     //Hantera kategori
     let iam='';
     for (const option in formconfig.formfields.iam.options ) {
-        if(formconfig.formfields.iam.options[option].value == request.form.iam) {
-            iam =  formconfig.formfields.iam.options[option].label[request.language];
+        if(option.value == request.form.iam) {
+            iam =  option.label[request.language];
         }
     }
 
