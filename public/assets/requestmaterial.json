@@ -15,6 +15,7 @@
       "english": "Request material"
   },
   "status": "open",
+  "environment": "development",
   "description": {
     "open": {
       "swedish": "Behöver du en bok, artikel, tidskrift eller annat material som biblioteket inte har tillgång till idag? I de flesta fall kan vi beställa materialet till dig genom fjärrlån, d.v.s. lån från ett annat bibliotek, eller inköp. Gör en beställning eller lämna ett inköpsförslag genom att fylla i formuläret nedan så återkommer vi till dig.",
@@ -52,7 +53,7 @@
     }
   },
   "emailtoaddressedge": {
-    "emailaddress": "media-kthb@kth.se",
+    "emailaddress": "tholind@kth.se",
     "name": {
       "swedish": "Edge",
       "english": "Edge"
@@ -1601,7 +1602,13 @@
             "swedish": "måste fyllas i",
             "english": "is required"
           }
-        } 
+        },
+        "mindate": {
+          "errormessage": {
+            "swedish": "Måste vara ett datum minimum 14 dagar framåt",
+            "english": "Must be a date minimum 14 days"
+          }
+        }
       }
     },
     "pub": {

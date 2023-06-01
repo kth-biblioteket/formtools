@@ -1,4 +1,5 @@
 const mail = require('./mail');
+const alma = require('./alma');
 const axios = require('axios')
 
 const { body, query, validationResult } = require('express-validator');
@@ -302,7 +303,7 @@ async function requestMaterial(req, res) {
  * 
  * TODO byt till request i st f requestInput
  */
- async function createUserResourceSharingRequests(formconfig, language, request, requestInput, citation_type, format, user_id, override) {
+async function createUserResourceSharingRequests(formconfig, language, request, requestInput, citation_type, format, user_id, override) {
     let title = "";
     let journaltitle = "";
     let abbrjournaltitle ="";
@@ -446,6 +447,103 @@ async function requestMaterial(req, res) {
     //return  "test"
 }
 
+/**
+ * 
+ * Funktion som skapar låntagare i Alma och skickar ett
+ * bekräftelsemail till användaren
+ * 
+ * Formulärkonfig från JSON
+ *      Mailadresser och texter
+ * 
+ * Byt ut variabler (@@XXXX) i mailtexten som hämtats från formulärkonfig
+ * mot värden från request
+ */
+async function createLibraryaccount(req, res)
+{
+    if (!req.is('json')) {
+        res
+        .status(201)
+        .send(
+        {
+            "status" : "Error",
+            "message": "Please provide JSON"
+        });
+        return
+    }
+
+    language = req.query.language ? req.query.language : "english"
+    
+    //Validera obligatoriska fält
+    let validateAccountRequest = [
+        query('language').notEmpty().withMessage('Language is required'),
+        body('form.firstname').notEmpty().withMessage('First name is required'),
+        body('form.lastname').notEmpty().withMessage('Last name is required'),
+        body('form.phone1').notEmpty().withMessage('Phone is required'),
+        body('form.email').notEmpty().withMessage('Email is required'),
+        body('form.password').notEmpty().withMessage('Password is required'),
+        body('form.pin').notEmpty().withMessage('Pin is required'),
+        body('form.streetadress').notEmpty().withMessage('Street adress is required'),
+        body('form.zipcode').notEmpty().withMessage('Zip code is required'),
+        body('form.city').notEmpty().withMessage('City is required'),
+        body('form.accept').notEmpty().withMessage('Accept is required'),
+        //body('email').isEmail().withMessage('Invalid email'),
+        //body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+    ]
+    await Promise.all(validateAccountRequest.map((validator) => validator.run(req)));
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    // Hämta formulärets konfig från json-fil
+    const formconfigresponse = await axios.get(process.env.FORMSCONFIG_URL + 'libraryaccount.json');
+    const formconfig = formconfigresponse.data
+    let emailfromaddresslibrary = formconfig.emailfromaddresslibrary.emailaddress;
+    let emailfromnamelibrary = formconfig.emailfromaddresslibrary.name[language];
+
+    try {
+        bodytext = "";
+        emailtosubjectuser = formconfig.emailtosubjectuser[language];
+        formconfig.emailtobodyuser[language].forEach(row => {
+            bodytext += row;
+        })
+    } catch(err) {
+        responseobject = {
+            "status" : "Error",
+            "message" : err
+        };
+        bodytext
+        return res.status(400).send(responseobject);
+    }
+
+    bodytext = bodytext.replace('@@email', req.body.form.email);
+    
+    try {
+        almauser = await alma.createUser(req.body);
+        almauserobject = almauser.data;
+        if (almauser.status == 'Error') {
+            return res.status(400).send(almauserobject);
+        }
+        mailresponse = await mail.sendmail(req.body.form.email, emailfromaddresslibrary, emailfromnamelibrary, emailtosubjectuser, bodytext);
+        if (mailresponse != 'Success'){
+            responseobject = {
+                "status"  : "Error",
+                "message" : mailresponse
+            };
+            return res.status(202).send(responseobject);
+        }
+
+        responseobject = {
+            "status" : "Success",
+            "message" : "Account created"
+        };
+        return res.status(201).send(responseobject);
+    } catch(err) {
+        console.log(JSON.stringify(err.response.data))
+    }
+}
+
+// Hjälpfunktioner
 function escapeString(str) {
     return str
     .replace(/[\\]/g, '\\\\')
@@ -499,6 +597,7 @@ module.exports = {
     logout,
     getkthschools,
     requestMaterial,
+    createLibraryaccount,
     substrInBetween,
     truncate
 };

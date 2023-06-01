@@ -86,6 +86,9 @@ apiRoutes.get(process.env.API_PATH + "/forms/:id",formController.readEvent)
 // Skapa en request
 apiRoutes.post(process.env.API_PATH + "/requestmaterial", formController.requestMaterial)
 
+// Skapa ett bibliotekskonto
+apiRoutes.post(process.env.API_PATH + "/libraryaccount", formController.createLibraryaccount)
+
 // Root
 apiRoutes.get(process.env.API_PATH + "/", async function (req, res) {
     res.json("Welcome to KTH Library forms API")

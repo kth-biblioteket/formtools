@@ -6,6 +6,7 @@
     "english": "Contact us"
   },
   "status": "open",
+  "environment": "development",
   "description": {
     "open": {
       "swedish": "",
@@ -16,8 +17,8 @@
       "english": "Closed"
     }
   },
-  "posturl": "/webservices/kthbforms/api/v1/contact",
-  "loaderurl": "/kthbforms/assets/ajax_loader_blue_512.gif",
+  "posturl": "/formtools/api/v1/contact",
+  "loaderurl": "/formtools/images/ajax_loader_blue_512.gif",
   "loaderinfo": {
     "swedish": "Skickar...",
     "english": "Sending..."
@@ -43,7 +44,7 @@
     }
   },
   "emailtoaddressedge": {
-    "emailaddress": "biblioteket@kth.se",
+    "emailaddress": "tholind@kth.se",
     "name": {
       "swedish": "EDGE",
       "english": "EDGE"
@@ -201,7 +202,14 @@
             "swedish": "måste fyllas i",
             "english": "is required"
           }
-        } 
+        },
+        "pattern": {
+          "value": "^.{5,}$",
+          "errormessage": {
+            "swedish": "måste vara minst 5 tecken",
+            "english": "must be at least 5 characters"
+          }
+        }
       }
     },
     "sendbutton": {

@@ -16,6 +16,7 @@
       "english": "Request material"
   },
   "status": "open",
+  "environment": "development",
   "description": {
     "open": {
       "swedish": "Behöver du en bok, artikel, tidskrift eller annat material som biblioteket inte har tillgång till idag? I de flesta fall kan vi beställa materialet till dig genom fjärrlån, d.v.s. lån från ett annat bibliotek, eller inköp. Gör en beställning eller lämna ett inköpsförslag genom att fylla i formuläret nedan så återkommer vi till dig.",
@@ -53,7 +54,7 @@
     }
   },
   "emailtoaddressedge": {
-    "emailaddress": "media-kthb@kth.se",
+    "emailaddress": "tholind@kth.se",
     "name": {
       "swedish": "Edge",
       "english": "Edge"
@@ -354,12 +355,9 @@
       },
       "value": "",
       "type": "radio",
-      "enabled": false,
+      "mainoption": true,
+      "enabled": true,
       "openurlenabled": true,
-      "showcriteria": [{
-        "field": "genre",
-        "values": ["any"]
-      }],
       "options": [
         {
           "label": {
@@ -367,7 +365,7 @@
             "english": "Student at KTH"
           },
           "value": "student",
-          "enabled": false,
+          "enabled": true,
           "showcriteria": [{
             "field": "genre",
             "values": ["any"]
@@ -379,7 +377,7 @@
             "english": "Staff/Doctoral student at KTH"
           },
           "value": "employee",
-          "enabled": false,
+          "enabled": true,
           "showcriteria": [{
             "field": "genre",
             "values": ["any"]
@@ -391,7 +389,7 @@
             "english": "Business"
           },
           "value": "business",
-          "enabled": false,
+          "enabled": true,
           "showcriteria": [{
             "field": "genre",
             "values": ["book", "article", "journal"]
@@ -1569,7 +1567,13 @@
             "swedish": "måste fyllas i",
             "english": "is required"
           }
-        } 
+        },
+        "mindate": {
+          "errormessage": {
+            "swedish": "Måste vara ett datum minimum 14 dagar framåt",
+            "english": "Must be a date minimum 14 days"
+          }
+        }
       }
     },
     "pub": {

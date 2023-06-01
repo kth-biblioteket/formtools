@@ -6,6 +6,7 @@
     "english": "Register"
   },
   "status": "open",
+  "environment": "development",
   "description": {
     "open": {
       "swedish": "För att kunna reservera, låna och beställa material från biblioteket behöver du registrera dig som användare i vårt bibliotekssystem.",
@@ -16,8 +17,8 @@
       "english": "Closed"
     }
   },
-  "posturl": "/webservices/kthbforms/api/v1/libraryaccount",
-  "loaderurl": "/kthbforms/assets/ajax_loader_blue_512.gif",
+  "posturl": "/formtools/api/v1/libraryaccount",
+  "loaderurl": "/formtools/images/ajax_loader_blue_512.gif",
   "loaderinfo": {
     "swedish": "Skickar...",
     "english": "Sending..."
@@ -555,7 +556,14 @@
             "swedish": "måste fyllas i",
             "english": "is required"
           }
-        } 
+        },
+        "pattern": {
+          "value": "^yes$",
+          "errormessage": {
+            "swedish": "Användarvillkoren måste accepteras",
+            "english": "Please accept terms of use"
+          }
+        }
       }
     },
     "sendbutton": {
