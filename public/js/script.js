@@ -28,6 +28,8 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const dt = new DataTransfer(); 
 
+import libraryaccount from '../assets/libraryaccount.json' assert { type: 'json' };
+
 ////////////////////////////////////////////////////
 //
 // Hämta formulärdata(json)
@@ -42,7 +44,11 @@ let getformdata = () => {
         openurlsuffix = "openurl";
     }
 
+    formdata = libraryaccount;
+    environment = formdata.environment,
+    generateForm(formdata)
     //Request till Json-fil/api
+    /*
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function () {
         formdata = JSON.parse(this.responseText);
@@ -55,6 +61,7 @@ let getformdata = () => {
     formdataurl = 'assets/' + formid + openurlsuffix + ".json" + '?time=' + Date.now()
     xhttp.open("GET", formdataurl, true);
     xhttp.send();
+    */
 
 }
 
@@ -67,7 +74,7 @@ let generateForm = (formdata) => {
     // Variabler
     kthbform.innerHTML = ''
     optionalfieldtext = formdata.optionalfieldtext;
-    iskiosk = formdata.iskiosk;
+    let iskiosk = formdata.iskiosk;
     let minDate;
 
     
@@ -139,7 +146,7 @@ let generateForm = (formdata) => {
             createformfield(formdata.formfields[key], key)
         }
     }
-    formisinit = true;
+    let formisinit = true;
     createlisteners()
 }
 
@@ -581,7 +588,7 @@ let onchangeformobject = (domobj, key, _event) => {
             }
             
             // Aktivera/Inaktivera och/eller visa/dölj fälten 
-            
+            let el
             if (show) {
                 el = document.getElementById('parent_' + prop)
                 el.classList.remove("fielddisabled")
@@ -681,7 +688,7 @@ let validateform = () => {
     }
 
     //Hantera visning av felmeddelande
-    el = document.getElementById('backendresponse')
+    let el = document.getElementById('backendresponse')
     if(formisvalid) {
         el.classList.add("fielddisabled")
     } else {
