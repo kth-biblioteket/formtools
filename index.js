@@ -36,23 +36,8 @@ const socketIo = require("socket.io");
 app.set("view engine", "ejs");
 
 const whitelist = ['http://localhost', 'https://apps.lib.kth.se', 'https://apps-ref.lib.kth.se', 'https://www.kth.se']
-const corsOptions = {
-    origin: (origin, callback) => {
-      // Allow requests without an Origin header (e.g., for non-browser clients)
-      if (!origin) {
-        callback(null, true);
-      } else {
-        // Check if the requesting origin is in the allowedOrigins array
-        if (allowedOrigins.includes(origin)) {
-          callback(null, true);
-        } else {
-          callback(new Error('Not allowed by CORS'));
-        }
-      }
-    }
-};
   
-app.use(cors(corsOptions));
+app.use(cors({origin: whitelist}));
 
 app.use(process.env.APP_PATH, express.static(path.join(__dirname, "public")));
 
