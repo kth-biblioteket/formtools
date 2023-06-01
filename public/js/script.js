@@ -28,8 +28,6 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const dt = new DataTransfer(); 
 
-import libraryaccount from '../assets/libraryaccount.json' assert { type: 'json' };
-
 ////////////////////////////////////////////////////
 //
 // Hämta formulärdata(json)
@@ -44,11 +42,11 @@ let getformdata = () => {
         openurlsuffix = "openurl";
     }
 
-    formdata = libraryaccount;
-    environment = formdata.environment,
-    generateForm(formdata)
+    //formdata = libraryaccount;
+    //environment = formdata.environment,
+    //generateForm(formdata)
     //Request till Json-fil/api
-    /*
+    
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function () {
         formdata = JSON.parse(this.responseText);
@@ -58,10 +56,11 @@ let getformdata = () => {
     //Vilket attributvärde finns på aktuellt formulär i html(polopoly eller html-fil)? Sätt ett värde lika med namnet på json-filen som ska hämtas.
     let el = document.getElementById('kthbform')
     formid = el.getAttribute('data-formid')
-    formdataurl = 'assets/' + formid + openurlsuffix + ".json" + '?time=' + Date.now()
+    formserver = el.getAttribute('data-formserver')
+    formdataurl = formserver + '/formtools/assets/' + formid + openurlsuffix + ".json" + '?time=' + Date.now()
     xhttp.open("GET", formdataurl, true);
     xhttp.send();
-    */
+    
 
 }
 
