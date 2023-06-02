@@ -14,6 +14,7 @@ let environment;
 let formisvalid = false;
 let currentelement = "";
 let posturl
+let formserver
 let isopenurl
 let openurlsuffix = ""
 let openurlsource
@@ -41,11 +42,6 @@ let getformdata = () => {
         isopenurl = true;
         openurlsuffix = "openurl";
     }
-
-    //formdata = libraryaccount;
-    //environment = formdata.environment,
-    //generateForm(formdata)
-    //Request till Json-fil/api
     
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function () {
@@ -60,8 +56,6 @@ let getformdata = () => {
     formdataurl = formserver + '/formtools/assets/' + formid + openurlsuffix + ".json" + '?time=' + Date.now()
     xhttp.open("GET", formdataurl, true);
     xhttp.send();
-    
-
 }
 
 ////////////////////////////////////////////////////
@@ -950,7 +944,7 @@ let submitform =  (event) => {
             loaderelement.classList.add("hideelement")
             loaderelement.innerHTML = ""
         };
-        xhr.open('POST', formdata.posturl + "?language=" + language)
+        xhr.open('POST', formserver + formdata.posturl + "?language=" + language)
         
         if(formdata.type == 'upload') {
             //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
