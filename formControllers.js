@@ -539,7 +539,7 @@ async function createLibraryaccount(req, res)
         };
         return res.status(201).send(responseobject);
     } catch(err) {
-        console.log(JSON.stringify(err.response.data))
+        return res.status(400).send(err.response.data);
     }
 }
 

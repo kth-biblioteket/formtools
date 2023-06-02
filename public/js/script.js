@@ -797,7 +797,7 @@ let submitform =  (event) => {
     loaderelement.classList.remove("hideelement")
     loaderelement.innerHTML = 
     `<div class="loading">
-        <img class="loading-image" src="${formdata.loaderurl}" 
+        <img class="loading-image" src="${formserver + formdata.loaderurl}" 
             alt="${language == 'swedish' ? formdata.loaderinfo.swedish : formdata.loaderinfo.english}" />
         <div>${language == 'swedish' ? formdata.loaderinfo.swedish : formdata.loaderinfo.english}</div>
     </div>`
