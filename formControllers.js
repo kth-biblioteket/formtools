@@ -539,7 +539,12 @@ async function createLibraryaccount(req, res)
         };
         return res.status(201).send(responseobject);
     } catch(err) {
-        return res.status(400).send(err.response.data);
+        responseobject = {
+            "status" : "Error",
+            "message" : err.response.data.errorList.error[0].errorMessage
+        };
+        
+        return res.status(400).send(responseobject);
     }
 }
 
