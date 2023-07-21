@@ -42,7 +42,8 @@ let getformdata = () => {
         isopenurl = true;
         openurlsuffix = "openurl";
     }
-    
+
+    //Request till Json-fil/api
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function () {
         formdata = JSON.parse(this.responseText);
@@ -56,6 +57,7 @@ let getformdata = () => {
     formdataurl = formserver + '/formtools/assets/' + formid + openurlsuffix + ".json" + '?time=' + Date.now()
     xhttp.open("GET", formdataurl, true);
     xhttp.send();
+
 }
 
 ////////////////////////////////////////////////////
@@ -333,8 +335,19 @@ let createformfield = (field, fieldkey) => {
 
     // Lista valda filer
     if (field.type == "files") {
-                  
+        
         formhtml +=  `<div class="filelist"></div>`
+        //Skapa knappar med delete för varje tillagd fil'
+        if (dt.files.length > 0) { 
+            for(var i = 0; i < dt.files.length; i++) {
+                formhtml +=  
+                `<div>
+                    <button type="button" class="fileremovebtn btn btn-labeled btn-success"">
+                        <span id="file${i}" class="btn-label">X</span><span class="fileremovebtnname">${dt.files.item(i).name}</span>
+                    </button>
+                </div>`
+            };
+        }
     }
 
     // ---------- Slut Fälten ------------
@@ -374,6 +387,23 @@ let createformfield = (field, fieldkey) => {
 
     formhtml += `</div>`
     kthbform.innerHTML += formhtml
+    if (dt.files.length > 0) { 
+        const elgroup = document.querySelectorAll(".btn-label");
+        elgroup.forEach(el => {
+            el.addEventListener('click',function(e){
+                let name = e.target.nextElementSibling.innerText;
+                e.target.parentNode.remove();
+                for(let i = 0; i < dt.items.length; i++) {
+                    if(name === dt.items[i].getAsFile().name) {
+                        dt.items.remove(i);
+                        continue;
+                    }
+                }
+                document.querySelector('.fileupload input').files = dt.files;
+            });
+        });
+        //document.querySelector('.fileupload input').files = dt.files;
+    }
 }
 
 ////////////////////////////////////////////////////

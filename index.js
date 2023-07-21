@@ -91,6 +91,15 @@ apiRoutes.post(process.env.API_PATH + "/requestmaterial", formController.request
 // Skapa ett bibliotekskonto
 apiRoutes.post(process.env.API_PATH + "/libraryaccount", formController.createLibraryaccount)
 
+// Skicka kontaktinfo till edge
+apiRoutes.post(process.env.API_PATH + "/contact", formController.sendContactMail)
+
+// Skicka teachingactivity till edge
+apiRoutes.post(process.env.API_PATH + "/teachingactivity", formController.sendTeachingactivityMail)
+
+// Skicka literature search till edge
+apiRoutes.post(process.env.API_PATH + "/literaturesearch", formController.sendLiteraturesearchMail)
+
 // Root
 apiRoutes.get(process.env.API_PATH + "/", async function (req, res) {
     res.json("Welcome to KTH Library forms API")
@@ -113,7 +122,7 @@ apiRoutes.post(process.env.API_PATH + "/uploadfile", async function (req, res) {
             if (err)
                 return res.status(500).send(err);
             let create = await eventController.createImage(imagePath, imagename, targetFile.size, targetFile.mimetype)
-            return res.send({ status: "success", path: imagePath });
+            return res.send({ status: "Success", path: imagePath });
         });
     } catch(err) {
         res.send(err.message)
@@ -217,7 +226,7 @@ apiRoutes.post(process.env.API_PATH + "/reminder", async function (req, res) {
             //TODO
             logger.debug(JSON.stringify(err))
         }
-        res.send("success")
+        res.send("Success")
     }
 
 });

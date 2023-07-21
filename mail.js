@@ -3,7 +3,7 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const hbs = require('nodemailer-express-handlebars')
 
-async function sendmail(to, from, fromname, subject, bodytext, inlineimage = '', inlingeimagecid = '', attachments = '') {
+async function sendmail(to, from, fromname, subject, bodytext, inlineimage = '', inlingeimagecid = '', req = '') {
     const handlebarOptions = {
         viewEngine: {
             partialsDir: path.resolve('./templates/'),
@@ -32,6 +32,15 @@ async function sendmail(to, from, fromname, subject, bodytext, inlineimage = '',
 
     }
     */
+    //Lägg till eventuella attachments
+    let attachments
+    if (req.files && Object.keys(req.files).length > 0) {
+        attachments = Object.values(req.files).map((file) => ({
+            filename: file.name,
+            content: file.data,
+        }))
+    }
+
     mailoptions = {
         from: {
             name: fromname,
@@ -51,18 +60,18 @@ async function sendmail(to, from, fromname, subject, bodytext, inlineimage = '',
             session_user_choice: req.body.session_user_choice
         },
         */
+        attachments: attachments,
         generateTextFromHTML: true
     };
-
+    
     try {
-        //logger.debug(JSON.stringify(edgemailoptions))
         let contactmemailinfo = await transporter.sendMail(mailoptions);
     } catch (err) {
         //TODO
-        //logger.debug(JSON.stringify(err))
+        console.log(JSON.stringify(err))
         return err
     }
-    return "success"
+    return "Success"
 }
 
 /**

@@ -25,7 +25,7 @@ function verifyToken(req, res, next) {
             kthaccount= req.userprincipalname.split('@')[0];
             let response
             try {
-                response = await axios.get('http://' + process.env.LDAPAPIPATH + 'account/' + kthaccount + '?token=' + process.env.LDAPAPIKEYREAD, req.body)
+                response = await axios.get(process.env.LDAPAPIPATH + '/account/' + kthaccount + '?token=' + process.env.LDAPAPIKEYREAD, req.body)
             } catch(err) {
                 res.status(400).send({ auth: false, message: 'General error' + err.message });
             }

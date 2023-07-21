@@ -20,7 +20,7 @@ async function generateApp(req, res, next) {
 //Logga in via KTH LDAP
 async function login(req, res) {
     try {
-        const response = await axios.post('http://' + process.env.LDAPAPIPATH + '/login', req.body)
+        const response = await axios.post(process.env.LDAPAPIPATH + '/login', req.body)
         res
         .cookie("jwt", response.data.token, {
             maxAge: 60 * 60 * 24 * 7 * 1000,
@@ -31,6 +31,7 @@ async function login(req, res) {
         .status(200)
         .json({ message: "Success" });
     } catch(err) {
+        console.log(err)
         res.status(401)
         res.json({ message: "Error" });
     }
@@ -248,7 +249,7 @@ async function requestMaterial(req, res) {
         }
         if (send_user_mail) {
             mailresponse = await mail.sendmail(almapreferredemail, emailfromaddresslibrary, emailfromnamelibrary, emailtosubjectuser, emailtobodyuser);
-            if (mailresponse != 'success'){
+            if (mailresponse != 'Success'){
                 responseobject = {
                     "status"  : "Error",
                     "message" : mailresponse
@@ -440,7 +441,7 @@ async function createUserResourceSharingRequests(formconfig, language, request, 
         const almaresponse = await axios.post(
             process.env.ALMA_API_URL + 'users/' + user_id + `/resource_sharing_requests?override_blocks=${override}&apikey=` + process.env.ALMA_API_KEY
             , JSON.parse(rsrobject));
-        return "success";
+        return "Success";
     } catch(err) {
         return err.response.data
     }
@@ -512,7 +513,6 @@ async function createLibraryaccount(req, res)
             "status" : "Error",
             "message" : err
         };
-        bodytext
         return res.status(400).send(responseobject);
     }
 
@@ -546,6 +546,333 @@ async function createLibraryaccount(req, res)
         
         return res.status(400).send(responseobject);
     }
+}
+
+/**
+     * 
+     * Funktion som skickar Kontakta oss-mail
+     * till RT/EDGE funktionsmail
+     * 
+     * Formulärkonfig från JSON
+     *      Mailadresser och texter
+     * 
+     * Byt ut variabler (@@XXXX) i mailtexten som hämtats från formulärkonfig
+     * mot värden från request
+     * 
+     */
+async function sendContactMail(req, res) {
+    if (!req.is('json')) {
+        res
+        .status(201)
+        .send(
+        {
+            "status" : "Error",
+            "message": "Please provide JSON"
+        });
+        return
+    }
+
+    language = req.query.language ? req.query.language : "english"
+    
+    // Hämta formulärets konfig från json-fil
+    const formconfigresponse = await axios.get(process.env.FORMSCONFIG_URL + 'contact.json');
+    const formconfig = formconfigresponse.data
+
+    //Validera obligatoriska fält
+    let validateAccountRequest = [
+        query('language').notEmpty().withMessage('Language is required'),
+        body('form.name').notEmpty().withMessage('Name is required'),//Min 2
+        body('form.email').notEmpty().withMessage('Email is required'),//Min 5
+        body('form.subject').notEmpty().withMessage('Subject is required'),//Min3
+        body('form.question').notEmpty().withMessage('Question is required'),//Min5
+        //body('email').isEmail().withMessage('Invalid email'),
+        //body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+    ]
+    await Promise.all(validateAccountRequest.map((validator) => validator.run(req)));
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
+    emailtoaddressedge = formconfig.emailtoaddressedge.emailaddress;
+    emailfromaddressuser = req.body.form.email;
+    emailfromnameuser = req.body.form.name;                                   
+
+    //Nalle puh
+    if(req.body.form.phone != "") {
+        responseobject = {
+            "status" : "Error",
+            "message" : "Nalle Puh"
+        }
+        return res.status(400).send(responseobject);
+    }
+
+    try {
+        bodytext = "";
+        emailtosubjectedge = req.body.form.subject;
+        formconfig.emailtobodyedge[language].forEach(row => {
+            bodytext += row;
+        })
+    } catch(err) {
+        responseobject = {
+            "status" : "Error",
+            "message" : err
+        };
+        return res.status(400).send(responseobject);
+    }
+    
+    //Gå igenom alla fält
+    for (const field in formconfig.formfields ) {
+        bodytext = bodytext.replace('@@' + field, req.body.form[field]);
+    }
+
+    try {
+        mailresponse = await mail.sendmail(emailtoaddressedge, emailfromaddressuser, emailfromnameuser, emailtosubjectedge, bodytext);
+        if (mailresponse != 'Success'){
+            responseobject = {
+                "status"  : "Error",
+                "message" : JSON.stringify(mailresponse)
+            };
+            return res.status(400).send(responseobject);
+        }
+
+        responseobject = {
+            "status" : "Success",
+            "message" : "OK"
+        };
+        return res.status(200).send(responseobject);
+    } catch(err) {
+        responseobject = {
+            "status" : "Error",
+            "message" : JSON.stringify(err)
+        };
+        
+        return res.status(400).send(responseobject);
+    }
+}
+
+/**
+     * 
+     * Funktion som skickar ett Undervisnings-mail till
+     * RT/EDGE/Funktionsadress/emailadress
+     * 
+     * Formulärkonfig från JSON
+     *      Mailadresser och texter
+     * 
+     * Byt ut variabler (@@XXXX) i mailtexten som hämtats från formulärkonfig
+     * mot värden från request
+     */
+async function sendTeachingactivityMail(req, res) {
+    if (!req.is('json')) {
+        res
+        .status(201)
+        .send(
+        {
+            "status" : "Error",
+            "message": "Please provide JSON"
+        });
+        return
+    }
+
+    let language = req.query.language ? req.query.language : "english"
+
+    //Validera obligatoriska fält
+    let validateAccountRequest = [
+        query('language').notEmpty().withMessage('Language is required'),
+        body('form.program').notEmpty().withMessage('Name is required'),
+        body('form.semester').notEmpty().withMessage('Email is required'),
+        body('form.coursename').notEmpty().withMessage('Subject is required'),
+        body('form.coursecode').notEmpty().withMessage('Question is required'),
+        body('form.courseedition').notEmpty().withMessage('Question is required'),
+        body('form.numberofstudents').notEmpty().withMessage('Question is required'),
+        body('form.email').notEmpty().withMessage('Question is required'),
+        body('form.task').notEmpty().withMessage('Question is required'),
+        body('form.courseplan').notEmpty().withMessage('Question is required'),
+        body('form.goal').notEmpty().withMessage('Question is required'),
+        body('form.preferreddatesquestion').notEmpty().withMessage('Question is required'),
+        body('form.otherteaching').notEmpty().withMessage('Question is required'),
+        body('form.ownfacilityquestion').notEmpty().withMessage('Question is required'),
+
+        //body('email').isEmail().withMessage('Invalid email'),
+        //body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+    ]
+
+    if (req.body.preferreddatesquestion=='yes') {
+        validateAccountRequest.push(body('form.preferreddates').notEmpty().withMessage('Preferred dates is required'))
+    }
+
+    if (req.body.ownfacilityquestion=='own') {
+        validateAccountRequest.push(body('form.facility').notEmpty().withMessage('Facility is required'))
+    }
+
+    
+    await Promise.all(validateAccountRequest.map((validator) => validator.run(req)));
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
+    // Hämta formulärets konfig från json-fil
+    const formconfigresponse = await axios.get(process.env.FORMSCONFIG_URL + 'teachingactivity.json');
+    const formconfig = formconfigresponse.data
+
+    let emailtoaddressedge = formconfig.emailtoaddressedge.emailaddress;
+    let emailfromaddressuser = req.body.form.email;
+    let emailfromnameuser = req.body.form.name;                                 
+
+    try {
+        bodytext = "";
+        emailtosubjectedge = formconfig.emailtosubjectedge[language]
+        formconfig.emailtobodyedge[language].forEach(row => {
+            bodytext += row;
+        })
+    } catch(err) {
+        responseobject = {
+            "status" : "Error",
+            "message" : err
+        };
+        return res.status(400).send(responseobject);
+    }
+
+    //Gå igenom alla fält
+    for (const field in formconfig.formfields ) {
+        bodytext = bodytext.replace('@@' + field, req.body.form[field]);
+    }
+
+    //Visa inte rader/rubriker/block där information saknas.
+    if (bodytext.indexOf('showcritera=\'undefined\'') > -1) {
+        bodytext = bodytext.replace(/showcritera=\'undefined\'/g, 'style="mso-hide:all;display:none;max-height:0px;overflow:hidden;"');
+    }
+    
+    try {
+        mailresponse = await mail.sendmail(emailtoaddressedge, emailfromaddressuser, emailfromnameuser, emailtosubjectedge, bodytext);
+        if (mailresponse != 'Success'){
+            responseobject = {
+                "status"  : "Error",
+                "message" : JSON.stringify(mailresponse)
+            };
+            return res.status(400).send(responseobject);
+        }
+
+        responseobject = {
+            "status" : "Success",
+            "message" : "OK"
+        };
+        return res.status(200).send(responseobject);
+    } catch(err) {
+        responseobject = {
+            "status" : "Error",
+            "message" : JSON.stringify(err)
+        };
+        
+        return res.status(400).send(responseobject);
+    }
+}
+
+/**
+ * 
+ * Funktion som skickar ett mail till
+ * RT/EDGE/Funktionsadress
+ * 
+ * Formulärkonfig från JSON
+ *      Mailadresser och texter
+ * 
+ * Byt ut variabler (@@XXXX) i mailtexten som hämtats från formulärkonfig
+ * mot värden från request
+ */
+async function sendLiteraturesearchMail(req, res) {
+
+    let language = req.query.language ? req.query.language : "english"
+
+    // Hämta formulärets konfig från json-fil
+    const formconfigresponse = await axios.get(process.env.FORMSCONFIG_URL + 'literaturesearch.json');
+    const formconfig = formconfigresponse.data
+    //Validera obligatoriska fält
+    let validateLiteraturesearch = [
+        body('form.email').notEmpty().withMessage('Email is required'),
+    ]
+
+    let form  = JSON.parse(req.body.item);
+
+    emailtoaddressedge = formconfig.emailtoaddressedge.emailaddress;
+    emailfromaddressuser = form.email;
+    emailfromnameuser = form.name;                                 
+
+    try {
+        bodytext = "";
+        emailtosubjectedge = formconfig.emailtosubjectedge[language]
+        formconfig.emailtobodyedge[language].forEach(row => {
+            bodytext += row;
+        })
+    } catch(err) {
+        responseobject = {
+            "status" : "Error",
+            "message" : err
+        };
+        return res.status(400).send(responseobject);
+    }
+
+    //Gå igenom alla fält
+    for (const field in formconfig.formfields ) {
+        //Hantera inte files här!
+        console.log(field)
+        console.log(form[field])
+        if (field.indexOf('file') > -1) {
+            // Do nothing!
+        } else {
+            bodytext = bodytext.replace('@@' + field, form[field]);
+        }
+    }
+
+
+    //Visa inte rader/rubriker/block där information saknas.
+    //Lägg in showcritera='@@otherdelivery' i en div runt det som ska eventuellt döljas.
+    //"otherdelivery" ska motsvara nod under [formfields] i json för aktuellt formulär:
+        
+    //"formfields": {
+    // "otherdelivery": {
+    //     "label": {
+    //       "swedish": "Annat format",
+    //       "english": "Other format"
+    //     },
+    //     "value": "",
+    //     "type": "textarea",
+    //     "enabled": false,
+    //     "showcriteria": [{
+    //       "field": "deliveryoption",
+    //       "values": ["Other"]
+    //     }],
+    //     "validation": {
+    //       "required": {
+    //         "value": true,
+    //         "errormessage": {
+    //           "swedish": "måste fyllas i",
+    //           "english": "is required"
+    //         }
+    //       } 
+    //     }
+    //   }
+    // }
+
+    const regex = /<div[^>]*showcritera=[''][^>]*>.*?<\/div>/g;
+
+    bodytext = bodytext.replace(regex, '');
+    
+    console.log(bodytext)
+    mailresponse = await mail.sendmail(emailtoaddressedge, emailfromaddressuser, emailfromnameuser, emailtosubjectedge, bodytext, '','', req);
+    if (mailresponse != 'Success'){
+        responseobject = {
+            "status"  : "Error",
+            "message" : JSON.stringify(mailresponse)
+        };
+        return res.status(400).send(responseobject);
+    }
+
+    responseobject = {
+        "status" : "Success",
+        "message" : "OK"
+    };
+    return res.status(200).send(responseobject);
 }
 
 // Hjälpfunktioner
@@ -603,6 +930,9 @@ module.exports = {
     getkthschools,
     requestMaterial,
     createLibraryaccount,
+    sendContactMail,
+    sendTeachingactivityMail,
+    sendLiteraturesearchMail,
     substrInBetween,
     truncate
 };

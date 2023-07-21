@@ -1,5 +1,6 @@
 {
   "id": "contact",
+  "type": "default",
   "name": "Kontakta biblioteket",
   "header": {
     "swedish": "Kontakta oss",

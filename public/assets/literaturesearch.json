@@ -7,6 +7,7 @@
     "english": "Book a literature search"
   },
   "status": "open",
+  "environment": "development",
   "description": {
     "open": {
       "swedish": "",
@@ -17,8 +18,8 @@
       "english": "Closed"
     }
   },
-  "posturl": "/webservices/kthbforms/api/v1/literaturesearch",
-  "loaderurl": "/kthbforms/assets/ajax_loader_blue_512.gif",
+  "posturl": "/formtools/api/v1/literaturesearch",
+  "loaderurl": "/formtools/images/ajax_loader_blue_512.gif",
   "loaderinfo": {
     "swedish": "Skickar...",
     "english": "Sending..."
@@ -44,7 +45,7 @@
     }
   },
   "emailtoaddressedge": {
-    "emailaddress": "biblioteket@kth.se",
+    "emailaddress": "tholind@kth.se",
     "name": {
       "swedish": "EDGE",
       "english": "EDGE"
@@ -83,7 +84,7 @@
       "<div><h3>Contact details</h3></div>",
       "<div>Name: @@name</div>",
       "<div>Phone: @@phone</div>",
-      "<div>E-mail: @@mail</div>",
+      "<div>E-mail: @@email</div>",
       "<div><h3>Subject: </h3></div>",
       "<div>@@subject</div>",
       "<div><h3>Publication type: </h3><br> @@publicationtype</div>",
