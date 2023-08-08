@@ -358,9 +358,10 @@ let createformfield = (field, fieldkey) => {
     // ---------- Slut Fälten ------------
 
     // Om placement=after
+    // Eventuell extra information/beskrivning med länk under
     if (field.description && field.description.placement=='after') {
         formhtml +=  `<div class="alert alert-info ${field.type=='informationboxalert' ? 'relativeposition' : ''} ${field.type=='informationbox' ? 'informationbox' : ''}">`
-        // Eventuell extra information/beskrivning
+        
         formhtml += 
         `<div>
             ${language == 'swedish' ? field.description.swedish : field.description.english}
@@ -380,7 +381,23 @@ let createformfield = (field, fieldkey) => {
             </div>`
         }
         formhtml += `</div>`
+    } else {
+        // Eventuell länk
+        if (field.link && field.link.placement=='after') {
+            if(field.link.type == 'relative') {
+                linkprefix = formserver;
+            } else {
+                linkprefix = '';
+            }
+            formhtml += 
+            `<div class="extrainfoafterlink">
+                <a target="_new" href="${linkprefix}${language == 'swedish' ? field.link.swedish.url : field.link.english.url}">
+                    ${language == 'swedish' ? field.link.swedish.text : field.link.english.text}
+                </a>
+            </div>`
+        }
     }
+    
 
     //Skicka-knapp
     if (field.type == "button") {
