@@ -167,7 +167,7 @@ jsonuser += `,
             //Block och födelsedatum för icke svensk
             if (requestInput[requestInputkey]['otherinfo'] == '18_not_swedish') {
                 jsonuser += `,
-                "birth_date": "${requestInput[requestInputkey]['birthdate'] ? requestInput[requestInputkey]['birthdate'] : ""}Z",
+                "birth_date": "${formatDate(new Date(requestInput[requestInputkey]['birthdate']))} ? ${formatDate(new Date(requestInput[requestInputkey]['birthdate']))} : ""}Z",
                 "user_block": [
                     {
                         "block_type": {
