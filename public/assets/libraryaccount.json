@@ -299,10 +299,10 @@
           }
         },
         "pattern": {
-          "value": "^[0-9]{8}$",
+          "value": "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$",
           "errormessage": {
-            "swedish": "måste vara ett godkänt datum(ååååmmdd)",
-            "english": "must be valid date(yyyymmdd)"
+            "swedish": "måste vara ett godkänt datum(åååå-mm-dd)",
+            "english": "must be valid date(yyyy-mm-dd)"
           }
         }
       }
