@@ -237,6 +237,7 @@ app.use(process.env.APP_PATH, apiRoutes);
 // Skapa server
 const server = app.listen(process.env.PORT || 3002, function () {
     const port = server.address().port;
+    console.log(new Date().toLocaleString());
     console.log("App now running on port", port);
 });
 

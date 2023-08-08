@@ -27,8 +27,8 @@
       "english": "Closed for maintenance"
     }
   },
-  "posturl": "/webservices/kthbforms/api/v1/requestmaterial",
-  "loaderurl": "/kthbforms/assets/ajax_loader_blue_512.gif",
+  "posturl": "/formtools/api/v1/requestmaterial",
+  "loaderurl": "/formtools/images/ajax_loader_blue_512.gif",
   "loaderinfo": {
     "swedish": "Skickar beställning...",
     "english": "Sending request..."
@@ -529,6 +529,7 @@
         "english": "To be able to order material you need to be registered as a user in the library system."
       },
       "link": {
+        "type": "absolute",
         "placement": "after",
         "swedish" : {
           "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/logga-in-registrera-dig-1.853001",
@@ -667,6 +668,7 @@
         "english": "If we need to borrow the book from a library outside the Nordic countries there will be a fee."
       },
       "link": {
+        "type": "absolute",
         "placement": "after",
         "swedish" : {
           "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/prislista-1.856222",
@@ -703,6 +705,7 @@
         "english": "Article requests are subject to a fee."
       },
       "link": {
+        "type": "absolute",
         "placement": "after",
         "swedish" : {
           "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/prislista-1.856222",
@@ -739,6 +742,7 @@
         "english": "A requests for a chapter in a book can be subject to a fee."
       },
       "link": {
+        "type": "absolute",
         "placement": "after",
         "swedish" : {
           "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/prislista-1.856222",
@@ -831,6 +835,7 @@
         "english": "Book loans for companies are subject to a fee."
       },
       "link": {
+        "type": "absolute",
         "placement": "after",
         "swedish" : {
           "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/prislista-1.856222",
@@ -867,6 +872,7 @@
         "english": "Article requests for companies are subject to a fee."
       },
       "link": {
+        "type": "absolute",
         "placement": "after",
         "swedish" : {
           "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/prislista-1.856222",
@@ -978,6 +984,7 @@
         "english": "As a company you can only request journals from the KTH Library stacks. These are subject to a fee."
       },
       "link": {
+        "type": "absolute",
         "placement": "after",
         "swedish" : {
           "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/prislista-1.856222",

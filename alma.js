@@ -12,11 +12,11 @@ async function createUser(requestInput){
     const expiry_date = formatDate(addYears(new Date(), 2));
     const start_date = formatDate(addYears(new Date(), 0));
     console.log(start_date.toString())
-    requestInputkey='form';
-    usergroup = '30';
+    let requestInputkey='form';
+    let usergroup = '30';
     if (requestInput[requestInputkey]['otherinfo']) {
         if (requestInput[requestInputkey]['otherinfo'] == 'scania') {
-            $usergroup = '43';
+            usergroup = '43';
         }
     }
     jsonuser = `
@@ -97,7 +97,7 @@ async function createUser(requestInput){
             
             if (requestInput[requestInputkey]['phone2']) {
                 if (requestInput[requestInputkey]['phone2'] != '') {
-        jsonuser += `,
+    jsonuser += `,
                     {
                         "preferred": true,
                         "phone_number": "${requestInput[requestInputkey]['phone2'] ? requestInput[requestInputkey]['phone2'] : ""}",
@@ -132,7 +132,7 @@ async function createUser(requestInput){
         if (requestInput[requestInputkey]['otherinfo']) {
             //Note för de som har borgensförbindelse
             if (requestInput[requestInputkey]['otherinfo'] == '16_18' || requestInput[requestInputkey]['otherinfo'] == '18_not_swedish') {
-jsonuser += `,
+    jsonuser += `,
             "user_note": [
                 {
                     "segment_type": "Internal",
@@ -150,7 +150,7 @@ jsonuser += `,
             }
             //Block för under 18
             if (requestInput[requestInputkey]['otherinfo'] == '16_18') {
-jsonuser += `,
+    jsonuser += `,
             "user_block": [
                     {
                         "block_type": {
@@ -166,7 +166,7 @@ jsonuser += `,
             }
             //Block och födelsedatum för icke svensk
             if (requestInput[requestInputkey]['otherinfo'] == '18_not_swedish') {
-                jsonuser += `,
+    jsonuser += `,
                 "birth_date": "${formatDate(new Date(requestInput[requestInputkey]['birthdate'])) ? formatDate(new Date(requestInput[requestInputkey]['birthdate'])) : ""}Z",
                 "user_block": [
                     {
@@ -196,19 +196,17 @@ jsonuser += `,
                 ]`
             }
         }
-jsonuser += '}';
+    jsonuser += '}';
     
-    console.log(jsonuser);
     const almaresponse = await axios.post(
         process.env.ALMA_API_URL + 'users?apikey=' + process.env.ALMA_API_KEY, 
         JSON.parse(jsonuser));
     return almaresponse;
 }
 
-//Helpfunction
+//Helpfunctions
 function addYears(date, years) {
     date.setFullYear(date.getFullYear() + years);
-  
     return date;
 }
 
@@ -216,7 +214,6 @@ function formatDate(date = new Date()) {
     const year = date.toLocaleString('default', {year: 'numeric'});
     const month = date.toLocaleString('default', {month: '2-digit'});
     const day = date.toLocaleString('default', {day: '2-digit'});
-  
     return [year, month, day].join('-');
 }
 

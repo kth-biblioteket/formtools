@@ -190,10 +190,15 @@ let createformfield = (field, fieldkey) => {
 
     // Eventuell länk
     if (field.link && field.link.placement=='before') {
+        if(field.link.type == 'relative') {
+            linkprefix = formserver + '/';
+        } else {
+            linkprefix = '';
+        }
         formhtml += 
         `<div class="extrainfobeforelink">
-            <a target="_new" href="${language == 'swedish' ? field.link.swedish.url : field.link.english.url}">
-                ${language == 'swedish' ? field.link.swedish.text : field.link.english.text}
+            <a target="_new" href="${linkprefix}${language == 'swedish' ? field.link.swedish.url : field.link.english.url}">
+                ${linkprefix}${language == 'swedish' ? field.link.swedish.text : field.link.english.text}
             </a>
             
         </div>`
@@ -362,10 +367,15 @@ let createformfield = (field, fieldkey) => {
         </div>`
         // Eventuell länk
         if (field.link && field.link.placement=='after') {
+            if(field.link.type == 'relative') {
+                linkprefix = formserver + '/';
+            } else {
+                linkprefix = '';
+            }
             formhtml += 
             `<div class="extrainfoafterlink">
-                <a target="_new" href="${language == 'swedish' ? field.link.swedish.url : field.link.english.url}">
-                    ${language == 'swedish' ? field.link.swedish.text : field.link.english.text}
+                <a target="_new" href="${linkprefix}${language == 'swedish' ? field.link.swedish.url : field.link.english.url}">
+                ${linkprefix}${language == 'swedish' ? field.link.swedish.text : field.link.english.text}
                 </a>
             </div>`
         }

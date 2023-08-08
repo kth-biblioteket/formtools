@@ -150,13 +150,14 @@
         "english": "If you are between 16 and 18 years old and not affiliated with KTH you need to fill out a guarantee form. This also applies if you are not registered as a Swedish resident. Anyone who stands surety must be working and registered in Sweden and over 18 years old. The guarantor must be present when the library card is issued and must show a valid ID."
       },
       "link": {
+        "type": "relative",
         "placement": "after",
         "swedish" : {
-          "url": "https://apps.lib.kth.se/kthbforms/assets/borgensforbindelse.pdf",
+          "url": "/formtools/assets/borgensforbindelse.pdf",
           "text": "Ladda ner borgensförbindelse"
         },
         "english" : {
-          "url": "https://apps.lib.kth.se/kthbforms/assets/borgensforbindelse.pdf",
+          "url": "/formtools/assets/borgensforbindelse.pdf",
           "text": "Download the guarantee form"
         }
       },
@@ -532,6 +533,7 @@
         "english": "I accept the KTH Library terms of use."
       },
       "link": {
+        "type": "absolute",
         "placement": "after",
         "swedish" : {
           "url": "https://www.kth.se/biblioteket/anvanda-biblioteket/anvandarvillkor-1.854843",
