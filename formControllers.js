@@ -225,7 +225,7 @@ async function requestMaterial(req, res) {
         }
         if (create_request) {
             let almarequest =  await createUserResourceSharingRequests(formconfig, req.query.language, request, request, citation_type, format, request.form.username, 'true');
-            if (almarequest != 'success') {
+            if (almarequest != 'Success') {
                 if(JSON.stringify(almarequest).indexOf('Patron has duplicate') > -1) {
                     if (req.query.language == 'swedish') {
                         return res.status(400).send({'message': 'Du har redan gjort en beställning av detta material.'});

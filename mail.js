@@ -65,7 +65,7 @@ async function sendmail(to, from, fromname, subject, bodytext, inlineimage = '',
     };
     
     try {
-        let contactmemailinfo = await transporter.sendMail(mailoptions);
+        let sendmailresult = await transporter.sendMail(mailoptions);
     } catch (err) {
         //TODO
         console.log(JSON.stringify(err))
