@@ -198,7 +198,7 @@ jsonuser += `,
         }
 jsonuser += '}';
     
-    //Log::info(print_r($jsonuser, true));
+    console.log(jsonuser);
     const almaresponse = await axios.post(
         process.env.ALMA_API_URL + 'users?apikey=' + process.env.ALMA_API_KEY, 
         JSON.parse(jsonuser));
