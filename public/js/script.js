@@ -198,7 +198,7 @@ let createformfield = (field, fieldkey) => {
         formhtml += 
         `<div class="extrainfobeforelink">
             <a target="_new" href="${linkprefix}${language == 'swedish' ? field.link.swedish.url : field.link.english.url}">
-                ${linkprefix}${language == 'swedish' ? field.link.swedish.text : field.link.english.text}
+                ${language == 'swedish' ? field.link.swedish.text : field.link.english.text}
             </a>
             
         </div>`
@@ -375,7 +375,7 @@ let createformfield = (field, fieldkey) => {
             formhtml += 
             `<div class="extrainfoafterlink">
                 <a target="_new" href="${linkprefix}${language == 'swedish' ? field.link.swedish.url : field.link.english.url}">
-                ${linkprefix}${language == 'swedish' ? field.link.swedish.text : field.link.english.text}
+                    ${language == 'swedish' ? field.link.swedish.text : field.link.english.text}
                 </a>
             </div>`
         }
