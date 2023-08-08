@@ -143,7 +143,7 @@ jsonuser += `,
                     "user_viewable": false,
                     "popup_note": true,
                     "created_by": "kthb_forms",
-                    "created_date": "${new Date().toLocaleDateString()}Z",
+                    "created_date": "${formatDate(new Date())}Z",
                     "note_owner": ""
                 }
             ]`
