@@ -175,9 +175,9 @@ let createformfield = (field, fieldkey) => {
     }
 
     //Felmeddelanden vid ogiltigt/inte ifyllt
-        formhtml += 
-        `<div class="error hideelement" id="invalid_${fieldkey}">
-        </div>`
+    formhtml += 
+    `<div class="error hideelement" id="invalid_${fieldkey}">
+    </div>`
 
     // Om placement=before
     // Eventuell extra information/beskrivning
