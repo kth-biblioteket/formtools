@@ -368,7 +368,7 @@ let createformfield = (field, fieldkey) => {
         // Eventuell länk
         if (field.link && field.link.placement=='after') {
             if(field.link.type == 'relative') {
-                linkprefix = formserver + '/';
+                linkprefix = formserver;
             } else {
                 linkprefix = '';
             }
