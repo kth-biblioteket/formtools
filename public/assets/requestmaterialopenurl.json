@@ -369,7 +369,7 @@
             "english": "Student at KTH"
           },
           "value": "student",
-          "enabled": false,
+          "enabled": true,
           "showcriteria": [{
             "field": "genre",
             "values": ["any"]
@@ -381,7 +381,7 @@
             "english": "Staff/Doctoral student at KTH"
           },
           "value": "employee",
-          "enabled": false,
+          "enabled": true,
           "showcriteria": [{
             "field": "genre",
             "values": ["any"]
@@ -393,7 +393,7 @@
             "english": "Company located in Sweden"
           },
           "value": "business",
-          "enabled": false,
+          "enabled": true,
           "showcriteria": [{
             "field": "genre",
             "values": ["book", "article", "journal"]
