@@ -912,7 +912,6 @@ let submitform =  (event) => {
             if (xhr.status == 200 || xhr.status == 201) {
                 backendresponse = true;
                 backendresult = true;
-                backendresulterror = JSON.parse(xhr.responseText).message;
                 loading = false;
                 formsubmitted = false;
                 let resultelement = document.getElementById("backendresponse")
@@ -928,7 +927,6 @@ let submitform =  (event) => {
                     <div>
                         ${language == 'swedish' ? formdata.postresponseinfo.text.swedish : formdata.postresponseinfo.text.english}
                     </div>
-                    ${backendresulterror}
                 </div>`
                 window.scroll(0,0);
                 kthbform.reset();
@@ -943,7 +941,7 @@ let submitform =  (event) => {
                 backendresponse = true;
                 backendresult = true;
                 warning = true;
-                backendresulterror = JSON.parse(xhr.responseText).message.response;
+                rejectedemail = JSON.parse(xhr.responseText).message.rejected[0];
                 loading = false;
                 formsubmitted = false;
                 let resultelement = document.getElementById("backendresponse")
@@ -959,7 +957,9 @@ let submitform =  (event) => {
                     <div>
                         ${language == 'swedish' ? formdata.postresponseinfo.text.swedish : formdata.postresponseinfo.text.english}
                     </div>
-                    ${backendresulterror}
+                    <div>
+                        ${language == 'swedish' ? 'Det gick inte att skicka mail till adressen du angav: ' + rejectedemail : 'It was not possible to send an email to the address you provided: ' + rejectedemail}
+                    </div>
                 </div>`
                 window.scroll(0,0);
                 kthbform.reset();
