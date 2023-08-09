@@ -164,6 +164,7 @@ async function createmailbody(formconfig, bodytext, genre, cost, fullname, almap
 
     if (bodytext.indexOf('showcritera=\'undefined\'') > -1) {
         bodytext = bodytext.replace(/showcritera=\'undefined\'/g, 'style="mso-hide:all;display:none;max-height:0px;overflow:hidden;"');
+        bodytext = bodytext.replace(/undefined/g, '');
     }
     return bodytext;
 }
