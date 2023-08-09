@@ -765,14 +765,14 @@ let validatefield = (field_id) => {
     if(formdata.formfields[field_id].validation.required.value) {
         //Fältet måste ha ett ifyllt värde
         if(formdata.formfields[field_id].value == '') {
-            el.innerHTML = formdata.formfields[field_id].validation.required.errormessage[lang]
+            el.innerHTML = formdata.formfields[field_id].validation.required.errormessage[language]
             el.classList.remove("hideelement")
             validfield = false
         } else {
             //Värdet måste matcha ett visst mönster(exvis email, personnummer etc)
             if (formdata.formfields[field_id].validation.pattern) { 
                 if (!formdata.formfields[field_id].value.match(formdata.formfields[field_id].validation.pattern.value)) {
-                    el.innerHTML = formdata.formfields[field_id].validation.pattern.errormessage[lang]
+                    el.innerHTML = formdata.formfields[field_id].validation.pattern.errormessage[language]
                     el.classList.remove("hideelement")
                     validfield = false
                 }
