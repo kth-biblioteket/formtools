@@ -262,7 +262,7 @@ async function requestMaterial(req, res) {
             "status" : "Success",
             "message" : "Request created"
         }
-        return res.status(202).send(responseobject);
+        return res.status(201).send(responseobject);
         //return response()->json($responseobject, 201,[],JSON_UNESCAPED_UNICODE);
     } catch (err) {
         if(typeof err.response.data == 'string') {
