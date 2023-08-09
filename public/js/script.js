@@ -47,13 +47,13 @@ let getformdata = () => {
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function () {
         formdata = JSON.parse(this.responseText);
-        environment = formdata.environment,
         generateForm(formdata)
     }
     //Vilket attributvärde finns på aktuellt formulär i html(polopoly eller html-fil)? Sätt ett värde lika med namnet på json-filen som ska hämtas.
     let el = document.getElementById('kthbform')
     formid = el.getAttribute('data-formid')
     formserver = el.getAttribute('data-formserver')
+    environment = el.getAttribute('data-environment') || 'production' 
     formdataurl = formserver + '/formtools/assets/' + formid + openurlsuffix + ".json" + '?time=' + Date.now()
     xhttp.open("GET", formdataurl, true);
     xhttp.send();
