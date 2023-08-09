@@ -99,7 +99,7 @@ async function requestMaterial(req, res) {
         // Hämta användaren från Alma (catch error om användaren inte existerar)
         const almauser = await axios.get(process.env.ALMA_API_URL + 'users/' + req.body.form.username + '?apikey=' + process.env.ALMA_API_KEY);
         const almauserobject = almauser.data
-        let almafullname = almauser.full_name;
+        let almafullname = almauserobject.full_name;
         let almapreferredemail ='';
         almauserobject.contact_info.email.forEach(email => {
             if (email.preferred) {
