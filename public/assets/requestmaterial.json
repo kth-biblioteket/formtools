@@ -597,7 +597,7 @@
             "field": "iam",
             "values": ["student","employee"]
           }],
-	  "documentation": [
+	        "documentation": [
             "Ta bort/lägg till student när enbart anställda får beställa materialtypen, I fältet showcriteria, values"
           ]
         },

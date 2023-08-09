@@ -396,7 +396,7 @@
           "enabled": true,
           "showcriteria": [{
             "field": "genre",
-            "values": ["book", "article", "journal"]
+            "values": ["book", "article"]
           }]
         },
         {
@@ -408,7 +408,7 @@
           "enabled": false,
           "showcriteria": [{
             "field": "genre",
-            "values": ["book", "article", "journal"]
+            "values": ["none"]
           }]
         }
       ],

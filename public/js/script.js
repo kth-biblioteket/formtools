@@ -76,7 +76,8 @@ let generateForm = (formdata) => {
     optionalfieldtext = formdata.optionalfieldtext;
     let iskiosk = formdata.iskiosk;
     let minDate;
-
+    let validopenurl = false
+    let validform = true
     
     for (let prop of Object.keys(formdata.formfields)) {
         // Lägg till ett värde för "honeypot-fält"
@@ -100,54 +101,76 @@ let generateForm = (formdata) => {
     if(isopenurl) {
         let openurlboxhtml = ""
         openurljson = openurlparametersToJSON(formdata, openurlsource);
-        //Hantera kapitel i bok/artikel(båda har nämligen atitle som titel)
-        //ctitle sätts först(först i listan av formfields)
-        if(openurljson['ctitle'] != '' && openurljson['genre'] == 'article') { 
-          openurljson['atitle'] = openurljson['ctitle'];
-          openurljson['ctitle'] = '';
+        //Kolla om angiven genre från openurl finns bland genre options i formdata(formfields.genre.options[x].value)
+        for (i=0;i<formdata.formfields.genre.options.length;i++) {
+            if(formdata.formfields.genre.options[i].value == openurljson.genre) {
+                validopenurl = true
+                break;
+            }
         }
+        if(validopenurl) {
+            //Hantera kapitel i bok/artikel(båda har nämligen atitle som titel)
+            //ctitle sätts först(först i listan av formfields)
+            if(openurljson['ctitle'] != '' && openurljson['genre'] == 'article') { 
+            openurljson['atitle'] = openurljson['ctitle'];
+            openurljson['ctitle'] = '';
+            }
 
-        //Skapa HTML för att skriva ut "beställningen" i en ruta överst på sidan.
-        openurlboxhtml = 
-        `<label>${language=='swedish' ? formdata.openurlboxlabel.swedish : formdata.openurlboxlabel.english}</label>
-            <div class="card">
-                <div class="card-body">`
-                    for(const key in formdata.formfields) {
-                        if (formdata.formfields[key].openurl) {
-                            if(openurljson[formdata.formfields[key].openurlnames['standard']]) {
-                                formdata.formfields[key].value = openurljson[formdata.formfields[key].openurlnames['standard']];
-                                
-                                //formdata.formfields[key].enabled = true;
-                                
-                                openurlboxhtml += `<div>`
-                                if( formdata.formfields[key].openurl ) {
+            //Skapa HTML för att skriva ut "beställningen" i en ruta överst på sidan.
+            openurlboxhtml = 
+            `<label>${language=='swedish' ? formdata.openurlboxlabel.swedish : formdata.openurlboxlabel.english}</label>
+                <div class="card">
+                    <div class="card-body">`
+                        for(const key in formdata.formfields) {
+                            if (formdata.formfields[key].openurl) {
+                                if(openurljson[formdata.formfields[key].openurlnames['standard']]) {
+                                    formdata.formfields[key].value = openurljson[formdata.formfields[key].openurlnames['standard']];
+                                    
+                                    //formdata.formfields[key].enabled = true;
+                                    
                                     openurlboxhtml += `<div>`
-                                    if ( openurljson[formdata.formfields[key].openurlnames['standard']] != null && openurljson[formdata.formfields[key].openurlnames['standard']] != '' && key=='genre'  ) {
-                                        openurlboxhtml += `<strong>${language=='swedish' ? formdata.formfields[key].label.swedish: formdata.formfields[key].label.english}:</strong> ${language=='swedish' ? formdata.genrenames[openurljson[formdata.formfields[key].openurlnames['standard']]].swedish : formdata.genrenames[openurljson[formdata.formfields[key].openurlnames['standard']]].english }`
-                                    }
-                                    if ( openurljson[formdata.formfields[key].openurlnames['standard']] != null && openurljson[formdata.formfields[key].openurlnames['standard']] != '' && key!='genre'  ) {
-                                        openurlboxhtml += `<strong>${language=='swedish' ? formdata.formfields[key].label.swedish: formdata.formfields[key].label.english}:</strong> ${ openurljson[formdata.formfields[key].openurlnames['standard']] }`
+                                    if( formdata.formfields[key].openurl ) {
+                                        openurlboxhtml += `<div>`
+                                        if ( openurljson[formdata.formfields[key].openurlnames['standard']] != null && openurljson[formdata.formfields[key].openurlnames['standard']] != '' && key=='genre'  ) {
+                                            openurlboxhtml += `<strong>${language=='swedish' ? formdata.formfields[key].label.swedish: formdata.formfields[key].label.english}:</strong> ${language=='swedish' ? formdata.genrenames[openurljson[formdata.formfields[key].openurlnames['standard']]].swedish : formdata.genrenames[openurljson[formdata.formfields[key].openurlnames['standard']]].english }`
+                                        }
+                                        if ( openurljson[formdata.formfields[key].openurlnames['standard']] != null && openurljson[formdata.formfields[key].openurlnames['standard']] != '' && key!='genre'  ) {
+                                            openurlboxhtml += `<strong>${language=='swedish' ? formdata.formfields[key].label.swedish: formdata.formfields[key].label.english}:</strong> ${ openurljson[formdata.formfields[key].openurlnames['standard']] }`
+                                        }
+                                        openurlboxhtml += `</div>`
                                     }
                                     openurlboxhtml += `</div>`
                                 }
-                                openurlboxhtml += `</div>`
                             }
                         }
-                    }
-        openurlboxhtml += `</div>`
-        openurlboxhtml += `</div>`
-        let el = document.getElementById('openurlbox')
-        el.innerHTML = openurlboxhtml
-    }
-
-    // Skapa fälten
-    for (const key in formdata.formfields) {
-        if (key != 'source') {
-            createformfield(formdata.formfields[key], key)
+            openurlboxhtml += `</div>`
+            openurlboxhtml += `</div>`
+            let el = document.getElementById('openurlbox')
+            el.innerHTML = openurlboxhtml
+        } else {
+            openurlboxhtml = 
+                `<label>${language=='swedish' ? formdata.openurlboxlabel.swedish : formdata.openurlboxlabel.english}</label>
+                <div class="card">
+                    <div class="card-body">
+                        Invalid genre: ${openurljson.genre}
+                    </div>
+                </div>`
+                let el = document.getElementById('openurlbox')
+                el.innerHTML = openurlboxhtml
+                validform = false
         }
     }
-    let formisinit = true;
-    createlisteners()
+
+    if (validform) {
+        // Skapa fälten
+        for (const key in formdata.formfields) {
+            if (key != 'source') {
+                createformfield(formdata.formfields[key], key)
+            }
+        }
+        let formisinit = true;
+        createlisteners()
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -980,7 +1003,6 @@ let submitform =  (event) => {
                 backendresponse = true;
                 backendresult = false;
                 backendresulterror = JSON.parse(xhr.responseText).message;
-                console.log(backendresulterror)
                 loading = false;
                 let resultelement = document.getElementById("backendresponse")
                 resultelement.classList.add('alert-danger')
