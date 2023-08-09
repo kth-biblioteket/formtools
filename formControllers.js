@@ -198,7 +198,7 @@ async function requestMaterial(req, res) {
             case 'LeanLibrary':
             // Beställning från Primo(openurl)    
             case 'primo':
-                if (request.form.genre == 'journal') {
+                if (request.form.genre == 'journal' || request.form.genre == 'database') {
                     create_request = false
                     send_edge_mail = true
                     send_user_mail = false
@@ -213,7 +213,7 @@ async function requestMaterial(req, res) {
                 if (request.form.genre == 'journal' || request.form.genre == 'database') {
                     create_request = false
                     send_edge_mail = true
-                    send_user_mail = true
+                    send_user_mail = false
                 } else {
                     create_request = true
                     send_edge_mail = false
