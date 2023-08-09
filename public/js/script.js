@@ -133,6 +133,7 @@ let generateForm = (formdata) => {
         openurlboxhtml += `</div>`
         let el = document.getElementById('openurlbox')
         el.innerHTML = openurlboxhtml
+        showhidefields()
     }
 
     // Skapa fälten
@@ -579,6 +580,18 @@ let onchangeformobject = (domobj, key, _event) => {
         }
     }
 
+    showhidefields()
+
+    generateForm(formdata)
+
+    // Validera formulär(endast efter ett första försök att skicka)
+    if (is_submitted_once) {
+        validateform()
+    }
+    
+}
+
+let showhidefields = () => {
     //Gå igenom alla formfields, visa/dölj beroende på showcriterias 
     for (let prop of Object.keys(formdata.formfields)) {
         show = false;
@@ -667,14 +680,6 @@ let onchangeformobject = (domobj, key, _event) => {
             
         }
     }
-
-    generateForm(formdata)
-
-    // Validera formulär(endast efter ett första försök att skicka)
-    if (is_submitted_once) {
-        validateform()
-    }
-    
 }
 
 ////////////////////////////////////////////////////
