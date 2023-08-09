@@ -110,7 +110,7 @@ async function createmailbody(formconfig, bodytext, genre, cost, fullname, almap
     }
 
     //hantera författarnamn
-    let author = "";
+    let author = "undefined";
     if(request.form.genre == 'book' || request.form.genre == 'article' || request.form.genre == 'bookitem' ) {
         if (request.form.au == '') {
             author = request.form.aulast + ', ' + request.form.aufirst;
