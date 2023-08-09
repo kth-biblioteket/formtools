@@ -1040,7 +1040,8 @@ let submitform =  (event) => {
 language = urlParams.get('language')  || "english"
 
 //Polopoly language
-if ($('html').attr('lang').indexOf('en')!= -1) {
+
+if (document.querySelector("html").getAttribute('lang').indexOf('en')!= -1) {
     language = 'english'
 } else {
     language = 'swedish'
