@@ -765,7 +765,7 @@ let validatefield = (field_id) => {
     if(formdata.formfields[field_id].validation.required.value) {
         //Fältet måste ha ett ifyllt värde
         if(formdata.formfields[field_id].value == '') {
-            el.innerHTML = formdata.formfields[field_id].validation.required.errormessage[language]
+            el.innerHTML = formdata.formfields[field_id].label[language] + ' ' + formdata.formfields[field_id].validation.required.errormessage[language]
             el.classList.remove("hideelement")
             validfield = false
         } else {
