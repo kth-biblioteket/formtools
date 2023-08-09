@@ -943,7 +943,7 @@ let submitform =  (event) => {
                 backendresponse = true;
                 backendresult = true;
                 warning = true;
-                backendresulterror = JSON.parse(xhr.responseText).message;
+                backendresulterror = JSON.parse(xhr.responseText).message.response;
                 loading = false;
                 formsubmitted = false;
                 let resultelement = document.getElementById("backendresponse")
