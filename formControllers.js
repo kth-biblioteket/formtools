@@ -1,6 +1,7 @@
 const mail = require('./mail');
 const alma = require('./alma');
 const axios = require('axios')
+const fs = require('fs')
 
 const { body, query, validationResult } = require('express-validator');
 
@@ -95,7 +96,6 @@ async function requestMaterial(req, res) {
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-
         // Hämta användaren från Alma (catch error om användaren inte existerar)
         const almauser = await axios.get(process.env.ALMA_API_URL + 'users/' + req.body.form.username + '?apikey=' + process.env.ALMA_API_KEY);
         const almauserobject = almauser.data
@@ -108,7 +108,7 @@ async function requestMaterial(req, res) {
         });
         
         // Hämta hämtbibliotek från Alma (catch error om bibliotek inte existerar)
-        let almalibraryname = "";
+        let almalibraryname = "undefined";
         if(req.body.form.pickup) {
             const library = await axios.get(process.env.ALMA_API_URL + 'conf/libraries/' + req.body.form.pickup + '?apikey=' + process.env.ALMA_API_KEY);
             const almalibraryobject = library.data;
@@ -119,10 +119,10 @@ async function requestMaterial(req, res) {
             }
             almalibraryname = almalibraryobject.description;
         }
-
         // Hämta formulärets konfig från json-fil
-        const formconfigresponse = await axios.get(process.env.FORMSCONFIG_URL + 'requestmaterial.json');
-        const formconfig = formconfigresponse.data
+        const formconfigresponse = fs.readFileSync(process.env.FORMSCONFIG_URL + 'requestmaterial.json', { encoding: 'utf8' });
+        //const formconfigresponse = await axios.get(process.env.FORMSCONFIG_URL + 'requestmaterial.json');
+        const formconfig = JSON.parse(formconfigresponse)
         let emailtoaddressedge = formconfig.emailtoaddressedge.emailaddress;
         let emailfromaddresslibrary = formconfig.emailfromaddresslibrary.emailaddress;
         let emailfromnamelibrary = formconfig.emailfromaddresslibrary.name[req.body.language];
@@ -140,7 +140,7 @@ async function requestMaterial(req, res) {
 
         //hantera kostnader som behöver accepteras/avböjas (TODO ändra till generell costs?)
         //Vad som ska stå i mailsvaret
-        let cost="";
+        let cost='undefined';
         for (const key in req.body.form) {
             if(req.body.form[key] == 'acceptcost' || req.body.form[key] == 'contact' || req.body.form[key] == 'decline') {
                 formconfig.formfields[key].options.forEach((option) => {
@@ -183,7 +183,6 @@ async function requestMaterial(req, res) {
         let request = req.body
         emailtobodyedge = await mail.createmailbody(formconfig, emailtobodyedge, genre, cost, almafullname, almapreferredemail, almalibraryname, request, req.query.language);
         emailtobodyuser = await mail.createmailbody(formconfig, emailtobodyuser, genre, cost, almafullname, almapreferredemail, almalibraryname, request, req.query.language);
-
         // Skicka beställing och/eller mail beroende på källa och materialtyp
         let create_request = false
         let send_edge_mail = false
@@ -242,7 +241,7 @@ async function requestMaterial(req, res) {
             if (mailresponse != 'Success'){
                 responseobject = {
                     "status"  : "Error",
-                    "message" : mailresponse
+                    "message" : JSON.stringify(mailresponse)
                 };
                 return res.status(400).send(responseobject);
             }
@@ -252,7 +251,7 @@ async function requestMaterial(req, res) {
             if (mailresponse != 'Success'){
                 responseobject = {
                     "status"  : "Error",
-                    "message" : mailresponse
+                    "message" : JSON.stringify(mailresponse)
                 };
                 return res.status(202).send(responseobject);
             }
@@ -265,6 +264,7 @@ async function requestMaterial(req, res) {
         return res.status(201).send(responseobject);
         //return response()->json($responseobject, 201,[],JSON_UNESCAPED_UNICODE);
     } catch (err) {
+        //console.log(err)
         if(typeof err.response.data == 'string') {
             if(err.response.data.indexOf('SERVICE_NOT_FOUND') > -1) {
                 res.status(400).send('SERVICE_NOT_FOUND');
@@ -815,8 +815,6 @@ async function sendLiteraturesearchMail(req, res) {
     //Gå igenom alla fält
     for (const field in formconfig.formfields ) {
         //Hantera inte files här!
-        console.log(field)
-        console.log(form[field])
         if (field.indexOf('file') > -1) {
             // Do nothing!
         } else {
@@ -858,7 +856,6 @@ async function sendLiteraturesearchMail(req, res) {
 
     bodytext = bodytext.replace(regex, '');
     
-    console.log(bodytext)
     mailresponse = await mail.sendmail(emailtoaddressedge, emailfromaddressuser, emailfromnameuser, emailtosubjectedge, bodytext, '','', req);
     if (mailresponse != 'Success'){
         responseobject = {

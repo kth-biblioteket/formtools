@@ -68,7 +68,6 @@ async function sendmail(to, from, fromname, subject, bodytext, inlineimage = '',
         let sendmailresult = await transporter.sendMail(mailoptions);
     } catch (err) {
         //TODO
-        console.log(JSON.stringify(err))
         return err
     }
     return "Success"
@@ -128,7 +127,7 @@ async function createmailbody(formconfig, bodytext, genre, cost, fullname, almap
         }
     }
     //Hantera datum
-    let dateneededby = "";
+    let dateneededby = "undefined";
     if(request.form.dateneededby) {
         dateneededby = request.form.dateneededby
     }
