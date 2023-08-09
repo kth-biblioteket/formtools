@@ -48,6 +48,11 @@ let getformdata = () => {
     xhttp.onload = function () {
         formdata = JSON.parse(this.responseText);
         generateForm(formdata)
+        //hantera openurl
+        if(openurlsource != null && openurlsource != "") {
+            showhidefields()
+            generateForm(formdata)
+        }
     }
     //Vilket attributvärde finns på aktuellt formulär i html(polopoly eller html-fil)? Sätt ett värde lika med namnet på json-filen som ska hämtas.
     let el = document.getElementById('kthbform')
@@ -133,7 +138,6 @@ let generateForm = (formdata) => {
         openurlboxhtml += `</div>`
         let el = document.getElementById('openurlbox')
         el.innerHTML = openurlboxhtml
-        showhidefields()
     }
 
     // Skapa fälten
