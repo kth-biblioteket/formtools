@@ -1038,6 +1038,14 @@ let submitform =  (event) => {
 //
 ////////////////////////////////////////////////////
 language = urlParams.get('language')  || "english"
+
+//Polopoly language
+if ($('html').attr('lang').indexOf('en')!= -1) {
+    language = 'english'
+} else {
+    language = 'swedish'
+}
+
 getformdata()
 //Skapa lyssnare för form submit
 document.getElementById("kthbform").addEventListener('submit', function (event) {
