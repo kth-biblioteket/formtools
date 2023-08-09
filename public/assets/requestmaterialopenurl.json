@@ -358,6 +358,10 @@
       "mainoption": true,
       "enabled": true,
       "openurlenabled": true,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["any"]
+      }],
       "options": [
         {
           "label": {
@@ -365,7 +369,7 @@
             "english": "Student at KTH"
           },
           "value": "student",
-          "enabled": true,
+          "enabled": false,
           "showcriteria": [{
             "field": "genre",
             "values": ["any"]
@@ -377,7 +381,7 @@
             "english": "Staff/Doctoral student at KTH"
           },
           "value": "employee",
-          "enabled": true,
+          "enabled": false,
           "showcriteria": [{
             "field": "genre",
             "values": ["any"]
@@ -385,11 +389,11 @@
         },
         {
           "label": {
-            "swedish": "Företag",
-            "english": "Business"
+            "swedish": "Företag baserade i Sverige",
+            "english": "Company located in Sweden"
           },
           "value": "business",
-          "enabled": true,
+          "enabled": false,
           "showcriteria": [{
             "field": "genre",
             "values": ["book", "article", "journal"]

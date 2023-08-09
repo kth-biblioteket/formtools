@@ -213,7 +213,7 @@ async function requestMaterial(req, res) {
                 if (request.form.genre == 'journal' || request.form.genre == 'database') {
                     create_request = false
                     send_edge_mail = true
-                    send_user_mail = false
+                    send_user_mail = true
                 } else {
                     create_request = true
                     send_edge_mail = false
