@@ -971,6 +971,7 @@ let submitform =  (event) => {
                 for(let i = 0; i < dt.items.length; i++) {
                     dt.items.remove(i);
                 }
+                dt.clearData()
                 getformdata();
             }
 
