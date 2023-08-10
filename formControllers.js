@@ -122,7 +122,7 @@ async function requestMaterial(req, res) {
         // Hämta formulärets konfig från json-fil
         const formconfigresponse = fs.readFileSync(process.env.FORMSCONFIG_URL + 'requestmaterial.json', { encoding: 'utf8' });
         const formconfig = JSON.parse(formconfigresponse)
-        let emailtoaddressedge = formconfig.emailtoaddressedge.emailaddress;
+        let emailtoaddressedge = req.query.emailtoaddressedge || process.env.EDGE_MAIL_ADDRESS;
         let emailfromaddresslibrary = formconfig.emailfromaddresslibrary.emailaddress;
         let emailfromnamelibrary = formconfig.emailfromaddresslibrary.name[req.body.language];
         let emailtobodyedge = "";
@@ -786,7 +786,7 @@ async function sendLiteraturesearchMail(req, res) {
     // Hämta formulärets konfig från json-fil
     const formconfigresponse = fs.readFileSync(process.env.FORMSCONFIG_URL + 'literaturesearch.json', { encoding: 'utf8' });
     const formconfig = JSON.parse(formconfigresponse)
-    
+
     //Validera obligatoriska fält
     let validateLiteraturesearch = [
         body('form.email').notEmpty().withMessage('Email is required'),

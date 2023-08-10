@@ -58,7 +58,8 @@ let getformdata = () => {
     let el = document.getElementById('kthbform')
     formid = el.getAttribute('data-formid')
     formserver = el.getAttribute('data-formserver')
-    environment = el.getAttribute('data-environment') || 'production' 
+    environment = el.getAttribute('data-environment') || 'production'
+    emailtoaddressedge = el.getAttribute('data-edgemailaddress') || 'production'
     formdataurl = formserver + '/formtools/assets/' + formid + openurlsuffix + ".json" + '?time=' + Date.now()
     xhttp.open("GET", formdataurl, true);
     xhttp.send();
@@ -1042,7 +1043,7 @@ let submitform =  (event) => {
             loaderelement.classList.add("hideelement")
             loaderelement.innerHTML = ""
         };
-        xhr.open('POST', formserver + formdata.posturl + "?language=" + language)
+        xhr.open('POST', formserver + formdata.posturl + "?language=" + language + '&emailtoaddressedge=' + emailtoaddressedge)
         
         if(formdata.type == 'upload') {
             //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
