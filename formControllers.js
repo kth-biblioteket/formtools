@@ -622,7 +622,8 @@ async function sendContactMail(req, res) {
     
     //Gå igenom alla fält
     for (const field in formconfig.formfields ) {
-        bodytext = bodytext.replace('@@' + field, req.body.form[field]);
+        const regex = new RegExp(`@@${field}`, 'g');
+        bodytext = bodytext.replace(regex, req.body.form[field]);
     }
 
     try {
@@ -735,9 +736,10 @@ async function sendTeachingactivityMail(req, res) {
 
     //Gå igenom alla fält
     for (const field in formconfig.formfields ) {
-        bodytext = bodytext.replace('@@' + field, req.body.form[field]);
+        const regex = new RegExp(`@@${field}`, 'g');
+        bodytext = bodytext.replace(regex, req.body.form[field]);
     }
-
+    console.log(bodytext)
     //Visa inte rader/rubriker/block där information saknas.
     if (bodytext.indexOf('showcritera=\'undefined\'') > -1) {
         bodytext = bodytext.replace(/showcritera=\'undefined\'/g, 'style="mso-hide:all;display:none;max-height:0px;overflow:hidden;"');
@@ -818,7 +820,8 @@ async function sendLiteraturesearchMail(req, res) {
         if (field.indexOf('file') > -1) {
             // Do nothing!
         } else {
-            bodytext = bodytext.replace('@@' + field, form[field]);
+            const regex = new RegExp(`@@${field}`, 'g');
+            bodytext = bodytext.replace(regex, form[field]);
         }
     }
 
