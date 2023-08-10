@@ -130,6 +130,8 @@ async function requestMaterial(req, res) {
         let emailtobodyuser = "";
         let emailtosubjectedge = "";
         let emailtosubjectuser = "";
+        emailtosubjectedge = formconfig.emailtosubjectedge[req.query.language]
+        emailtosubjectuser = formconfig.emailtosubjectuser[req.query.language]
         formconfig.emailtobodyedge[req.query.language].forEach(row => {
             emailtobodyedge += row;
         })
