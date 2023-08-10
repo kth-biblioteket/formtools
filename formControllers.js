@@ -361,11 +361,9 @@ async function createUserResourceSharingRequests(formconfig, language, request, 
         (request.form.pages) ? bib_note += " pp " + request.form.pages : "";
 
         //Hantera kostnader
-        let willing_to_pay
-        for (const key in request.form) {
-            if(key == 'acceptcost') {
-                willing_to_pay = true;
-            }
+        let willing_to_pay = false
+        if (request.form.costs == 'acceptcost') {
+            willing_to_pay = true;
         }
 
         //Hantera kategori
