@@ -593,7 +593,7 @@ async function sendContactMail(req, res) {
         return res.status(400).json({ errors: errors.array() });
     }
     
-    emailtoaddressedge = formconfig.emailtoaddressedge.emailaddress;
+    let emailtoaddressedge = req.query.emailtoaddressedge || process.env.EDGE_MAIL_ADDRESS;
     emailfromaddressuser = req.body.form.email;
     emailfromnameuser = req.body.form.name;                                   
 
@@ -715,7 +715,7 @@ async function sendTeachingactivityMail(req, res) {
     const formconfigresponse = fs.readFileSync(process.env.FORMSCONFIG_URL + 'teachingactivity.json', { encoding: 'utf8' });
     const formconfig = JSON.parse(formconfigresponse)
 
-    let emailtoaddressedge = formconfig.emailtoaddressedge.emailaddress;
+    let emailtoaddressedge = req.query.emailtoaddressedge || process.env.EDGE_MAIL_ADDRESS;
     let emailfromaddressuser = req.body.form.email;
     let emailfromnameuser = req.body.form.name;                                 
 
@@ -783,7 +783,7 @@ async function sendLiteraturesearchMail(req, res) {
 
     let language = req.query.language ? req.query.language : "english"
 
-    // Hämta formulärets konfig från json-fil
+    // Hämta formulärets konfig från json-fillet emailtoaddressedge
     const formconfigresponse = fs.readFileSync(process.env.FORMSCONFIG_URL + 'literaturesearch.json', { encoding: 'utf8' });
     const formconfig = JSON.parse(formconfigresponse)
 
@@ -794,7 +794,7 @@ async function sendLiteraturesearchMail(req, res) {
 
     let form  = JSON.parse(req.body.item);
 
-    emailtoaddressedge = formconfig.emailtoaddressedge.emailaddress;
+    let emailtoaddressedge = req.query.emailtoaddressedge || process.env.EDGE_MAIL_ADDRESS;
     emailfromaddressuser = form.email;
     emailfromnameuser = form.name;                                 
 
