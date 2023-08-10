@@ -962,6 +962,10 @@ let submitform =  (event) => {
                 </div>`
                 window.scroll(0,0);
                 kthbform.reset();
+                const errorelements = document.querySelectorAll(".error");
+                errorelements.forEach(el => {
+                    el.classList.add("hideelement");
+                });
                 for(let i = 0; i < dt.items.length; i++) {
                     dt.items.remove(i);
                 }
@@ -995,6 +999,10 @@ let submitform =  (event) => {
                 </div>`
                 window.scroll(0,0);
                 kthbform.reset();
+                const errorelements = document.querySelectorAll(".error");
+                errorelements.forEach(el => {
+                    el.classList.add("hideelement");
+                });
                 getformdata();
             }
 
