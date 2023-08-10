@@ -824,35 +824,9 @@ async function sendLiteraturesearchMail(req, res) {
         }
     }
 
-
     //Visa inte rader/rubriker/block där information saknas.
     //Lägg in showcritera='@@otherdelivery' i en div runt det som ska eventuellt döljas.
     //"otherdelivery" ska motsvara nod under [formfields] i json för aktuellt formulär:
-        
-    //"formfields": {
-    // "otherdelivery": {
-    //     "label": {
-    //       "swedish": "Annat format",
-    //       "english": "Other format"
-    //     },
-    //     "value": "",
-    //     "type": "textarea",
-    //     "enabled": false,
-    //     "showcriteria": [{
-    //       "field": "deliveryoption",
-    //       "values": ["Other"]
-    //     }],
-    //     "validation": {
-    //       "required": {
-    //         "value": true,
-    //         "errormessage": {
-    //           "swedish": "måste fyllas i",
-    //           "english": "is required"
-    //         }
-    //       } 
-    //     }
-    //   }
-    // }
 
     const regex = /<div[^>]*showcritera=[''][^>]*>.*?<\/div>/g;
 
