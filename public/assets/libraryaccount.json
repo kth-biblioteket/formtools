@@ -280,8 +280,8 @@
     },
     "birthdate": {
       "label": {
-        "swedish": "Födelsedatum (ååååmmdd)",
-        "english": "Birth date(yyyymmdd)"
+        "swedish": "Födelsedatum (åååå-mm-dd)",
+        "english": "Birth date(yyyy-mm-dd)"
       },
       "value": "",
       "type": "text",

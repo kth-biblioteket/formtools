@@ -121,7 +121,6 @@ async function requestMaterial(req, res) {
         }
         // Hämta formulärets konfig från json-fil
         const formconfigresponse = fs.readFileSync(process.env.FORMSCONFIG_URL + 'requestmaterial.json', { encoding: 'utf8' });
-        //const formconfigresponse = await axios.get(process.env.FORMSCONFIG_URL + 'requestmaterial.json');
         const formconfig = JSON.parse(formconfigresponse)
         let emailtoaddressedge = formconfig.emailtoaddressedge.emailaddress;
         let emailfromaddresslibrary = formconfig.emailfromaddresslibrary.emailaddress;
@@ -497,8 +496,8 @@ async function createLibraryaccount(req, res)
     }
 
     // Hämta formulärets konfig från json-fil
-    const formconfigresponse = await axios.get(process.env.FORMSCONFIG_URL + 'libraryaccount.json');
-    const formconfig = formconfigresponse.data
+    const formconfigresponse = fs.readFileSync(process.env.FORMSCONFIG_URL + 'libraryaccount.json', { encoding: 'utf8' });
+    const formconfig = JSON.parse(formconfigresponse)
     let emailfromaddresslibrary = formconfig.emailfromaddresslibrary.emailaddress;
     let emailfromnamelibrary = formconfig.emailfromaddresslibrary.name[language];
 
@@ -575,8 +574,8 @@ async function sendContactMail(req, res) {
     language = req.query.language ? req.query.language : "english"
     
     // Hämta formulärets konfig från json-fil
-    const formconfigresponse = await axios.get(process.env.FORMSCONFIG_URL + 'contact.json');
-    const formconfig = formconfigresponse.data
+    const formconfigresponse = fs.readFileSync(process.env.FORMSCONFIG_URL + 'contact.json', { encoding: 'utf8' });
+    const formconfig = JSON.parse(formconfigresponse)
 
     //Validera obligatoriska fält
     let validateAccountRequest = [
@@ -713,8 +712,8 @@ async function sendTeachingactivityMail(req, res) {
     }
     
     // Hämta formulärets konfig från json-fil
-    const formconfigresponse = await axios.get(process.env.FORMSCONFIG_URL + 'teachingactivity.json');
-    const formconfig = formconfigresponse.data
+    const formconfigresponse = fs.readFileSync(process.env.FORMSCONFIG_URL + 'teachingactivity.json', { encoding: 'utf8' });
+    const formconfig = JSON.parse(formconfigresponse)
 
     let emailtoaddressedge = formconfig.emailtoaddressedge.emailaddress;
     let emailfromaddressuser = req.body.form.email;
@@ -785,8 +784,9 @@ async function sendLiteraturesearchMail(req, res) {
     let language = req.query.language ? req.query.language : "english"
 
     // Hämta formulärets konfig från json-fil
-    const formconfigresponse = await axios.get(process.env.FORMSCONFIG_URL + 'literaturesearch.json');
-    const formconfig = formconfigresponse.data
+    const formconfigresponse = fs.readFileSync(process.env.FORMSCONFIG_URL + 'literaturesearch.json', { encoding: 'utf8' });
+    const formconfig = JSON.parse(formconfigresponse)
+    
     //Validera obligatoriska fält
     let validateLiteraturesearch = [
         body('form.email').notEmpty().withMessage('Email is required'),
