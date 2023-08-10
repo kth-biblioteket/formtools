@@ -739,7 +739,6 @@ async function sendTeachingactivityMail(req, res) {
         const regex = new RegExp(`@@${field}`, 'g');
         bodytext = bodytext.replace(regex, req.body.form[field]);
     }
-    console.log(bodytext)
     //Visa inte rader/rubriker/block där information saknas.
     if (bodytext.indexOf('showcritera=\'undefined\'') > -1) {
         bodytext = bodytext.replace(/showcritera=\'undefined\'/g, 'style="mso-hide:all;display:none;max-height:0px;overflow:hidden;"');
