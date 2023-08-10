@@ -962,6 +962,7 @@ let submitform =  (event) => {
                 </div>`
                 window.scroll(0,0);
                 kthbform.reset();
+                is_submitted_once = false
                 const errorelements = document.querySelectorAll(".error");
                 errorelements.forEach(el => {
                     el.classList.add("hideelement");
@@ -999,6 +1000,7 @@ let submitform =  (event) => {
                 </div>`
                 window.scroll(0,0);
                 kthbform.reset();
+                is_submitted_once = false
                 const errorelements = document.querySelectorAll(".error");
                 errorelements.forEach(el => {
                     el.classList.add("hideelement");
