@@ -10,7 +10,7 @@
   "description": {
     "open": {
       "swedish": "För att kunna reservera, låna och beställa material från biblioteket behöver du registrera dig som användare i vårt bibliotekssystem.",
-      "english": ""
+      "english": "In order to borrow or request materials from the library you need to be registered as a user in our library system."
     },
     "closed": {
       "swedish": "Stängt",

@@ -18,10 +18,15 @@ async function generateApp(req, res, next) {
 
 async function generateKthbForm(req, res, next) {
     try {
+        // Hämta formulärets konfig från json-fil
+        const formconfigresponse = fs.readFileSync(process.env.FORMSCONFIG_URL + req.query.formid + '.json', { encoding: 'utf8' });
+        const formconfig = JSON.parse(formconfigresponse)
         let lang = req.query.lang || 'sv'
         let formtoolsconfig = {
+            lang: lang,
             kiosk: req.query.kiosk || false,
             formid: req.query.formid || '',
+            formconfig: formconfig,
             formserver: 'https://' + req.hostname,
             environment: req.query.environment || 'production',
             edgemailaddress: req.query.edgemailaddress || '',
