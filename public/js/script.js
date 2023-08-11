@@ -968,10 +968,14 @@ let submitform =  (event) => {
                 errorelements.forEach(el => {
                     el.classList.add("hideelement");
                 });
-                for(let i = 0; i < dt.items.length; i++) {
-                    dt.items.remove(i);
+                try {
+                    for(let i = 0; i < dt.items.length; i++) {
+                        dt.items.remove(i);
+                    }
+                    dt.clearData()
+                } catch (err) {
+                    throw err;
                 }
-                dt.clearData()
                 getformdata();
             }
 
