@@ -939,6 +939,20 @@ let submitform =  (event) => {
 
         const xhr = new XMLHttpRequest()
 
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Request was successful
+                    console.log("Request successful!");
+                } else if (xhr.status === 413) {
+                    // Request Entity Too Large error
+                    console.log("Request Entity Too Large (413) error!");
+                } else {
+                    // Other status codes
+                    console.log("Error: " + xhr.status);
+                }
+            }
+        };
         //Hantera svaret från backend
         xhr.onload = () => {
             //Konto skapat
@@ -1033,18 +1047,12 @@ let submitform =  (event) => {
                 </div>`
                 window.scroll(0,0);
             }
-            let loaderelement = document.getElementById("loading-screen")
-            loaderelement.classList.add("hideelement")
-            loaderelement.innerHTML = ""
-        }
 
-        //Hantera fel(backend inte tillgänglig etc)
-        xhr.onerror = function() {
-            let loaderelement = document.getElementById("loading-screen")
-            loaderelement.classList.add("hideelement")
-            loaderelement.innerHTML = ""
-            if (xhr.status === 413) {
-                console.log('File size limit exceeded');
+            if(xhr.status == 413) {
+                backendresponse = true;
+                backendresult = false;
+                backendresulterror = JSON.parse(xhr.responseText).message;
+                loading = false;
                 let resultelement = document.getElementById("backendresponse")
                 resultelement.classList.add('alert-danger')
                 resultelement.classList.remove('alert-success')
@@ -1061,9 +1069,18 @@ let submitform =  (event) => {
                     ${backendresulterror}
                 </div>`
                 window.scroll(0,0);
-            } else {
-                console.log('Network error');
             }
+
+            let loaderelement = document.getElementById("loading-screen")
+            loaderelement.classList.add("hideelement")
+            loaderelement.innerHTML = ""
+        }
+
+        //Hantera fel(backend inte tillgänglig etc)
+        xhr.onerror = function() {
+            let loaderelement = document.getElementById("loading-screen")
+            loaderelement.classList.add("hideelement")
+            loaderelement.innerHTML = ""
         };
         xhr.open('POST', formserver + formdata.posturl + "?language=" + language + '&emailtoaddressedge=' + emailtoaddressedge)
         
