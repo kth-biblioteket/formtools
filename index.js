@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(fileUpload({
-    limits: { fileSize: 2 * 1024 * 1024 },
+    limits: { fileSize: parseInt(process.env.FILE_SIZE_LIMIT_MB) * 1024 * 1024 },
     abortOnLimit: true
 }));
 
@@ -127,108 +127,6 @@ apiRoutes.post(process.env.API_PATH + "/uploadfile", async function (req, res) {
     } catch(err) {
         res.send(err.message)
     }
-});
-  
-//Skicka mail 
-apiRoutes.post(process.env.API_PATH + "/reminder", async function (req, res) {
-
-    const handlebarOptions = {
-        viewEngine: {
-            partialsDir: path.resolve('./templates/'),
-            defaultLayout: false,
-        },
-        viewPath: path.resolve('./templates/'),
-    };
-
-    const transporter = nodemailer.createTransport({
-        port: 25,
-        host: process.env.SMTP_HOST,
-        tls: {
-            rejectUnauthorized: false
-        }
-        //requireTLS: true
-        //secure: true
-    });
-
-    transporter.use('compile', hbs(handlebarOptions))
-
-    let kthschool;
-    let usertype;
-    let action;
-    let sessionchoices = []
-    try {
-        kthschool = await eventController.getkthschool(req.body.session_user_choice.school)
-    } catch(err) {
-        console.log(err)
-    }
-
-    try {
-        usertype = await eventController.getusertype(req.body.session_user_choice.usertype)
-    } catch(err) {
-        console.log(err)
-    }
-
-    try {
-        action = await eventController.getAction(req.body.session_user_choice.action_id)
-    } catch(err) {
-        console.log(err)
-    }
-
-    try {
-        let useractionchoices = await eventController.readsessionuseractionchoices(req.body.session_user_choice.uuid)
-        let message = 0;
-        for(let i=0 ; i<useractionchoices.length ; i++) {
-            let usermessage = await eventController.readsessionuseractionmessage(req.body.session_user_choice.uuid, useractionchoices[i].actionchoice_id)
-            if (usermessage.length > 0) {
-                message = usermessage[0].message
-            }
-            sessionchoices.push({"name": useractionchoices[i].name, "message": message})
-        }
-        
-    } catch(err) {
-        console.log(err)
-    }
-    
-    
-
-    const uuid = req.body.session_user_choice.uuid
-    if (req.body.contactme) {
-        let edgemailoptions = {}
-        let template = 'edge_email_sv'
-        if (req.body.lang.toUpperCase() == "EN") {
-            template = 'edge_email_en'
-        } else {
-
-        }
-        edgemailoptions = {
-            from: {
-                //name: req.body.name,
-                address: process.env.MAILFROM_ADDRESS
-            },
-            to: process.env.EDGE_MAIL_ADDRESS,
-            subject: "KTH Biblioteket matchmaking",
-            template: 'edge_email_sv',
-            context:{
-                email: req.body.email,
-                schoolname: kthschool[0].name,
-                usertype: usertype[0].name,
-                action: action[0].name,
-                sessionchoices: sessionchoices,
-                session_user_choice: req.body.session_user_choice
-            },
-            generateTextFromHTML: true
-        };
-
-        try {
-            logger.debug(JSON.stringify(edgemailoptions))
-            let contactmemailinfo = await transporter.sendMail(edgemailoptions);
-        } catch (err) {
-            //TODO
-            logger.debug(JSON.stringify(err))
-        }
-        res.send("Success")
-    }
-
 });
 
 // Initiera routes
