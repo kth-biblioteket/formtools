@@ -996,6 +996,9 @@ let submitform =  (event) => {
                     <div>
                         ${language == 'swedish' ? formdata.postresponseinfo.text.swedish : formdata.postresponseinfo.text.english}
                     </div>
+                    <h4>
+                        Obs!
+                    </h4>
                     <div>
                         ${language == 'swedish' ? 'Det gick inte att skicka mail till adressen du angav: ' + rejectedemail : 'It was not possible to send an email to the address you provided: ' + rejectedemail}
                     </div>
