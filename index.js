@@ -98,6 +98,9 @@ apiRoutes.post(process.env.API_PATH + "/teachingactivity", formController.sendTe
 // Skicka literature search till edge
 apiRoutes.post(process.env.API_PATH + "/literaturesearch", formController.sendLiteraturesearchMail)
 
+// Sida för form
+apiRoutes.get(process.env.API_PATH + "/kthbform", formController.generateKthbForm)
+
 // Root
 apiRoutes.get(process.env.API_PATH + "/", async function (req, res) {
     res.json("Welcome to KTH Library forms API")

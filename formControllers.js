@@ -9,8 +9,28 @@ const { body, query, validationResult } = require('express-validator');
 // admingränssnitt
 async function generateApp(req, res, next) {
     try {
-
         res.render('pages/admin');
+    } catch(err) {
+        res.send("error: " + err.message)
+    }
+    
+}
+
+async function generateKthbForm(req, res, next) {
+    try {
+        let lang = req.query.lang || 'sv'
+        let formtoolsconfig = {
+            kiosk: req.query.kiosk || false,
+            formid: req.query.formid || '',
+            formserver: req.protocol + '://' + req.hostname,
+            environment: req.query.environment || 'production',
+            edgemailaddress: req.query.edgemailaddress || '',
+            nojquery: req.query.nojquery || false,
+        }
+        res.render('pages/kthbform', 
+        {
+            formtoolsconfig: formtoolsconfig
+        })
 
     } catch(err) {
         res.send("error: " + err.message)
@@ -911,6 +931,7 @@ const handleValidationErrors = (req, res, next) => {
 
 module.exports = {
     generateApp,
+    generateKthbForm,
     login,
     logout,
     getkthschools,
