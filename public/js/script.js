@@ -1033,12 +1033,18 @@ let submitform =  (event) => {
                 </div>`
                 window.scroll(0,0);
             }
-            //Hantera för stora filer
-            if(xhr.status == 413) {
-                backendresponse = true;
-                backendresult = false;
-                backendresulterror = JSON.parse(xhr.responseText).message;
-                loading = false;
+            let loaderelement = document.getElementById("loading-screen")
+            loaderelement.classList.add("hideelement")
+            loaderelement.innerHTML = ""
+        }
+
+        //Hantera fel(backend inte tillgänglig etc)
+        xhr.onerror = function() {
+            let loaderelement = document.getElementById("loading-screen")
+            loaderelement.classList.add("hideelement")
+            loaderelement.innerHTML = ""
+            if (xhr.status === 413) {
+                console.log('File size limit exceeded');
                 let resultelement = document.getElementById("backendresponse")
                 resultelement.classList.add('alert-danger')
                 resultelement.classList.remove('alert-success')
@@ -1055,18 +1061,9 @@ let submitform =  (event) => {
                     ${backendresulterror}
                 </div>`
                 window.scroll(0,0);
+            } else {
+                console.log('Network error');
             }
-            let loaderelement = document.getElementById("loading-screen")
-            loaderelement.classList.add("hideelement")
-            loaderelement.innerHTML = ""
-        }
-
-        //Hantera fel(backend inte tillgänglig etc)
-        xhr.onerror = function(err) {
-            let loaderelement = document.getElementById("loading-screen")
-            loaderelement.classList.add("hideelement")
-            loaderelement.innerHTML = ""
-            console.log(err)
         };
         xhr.open('POST', formserver + formdata.posturl + "?language=" + language + '&emailtoaddressedge=' + emailtoaddressedge)
         
