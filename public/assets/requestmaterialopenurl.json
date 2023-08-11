@@ -1,5 +1,6 @@
 {
   "id": "requestmaterial",
+  "type": "alma",
   "name" : "Beställ material",
   "documentation": [
     "Detta formulär används för att beställa material via en openurl-länk",
