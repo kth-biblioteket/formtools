@@ -33,7 +33,7 @@ const socketIo = require("socket.io");
 
 app.set("view engine", "ejs");
 
-const whitelist = ['http://localhost', 'https://apps.lib.kth.se', 'https://apps-ref.lib.kth.se', 'https://www.kth.se']
+const whitelist = process.env.CORS_WHITELIST.split(", ");
   
 app.use(cors({origin: whitelist}));
 
