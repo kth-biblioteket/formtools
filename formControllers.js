@@ -784,6 +784,19 @@ async function sendLiteraturesearchMail(req, res) {
 
     let language = req.query.language ? req.query.language : "english"
 
+    if (req.files) {
+        const fileSizeLimit = process.env.FILE_SIZE_LIMIT_MB * 1024 * 1024;
+        for (const key in req.files) {
+            if (req.files[key].size > fileSizeLimit) {
+                if (language != 'english') {
+                    return res.status(413).json({ error: 'Filen ' + req.files[key].name + ' är för stor'});
+                } else {
+                    return res.status(413).json({ error: 'File size limit exceeded for ' + req.files[key].name });
+                }
+            }
+        }
+    }
+
     // Hämta formulärets konfig från json-fillet emailtoaddressedge
     const formconfigresponse = fs.readFileSync(process.env.FORMSCONFIG_URL + 'literaturesearch.json', { encoding: 'utf8' });
     const formconfig = JSON.parse(formconfigresponse)

@@ -939,20 +939,6 @@ let submitform =  (event) => {
 
         const xhr = new XMLHttpRequest()
 
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    // Request was successful
-                    console.log("Request successful!");
-                } else if (xhr.status === 413) {
-                    // Request Entity Too Large error
-                    console.log("Request Entity Too Large (413) error!");
-                } else {
-                    // Other status codes
-                    console.log("Error: " + xhr.status);
-                }
-            }
-        };
         //Hantera svaret från backend
         xhr.onload = () => {
             //Konto skapat
@@ -1051,7 +1037,7 @@ let submitform =  (event) => {
             if(xhr.status == 413) {
                 backendresponse = true;
                 backendresult = false;
-                backendresulterror = JSON.parse(xhr.responseText).message;
+                backendresulterror = JSON.parse(xhr.responseText).error;
                 loading = false;
                 let resultelement = document.getElementById("backendresponse")
                 resultelement.classList.add('alert-danger')
@@ -1064,7 +1050,7 @@ let submitform =  (event) => {
                         ${language == 'swedish' ? 'Fel' : 'Error'}
                     </h4>
                     <div>
-                        ${language == 'swedish' ? 'Filen är för stor' : 'Filsize too big'}
+                        ${language == 'swedish' ? 'Filen för stor' : 'File size limit has been reached'}
                     </div>
                     ${backendresulterror}
                 </div>`

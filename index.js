@@ -25,8 +25,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(fileUpload({
-    limits: { fileSize: parseInt(process.env.FILE_SIZE_LIMIT_MB) * 1024 * 1024 },
-    abortOnLimit: true
 }));
 
 app.use(cookieParser());
