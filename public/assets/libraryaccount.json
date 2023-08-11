@@ -1,5 +1,6 @@
 {
   "id": "libraryaccount",
+  "type": "alma",
   "name": "Ansökan om bibliotekskonto",
   "header": {
     "swedish": "Registrera dig",
