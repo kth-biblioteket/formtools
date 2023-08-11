@@ -18,16 +18,11 @@ async function generateApp(req, res, next) {
 
 async function generateKthbForm(req, res, next) {
     try {
-        let protocol = "https"
-        if (!req.secure) {
-            protocol = "http"
-        }
-
         let lang = req.query.lang || 'sv'
         let formtoolsconfig = {
             kiosk: req.query.kiosk || false,
             formid: req.query.formid || '',
-            formserver: protocol + '://' + req.hostname,
+            formserver: 'https://' + req.hostname,
             environment: req.query.environment || 'production',
             edgemailaddress: req.query.edgemailaddress || '',
             nojquery: req.query.nojquery || false,
