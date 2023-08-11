@@ -1050,9 +1050,9 @@ let submitform =  (event) => {
                         ${language == 'swedish' ? 'Fel' : 'Error'}
                     </h4>
                     <div>
-                        ${language == 'swedish' ? 'Filen för stor' : 'File size limit has been reached'}
+                        ${backendresulterror}
                     </div>
-                    ${backendresulterror}
+                    
                 </div>`
                 window.scroll(0,0);
             }
