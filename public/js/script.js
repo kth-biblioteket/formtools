@@ -27,7 +27,12 @@ let honeypotfieldname = ""
 let is_submitted_once = false
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const dt = new DataTransfer(); 
+let dt
+if (typeof DataTransfer === 'function') {
+    dt = new DataTransfer();
+  } else {
+    // Fallback logic for older browsers
+}
 
 ////////////////////////////////////////////////////
 //
@@ -443,22 +448,26 @@ let createformfield = (field, fieldkey) => {
 
     formhtml += `</div>`
     kthbform.innerHTML += formhtml
-    if (dt.files.length > 0) { 
-        const elgroup = document.querySelectorAll(".btn-label");
-        elgroup.forEach(el => {
-            el.addEventListener('click',function(e){
-                let name = e.target.nextElementSibling.innerText;
-                e.target.parentNode.remove();
-                for(let i = 0; i < dt.items.length; i++) {
-                    if(name === dt.items[i].getAsFile().name) {
-                        dt.items.remove(i);
-                        continue;
+    try { 
+        if (dt.files.length > 0) { 
+            const elgroup = document.querySelectorAll(".btn-label");
+            elgroup.forEach(el => {
+                el.addEventListener('click',function(e){
+                    let name = e.target.nextElementSibling.innerText;
+                    e.target.parentNode.remove();
+                    for(let i = 0; i < dt.items.length; i++) {
+                        if(name === dt.items[i].getAsFile().name) {
+                            dt.items.remove(i);
+                            continue;
+                        }
                     }
-                }
-                document.querySelector('.fileupload input').files = dt.files;
+                    document.querySelector('.fileupload input').files = dt.files;
+                });
             });
-        });
-        //document.querySelector('.fileupload input').files = dt.files;
+            //document.querySelector('.fileupload input').files = dt.files;
+        }
+    } catch (err) {
+        console.log(err)
     }
 }
 
@@ -904,8 +913,13 @@ let submitform =  (event) => {
         } else {
             kthbformData.append("source", openurlsource)
         }
+
+        let kthbformDataObject = {}
         
-        let kthbformDataObject = Object.fromEntries(kthbformData.entries());
+        for (let [key, value] of kthbformData) {
+            kthbformDataObject[key] = value;
+        }
+        
         var postform = {
             "form" : {}
         };
