@@ -27,8 +27,9 @@ let honeypotfieldname = ""
 let is_submitted_once = false
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
+let dt
 try {
-    const dt = new DataTransfer();
+    dt = new DataTransfer();
 } catch(err) {
     //stöds inte av porteus?
 }
