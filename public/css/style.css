@@ -319,3 +319,8 @@ button.calendar:active {
     display: flex;
     justify-content: flex-end;
 }
+
+#sendbutton {
+    width: unset;
+    cursor: pointer;
+}

@@ -439,8 +439,8 @@ let createformfield = (field, fieldkey) => {
             `<div class="sendbutton">
                 <input
                     id="${fieldkey}"
-                    class="form-control btn-success"
-                    type="button" 
+                    class="form-control btn-success" 
+                    type="submit" 
                     value="${language == 'swedish' ? field.label.swedish : field.label.english}"
                     ${!formisvalid ? 'dfdisabled' : ''}>
             </div>`
@@ -513,11 +513,6 @@ let createlisteners = () => {
         elgroup.forEach(el => {
             el.addEventListener('keyup',function(e){onInputKeyUp(e, '${fieldkey}')});
         });
-    }
-
-    if (document.getElementById("sendbutton")) {
-        const elbutton = document.getElementById("sendbutton");
-        elbutton.addEventListener('click',function(e){submitform(e)});
     }
 
     if (document.querySelector(".fileupload input")) {
@@ -1144,3 +1139,10 @@ if (document.querySelector("html").getAttribute('lang').indexOf('en')!= -1) {
 }
 
 getformdata()
+//Skapa lyssnare för form submit
+//Använd onsubmit på formtaggen istället
+//document.getElementById("kthbform").addEventListener('submit', function (event) {
+//    submitform(event)
+    //Se till att formulärets defaultsubmit inte sker
+//    event.preventDefault();
+//});
