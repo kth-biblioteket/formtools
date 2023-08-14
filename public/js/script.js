@@ -743,7 +743,7 @@ let onFileChange = (event, propkey = '') => {
 		dt.items.add(file);
 	}
 
-	event.target.files = dt.files;
+    //event.target.files = dt.files;
 
     const elgroup = document.querySelectorAll(".btn-label");
     elgroup.forEach(el => {
@@ -756,7 +756,7 @@ let onFileChange = (event, propkey = '') => {
                     continue;
                 }
             }
-            document.querySelector('.fileupload input').files = dt.files;
+            //document.querySelector('.fileupload input').files = dt.files;
         });
     });
 }
@@ -891,6 +891,8 @@ let openurlparametersToJSON = (formdata, openurlsource) => {
 }
 
 let submitform =  (event) => {
+
+    event.preventDefault();
 
     let loaderelement = document.getElementById("loading-screen")
     loaderelement.classList.remove("hideelement")
@@ -1118,6 +1120,7 @@ let submitform =  (event) => {
         </div>`
         window.scroll(0,0)
     }
+    return false;
 }
 
 ////////////////////////////////////////////////////
@@ -1137,8 +1140,9 @@ if (document.querySelector("html").getAttribute('lang').indexOf('en')!= -1) {
 
 getformdata()
 //Skapa lyssnare för form submit
-document.getElementById("kthbform").addEventListener('submit', function (event) {
-    submitform(event)
+//Använd onsubmit på formtaggen istället
+//document.getElementById("kthbform").addEventListener('submit', function (event) {
+//    submitform(event)
     //Se till att formulärets defaultsubmit inte sker
-    event.preventDefault();
-});
+//    event.preventDefault();
+//});
