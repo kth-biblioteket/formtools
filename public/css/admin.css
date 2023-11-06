@@ -3,10 +3,6 @@
     white-space: nowrap;
 }
 
-html {
-    1font-size: 12px;
-}
-
 body {
     margin: 0 auto;
     font-family: "Open Sans", Arial, "Helvetica Neue", helvetica, sans-serif;
@@ -27,10 +23,6 @@ a {
 main .navbar-expand-lg .navbar-nav .nav-link {
     padding-right: 1rem;
     padding-left: 0rem;
-}
-
-.nav-link {
-    1font-size: 2rem;
 }
 
 .nav-link.active {
@@ -185,7 +177,6 @@ h2 {
 {
     padding:10px;
     overflow:scroll;
-    1height:300px
 }
 
 form button {
