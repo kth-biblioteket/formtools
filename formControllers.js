@@ -27,7 +27,7 @@ async function generateKthbForm(req, res, next) {
             kiosk: req.query.kiosk || false,
             formid: req.query.formid || '',
             formconfig: formconfig,
-            formserver: `${req.protocol}://${req.hostname}`,
+            formserver: `${process.env.SERVERPROTOCOL}://${req.hostname}`,
             environment: req.query.environment || 'production',
             edgemailaddress: req.query.edgemailaddress || '',
             nojquery: req.query.nojquery || false,
