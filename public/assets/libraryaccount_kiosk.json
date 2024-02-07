@@ -29,8 +29,8 @@
       "english": "Thank you for registering!"
     },
     "text": {
-      "swedish": "För att slutföra registreringen måste du besöka något av våra bibliotek. Ta med dig en giltig ID-handling.",
-      "english": "To finish the registration you have to visit one of our libraries. Please bring a valid ID."
+      "swedish": "För att slutföra registreringen måste du besöka något av våra bibliotek. Ta med dig en <a href='https://www.kth.se/student/it/kth-account/acceptable-forms-of-identification-at-kth-1.738834'>giltig ID-handling</a>.",
+      "english": "To finish the registration you have to visit one of our libraries. Please bring a <a href='https://www.kth.se/en/student/it/kth-account/acceptable-forms-of-identification-at-kth-1.738834'>valid ID</a>."
     }
   },
   "posterrorresponseinfo" : {
@@ -50,7 +50,7 @@
   "emailtobodyuser": {
     "swedish": [
       "<div><p>Hej,</p></div>",
-      "<div><p>Tack för din registrering. För att slutföra registreringen måste du besöka något av våra bibliotek. Ta med dig en giltig ID-handling.</p></div>",
+      "<div><p>Tack för din registrering. För att slutföra registreringen måste du besöka något av våra bibliotek. Ta med dig en <a href='https://www.kth.se/student/it/kth-account/acceptable-forms-of-identification-at-kth-1.738834'>giltig ID-handling</a>.</p></div>",
       "<div>Ditt användarnamn är: @@email</div> ",
       "<div><p>KTH Biblioteket</p></div>",
       "<div>Telefon: 08-790 70 88</div>",
@@ -58,7 +58,7 @@
     ],
     "english": [
       "<div><p>Hi,</p></div>",
-      "<div><p>Thank you for registrering. To finish the registration you have to visit one of our libraries. Please bring a valid ID.</p></div>",
+      "<div><p>Thank you for registrering. To finish the registration you have to visit one of our libraries. Please bring a <a href='https://www.kth.se/en/student/it/kth-account/acceptable-forms-of-identification-at-kth-1.738834'>valid ID</a>.</p></div>",
       "<div>Your username is: @@email</div>",
       "<div><p>KTH Library</p></div>",
       "<div>Phone: 08-790 70 88</div>",
