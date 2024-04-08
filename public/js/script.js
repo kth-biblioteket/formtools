@@ -244,8 +244,7 @@ let createformfield = (field, fieldkey) => {
             `<div>
                 <label class="checkboxlabel">
                     <input type="hidden" name="${fieldkey}" id="hidden_${fieldkey}" value="no" ${field.checked ? 'disabled' : ''}>
-                    <input sonchange="checkboxchange(event, '${fieldkey}')"                     
-                        name="${fieldkey}" 
+                    <input name="${fieldkey}" 
                         id="${fieldkey}" 
                         type="${field.type}" 
                         value="${field.value}"
@@ -264,12 +263,10 @@ let createformfield = (field, fieldkey) => {
                 formhtml += `<div><label class="radiolabel" class="disabled">`
                 if (field.options[key].link) {
                     formhtml += `<input type="radio" 
-                        value="${field.options[key].value}" 
-                        sonchange="changelocation(${field.options[key].link})"> ${language == 'swedish' ? field.options[key].label.swedish : field.options[key].label.english}`
+                        value="${field.options[key].value}"> ${language == 'swedish' ? field.options[key].label.swedish : field.options[key].label.english}`
                 } else {
                     formhtml += `
-                        <input sonchange="onchangeformobject(this,'${fieldkey}',event)"
-                            type="radio"
+                        <input type="radio"
                             name="${fieldkey}"
                             id="${fieldkey + key}"
                             formControlName="${field.options[key].key}"
@@ -299,8 +296,7 @@ let createformfield = (field, fieldkey) => {
     if (field.type == "text") {
         formhtml +=
             `<div>
-                <input sonkeyup="onInputKeyUp(event, '${fieldkey}')" sonchange="onInputChange(event, '${fieldkey}')" 
-                        ${field.enabled ? '' : 'disabled'}
+                <input  ${field.enabled ? '' : 'disabled'}
                         class="textinput ${field.ishoneypot ? 'nallepuh' : ''} form-control medium" 
                         name="${fieldkey}" 
                         id="${fieldkey}" 
@@ -314,8 +310,7 @@ let createformfield = (field, fieldkey) => {
     if (field.type == "password") {
         formhtml +=
             `<div>
-                <input sonkeyup="onInputKeyUp(event, '${fieldkey}')" sonchange="onInputChange(event, '${fieldkey}')" 
-                        ${field.enabled ? '' : 'disabled'}
+                <input ${field.enabled ? '' : 'disabled'}
                         class="passwordinput form-control medium" 
                         name="${fieldkey}" 
                         id="${fieldkey}" 
@@ -329,8 +324,7 @@ let createformfield = (field, fieldkey) => {
     if (field.type == "textarea") {
         formhtml +=
             `<div *ngSwitchCase="'textarea'">
-                <textarea sonkeyup="onInputKeyUp(event, '${fieldkey}')" sonchange="onInputChange(event, '${fieldkey}')"
-                        ${field.enabled ? '' : 'disabled'}
+                <textarea ${field.enabled ? '' : 'disabled'}
                         class="form-control medium textareaheight"
                         name="${fieldkey}" 
                         id="${fieldkey}" 
@@ -342,7 +336,6 @@ let createformfield = (field, fieldkey) => {
        
         formhtml +=  `<div><label for="${fieldkey}">Date</label>
         <input 
-            sonchange="onInputKeyUp(event, '${fieldkey}')"
             ${field.enabled ? '' : 'disabled'}
             1readonly="readonly" 
             type="date" 
@@ -500,6 +493,9 @@ let createlisteners = () => {
         const elgroup = document.querySelectorAll("input[type=text]");
         elgroup.forEach(el => {
             el.addEventListener('keyup',function(e){onInputKeyUp(e, '${fieldkey}')});
+            el.addEventListener('input', function(e) {
+                onInputKeyUp(e, '${fieldkey}');
+            });
         });
     }
     if (document.querySelector("textarea")) {
