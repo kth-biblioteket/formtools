@@ -492,7 +492,9 @@ let createlisteners = () => {
     if (document.querySelector("input[type=text]")) {
         const elgroup = document.querySelectorAll("input[type=text]");
         elgroup.forEach(el => {
-            el.addEventListener('keyup',function(e){onInputKeyUp(e, '${fieldkey}')});
+            el.addEventListener('keyup',function(e){
+                onInputKeyUp(e, '${fieldkey}')
+            });
             el.addEventListener('input', function(e) {
                 onInputKeyUp(e, '${fieldkey}');
             });
@@ -501,13 +503,23 @@ let createlisteners = () => {
     if (document.querySelector("textarea")) {
         const elgroup = document.querySelectorAll("textarea");
         elgroup.forEach(el => {
-            el.addEventListener('keyup',function(e){onInputKeyUp(e, '${fieldkey}')});
+            el.addEventListener('keyup',function(e){
+                onInputKeyUp(e, '${fieldkey}')
+            });
+            el.addEventListener('input', function(e) {
+                onInputKeyUp(e, '${fieldkey}');
+            });
         });
     }
     if (document.querySelector("input[type=password]")) {
         const elgroup = document.querySelectorAll("input[type=password]");
         elgroup.forEach(el => {
-            el.addEventListener('keyup',function(e){onInputKeyUp(e, '${fieldkey}')});
+            el.addEventListener('keyup',function(e){
+                onInputKeyUp(e, '${fieldkey}')
+            });
+            el.addEventListener('input', function(e) {
+                onInputKeyUp(e, '${fieldkey}');
+            });
         });
     }
 
