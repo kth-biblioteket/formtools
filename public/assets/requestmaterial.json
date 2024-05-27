@@ -625,11 +625,9 @@
             "field": "iam",
              "values": ["student","employee"]
           }],
-
-	  "documentation": [
+          "documentation": [
             "Ta bort/lägg till employee när inte anställda får beställa materialtypen, I fältet showcriteria, values"
           ]
-          
         },
         {
           "label": {
@@ -654,9 +652,9 @@
             "field": "iam",
             "values": ["student","employee"]
           }],
-	"documentation": [
-    "Ta bort/lägg till student när enbart anställda får beställa materialtypen, I fältet showcriteria, values"
-  ]
+          "documentation": [
+            "Ta bort/lägg till student när enbart anställda får beställa materialtypen, I fältet showcriteria, values"
+          ]
         },
         {
           "label": {
@@ -1586,6 +1584,11 @@
       }
     },
     "dateneededby": {
+      "documentation": [
+        "Fält där användaren kan ange senaste datum för sin beställings leverans",
+        "Sätt ett default-datum(antal dagar framåt från dagens datum) som redan är ifyllt",
+        "Sätt ett minimi-datum(antal dagar framåt från dagens datum) som begränsning"
+      ],
       "label": {
         "swedish": "Jag behöver min beställning senast (minimum 14 dagar) ",
         "english": "Date needed by (minimum is 14 days) "
@@ -1601,7 +1604,11 @@
       "openurlenabled": true,
       "showcriteria": [{
         "field": "genre",
-        "values": ["article", "book", "bookitem"]
+        "values": ["article", "book", "bookitem"],
+        "documentation": [
+          "Sätt values till de genrevärden som det ska visas för: article, book, bookitem",
+          "Sätt values till none om fältet inte ska visas(t ex under sommartid)"
+        ]
       }],
       "validation": {
         "required": {
