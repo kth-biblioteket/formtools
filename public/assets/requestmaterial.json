@@ -1604,7 +1604,7 @@
       "openurlenabled": true,
       "showcriteria": [{
         "field": "genre",
-        "values": ["article, book, bookitem"],
+        "values": ["article", "book", "bookitem"],
         "documentation": [
           "Sätt values till de genrevärden som det ska visas för: article, book, bookitem",
           "Sätt values till none om fältet inte ska visas(t ex under sommartid)"
