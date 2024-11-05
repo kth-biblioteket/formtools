@@ -167,6 +167,7 @@ async function requestMaterial(req, res) {
         //hantera kostnader som behöver accepteras/avböjas (TODO ändra till generell costs?)
         //Vad som ska stå i mailsvaret
         let cost='undefined';
+        let willingtocopyright='undefined';
         for (const key in req.body.form) {
             if(req.body.form[key] == 'acceptcost' || req.body.form[key] == 'contact' || req.body.form[key] == 'decline') {
                 formconfig.formfields[key].options.forEach((option) => {
@@ -174,6 +175,10 @@ async function requestMaterial(req, res) {
                         cost = option.label[req.query.language];
                     }
                 })
+            }
+
+            if(req.body.form[key] == 'yes') {
+                willingtocopyright = formconfig.formfields[key].label[req.query.language]    
             }
         }
 
@@ -207,8 +212,8 @@ async function requestMaterial(req, res) {
 
         // Skapa mailinnehåll till edge och beställaren
         let request = req.body
-        emailtobodyedge = await mail.createmailbody(formconfig, emailtobodyedge, genre, cost, almafullname, almapreferredemail, almalibraryname, request, req.query.language);
-        emailtobodyuser = await mail.createmailbody(formconfig, emailtobodyuser, genre, cost, almafullname, almapreferredemail, almalibraryname, request, req.query.language);
+        emailtobodyedge = await mail.createmailbody(formconfig, emailtobodyedge, genre, cost, willingtocopyright, almafullname, almapreferredemail, almalibraryname, request, req.query.language);
+        emailtobodyuser = await mail.createmailbody(formconfig, emailtobodyuser, genre, cost, willingtocopyright, almafullname, almapreferredemail, almalibraryname, request, req.query.language);
         // Skicka beställing och/eller mail beroende på källa och materialtyp
         let create_request = false
         let send_edge_mail = false
@@ -290,7 +295,7 @@ async function requestMaterial(req, res) {
         return res.status(201).send(responseobject);
         //return response()->json($responseobject, 201,[],JSON_UNESCAPED_UNICODE);
     } catch (err) {
-        //console.log(err)
+        console.log(err)
         if(typeof err.response.data == 'string') {
             if(err.response.data.indexOf('SERVICE_NOT_FOUND') > -1) {
                 res.status(400).send('SERVICE_NOT_FOUND');
@@ -388,6 +393,16 @@ async function createUserResourceSharingRequests(formconfig, language, request, 
         let willing_to_pay = false
         if (request.form.costs == 'acceptcost') {
             willing_to_pay = true;
+        }
+
+        // Hantera copyright
+        // Alma verkar inte ta emot värde "false" för agree_to_copyright_terms så skicka alltid true
+        // "errorMessage": "Invalid field value. Field: agree_to_copyright_terms, Value: false.",
+        let willing_to_copyright = true;
+        let willing_to_copyright_note = 'Nej';
+        if (request.form.willingtocopyright == 'yes') {
+            willing_to_copyright = true;
+            willing_to_copyright_note = 'Ja';
         }
 
         //Hantera kategori

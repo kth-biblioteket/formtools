@@ -86,7 +86,7 @@ async function sendmail(to, from, fromname, subject, bodytext, inlineimage = '',
      * "<div>@@cost</div>",
      * 
      */
-async function createmailbody(formconfig, bodytext, genre, cost, fullname, almapreferredemail, almalibraryname, request, language) {
+async function createmailbody(formconfig, bodytext, genre, cost, willingtocopyright, fullname, almapreferredemail, almalibraryname, request, language) {
         
     //hantera titel
     let title = '';
@@ -158,6 +158,7 @@ async function createmailbody(formconfig, bodytext, genre, cost, fullname, almap
     bodytext = bodytext.replace(/@@iam/g, iam);
     bodytext = bodytext.replace(/@@username/g, request.form.username);
     bodytext = bodytext.replace(/@@emailadress/g, almapreferredemail);
+    bodytext = bodytext.replace(/@@willingtocopyright/g, willingtocopyright);
     bodytext = bodytext.replace(/@@cost/g, cost);
     bodytext = bodytext.replace(/@@dateneededby/g, dateneededby);
     bodytext = bodytext.replace(/@@message/g, request.form.message);

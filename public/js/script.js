@@ -191,11 +191,12 @@ let createformfield = (field, fieldkey) => {
         formhtml += `<label class="${field.ishoneypot ? 'nallepuh' : ''} ${field.isgrouped ? 'isgrouped' : ''} ${!field.isgrouped ? 'isnotgrouped' : ''}" for="${fieldkey}">
                         ${language == 'swedish' ? field.label.swedish : field.label.english}`
         if (field.type != 'files') {
+            let validatefield = checkifrequired(fieldkey);
             formhtml += `
                             <!-- Fält valfritt? Visa inte för fillista-->
                             <span class="requiredtext">
-                                ${!field.validation.required.value && language == 'swedish' ? '(' + optionalfieldtext.swedish + ')' : ''}
-                                ${!field.validation.required.value && language == 'english' ? '(' + optionalfieldtext.english + ')' : ''}
+                                ${!validatefield && language == 'swedish' ? '(' + optionalfieldtext.swedish + ')' : ''}
+                                ${!validatefield && language == 'english' ? '(' + optionalfieldtext.english + ')' : ''}
                             </span>`
         }
         formhtml += `</label>`
@@ -647,7 +648,7 @@ let showhidefields = () => {
         show = false;
         if (formdata.formfields[prop].showcriteria) {
             for (let index1 of Object.keys(formdata.formfields[prop].showcriteria)) {
-                validfield = false;
+                let validfield = false;
                 //Gå igenom alla showcritera values
                 for (let index2 of Object.keys(formdata.formfields[prop].showcriteria[index1].values)) {
                     //om värdet på aktuellt fälts showcritera-fält(showcriteria.field) i formuläret finns i godkända values för aktuellt fält så ska det visas
@@ -817,7 +818,11 @@ let validatefield = (field_id) => {
     //Hämta element för att visa om ett fält är felaktigt
     let el = document.getElementById('invalid_' + field_id)
     // Om fältet är required utför validering(validera även övriga fält?)
-    if(formdata.formfields[field_id].validation.required.value) {
+    
+    let validatefield = checkifrequired(field_id);
+
+    //if(formdata.formfields[field_id].validation.required.value) {
+    if(validatefield) {
         //Fältet måste ha ett ifyllt värde
         if(formdata.formfields[field_id].value == '') {
             el.innerHTML = formdata.formfields[field_id].label[language] + ' ' + formdata.formfields[field_id].validation.required.errormessage[language]
@@ -875,6 +880,33 @@ let validatefield = (field_id) => {
     }
 
     return validfield;
+}
+
+let checkifrequired = (field_id) => {
+    //Fältet ska bara valideras om det uppfyller criterias(fields + value ) för validation
+    let validatefield = false;
+    //Fältet ska alltid valideras om required = true
+    if (formdata.formfields[field_id].validation.required.value) {
+        validatefield = true;
+    } else {
+        if (formdata?.formfields?.[field_id]?.validation?.required.criteria) {
+            for (let index1 of formdata.formfields[field_id].validation.required.criteria) {
+                //Gå igenom alla critera values och kolla om 
+                for (let index2 of index1.values) {
+                    // om värdet på aktuellt fälts critera-fält(criteria.field) i formuläret finns i godkända values för aktuellt fält så är det required
+                    // tex om det aktuella värdet för formulärets genre-fält är "article" och "article" är ett av värdena i critera.values så är det required
+                    if (formdata.formfields[index1.field].value == index2 || index2 == "any") {
+                        validatefield = true;
+                        break;
+                    } else {
+                        validatefield = false;
+                    }
+                }
+            }
+        }
+    }
+
+    return validatefield
 }
 
 ////////////////////////////////////////////////////
@@ -1013,7 +1045,7 @@ let submitform =  (event) => {
                 backendresponse = true;
                 backendresult = true;
                 warning = true;
-                rejectedemail = JSON.parse(xhr.responseText).message.rejected[0];
+                rejectedemail = JSON.parse(xhr.responseText).message;
                 loading = false;
                 formsubmitted = false;
                 let resultelement = document.getElementById("backendresponse")
@@ -1033,7 +1065,7 @@ let submitform =  (event) => {
                         Obs!
                     </h4>
                     <div>
-                        ${language == 'swedish' ? 'Det gick inte att skicka mail till adressen du angav: ' + rejectedemail : 'It was not possible to send an email to the address you provided: ' + rejectedemail}
+                        ${language == 'swedish' ? 'Det gick inte att skicka ett bekräftelsemail' : 'It was not possible to send a confirmation email' + rejectedemail}
                     </div>
                 </div>`
                 window.scroll(0,0);
