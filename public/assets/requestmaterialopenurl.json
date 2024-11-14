@@ -90,22 +90,24 @@
       "<p showcritera='@@coursecode'>Kurskod KTH: @@coursecode</p>",
       "<p><strong>Källa för beställningen</strong></p>",
       "<div>@@source</div>",
-      "<p showcritera='@@pickup'><strong>Önskar hämta på</strong></p>",
-      "<div>@@pickup</div>",
-      "<p><strong>Beställarens namn</strong></p>",
-      "<div>@@fullname</div>",
-      "<p><strong>Kategori</strong></p>",
-      "<div>@@iam</div>",
-      "<p><strong>Användarid</strong></p>",
-      "<div>@@username</div>",
-      "<p><strong>E-postadress</strong></p>",
-      "<div>@@emailadress</div>",
-      "<p showcritera='@@cost'><strong>Accepterar kostnad</strong></p>",
-      "<div>@@cost</div>",
-      "<p showcritera='@@dateneededby'><strong>Jag behöver min beställning senast</strong></p>",
-      "<div>@@dateneededby</div>",
-      "<p showcritera='@@message'><strong>Meddelande från beställare</strong></p>",
-      "<div>@@message</div>"
+      "<p showcritera='@@pickup'><strong>Önskar hämta på</strong>",
+      "<div>@@pickup</div></p>",
+      "<p showcritera='@@fullname'><strong>Beställarens namn</strong>",
+      "<div>@@fullname</div></p>",
+      "<p><strong>Kategori</strong>",
+      "<div>@@iam</div></p>",
+      "<p><strong>Användarid</strong>",
+      "<div>@@username</div></p>",
+      "<p><strong>E-postadress</strong>",
+      "<div>@@emailadress</div></p>",
+      "<p showcritera='@@willingtocopyright'><strong>Accepterar villkor för copyright</strong>",
+      "<div>@@willingtocopyright</div></p>",
+      "<p showcritera='@@cost'><strong>Accepterar kostnad</strong>",
+      "<div>@@cost</div></p>",
+      "<p showcritera='@@dateneededby'><strong>Jag behöver min beställning senast</strong>",
+      "<div>@@dateneededby</div></p>",
+      "<p showcritera='@@message'><strong>Meddelande från beställare</strong>",
+      "<div>@@message</div></p>"
     ],
     "english": [
       "<p><strong>Material type</strong></p>",
@@ -131,22 +133,24 @@
       "<p showcritera='@@coursecode'>Course code KTH: @@coursecode</p>",
       "<p><strong>Source for the request</strong></p>",
       "<div>@@source</div>",
-      "<p showcritera='@@pickup'><strong>Pick up at:</strong></p>",
-      "<div>@@pickup</div>",
-      "<p><strong>Name of requester</strong></p>",
-      "<div>@@fullname</div>",
-      "<p><strong>Category</strong></p>",
-      "<div>@@iam</div>",
-      "<p><strong>User id</strong></p>",
-      "<div>@@username</div>",
-      "<p><strong>E-mailaddress</strong></p>",
-      "<div>@@emailadress</div>",
-      "<p showcritera='@@cost'><strong>Accept costs</strong></p>",
-      "<div>@@cost</div>",
-      "<p showcritera='@@dateneededby'><strong>Date needed by</strong></p>",
-      "<div>@@dateneededby</div>",
-      "<p showcritera='@@message'><strong>Message from requester</strong></p>",
-      "<div>@@message</div>"
+      "<p showcritera='@@pickup'><strong>Pick up at:</strong>",
+      "<div>@@pickup</div></p>",
+      "<p showcritera='@@fullname'><strong>Name of requester</strong>",
+      "<div>@@fullname</div></p>",
+      "<p><strong>Category</strong>",
+      "<div>@@iam</div></p>",
+      "<p><strong>User id</strong>",
+      "<div>@@username</div></p>",
+      "<p><strong>E-mailaddress</strong>",
+      "<div>@@emailadress</div></p>",
+      "<p showcritera='@@willingtocopyright'><strong>Accept terms for copyright</strong>",
+      "<div>@@willingtocopyright</div></p>",
+      "<p showcritera='@@cost'><strong>Accept costs</strong>",
+      "<div>@@cost</div></p>",
+      "<p showcritera='@@dateneededby'><strong>Date needed by</strong>",
+      "<div>@@dateneededby</div></p>",
+      "<p showcritera='@@message'><strong>Message from requester</strong>",
+      "<div>@@message</div></p>"
     ]
   },
   "emailtosubjectuser": {
@@ -194,6 +198,8 @@
       "<div><strong>E-postadress</strong></div>",
       "<div>@@emailadress</div>",
       "<br>",
+      "<div showcritera='@@willingtocopyright'><strong>Accepterar villkor för copyright</strong></div>",
+      "<div>@@willingtocopyright</div>",
       "<div showcritera='@@cost'><strong>Accepterar kostnad</strong></div>",
       "<div>@@cost</div>",
       "<br>",
@@ -210,7 +216,7 @@
     ],
     "english": [
       "<div><p>Hi,</p></div>",
-      "<div><p>Thank you for your request! We will let you know when the material is available. Article copies will be sent to the mailing address you have registered in the library system.</p></div>",
+      "<div><p>Thank you for your request. We will let you know when the material is available. Due to copyright law, article copies will be sent in print format to the office address registered on your library account <a href='https://www.kth.se/en/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001'>https://www.kth.se/en/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001.</a> Please make sure that the address is correct. In case you do not have an office address, register your home address. <strong>NB: the KTH Library is not responsible for articles that are undeliverable due to an inaccurate address.</strong></p></div>",
       "<div><strong>Material type</strong></div>",
       "<div>@@genre</div>",
 	    "<br>",
@@ -248,6 +254,8 @@
       "<div><strong>Email address</strong></div>",
       "<div>@@emailadress</div>",
       "<br>",
+      "<div showcritera='@@willingtocopyright'><strong>Accept terms for copyright</strong></div>",
+      "<div>@@willingtocopyright</div>",
       "<div showcritera='@@cost'><strong>Accepting fees</strong></div>",
       "<div>@@cost</div>",
       "<br>",
@@ -732,7 +740,7 @@
         },
         {
           "field": "genre",
-          "values": ["article"]
+          "values": ["none"]
         }
       ]
     },
@@ -769,7 +777,7 @@
         },
         {
           "field": "genre",
-          "values": ["bookitem"]
+          "values": ["none"]
         }
       ],
       "validation": {
@@ -798,7 +806,7 @@
         },
         {
           "field": "genre",
-          "values": ["book","bookitem","article"]
+          "values": ["book"]
         }
       ],
       "options": [
@@ -1014,6 +1022,72 @@
           "values": ["journal"]
         }
       ]
+    },
+    "copyrightinfobox": {
+      "label": {
+        "swedish": "copyrightinfobox",
+        "english": "copyrightinfobox"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "Kopian tillhandahålls av KTH Biblioteket och får endast användas för privat bruk, eller i forsknings- och undervisningssyfte. Det åligger beställaren att följa gällande upphovsrättslagstiftning.",
+        "english": "The copy is made available by KTH Royal Institute of Technology Library for research and educational purposes, or private use only. The requester agrees to comply with all rules regarding the protection of copyright"
+      },
+      "value": "informationbox",
+      "type": "informationboxalert",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": [
+            "student", "employee"
+          ]
+        },
+        {
+          "field": "genre",
+          "values": [
+            "bookitem",
+            "article"
+          ]
+        }
+      ]
+    },
+    "willingtocopyright": {
+      "label": {
+        "swedish": "Jag accepterar gällande upphovsrättslagstiftning",
+        "english": "I accept all rules regarding the protection of copyright"
+      },
+      "value": "",
+      "type": "checkbox",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": ["student", "employee"]
+        },
+        {
+          "field": "genre",
+          "values": ["bookitem","article"]
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^yes$",
+          "errormessage": {
+            "swedish": "Villkoren måste accepteras",
+            "english": "Please accept terms of use"
+          }
+        }
+      }
     },
     "genredetails": {
       "label": {
@@ -1291,6 +1365,10 @@
       }],
       "validation": {
         "required": {
+          "criteria": [{
+            "field": "genre",
+            "values": ["book","article","bookitem"]
+          }],
           "value": false,
           "errormessage": {
             "swedish": "måste fyllas i",
@@ -1347,6 +1425,10 @@
       }],
       "validation": {
         "required": {
+          "criteria": [{
+            "field": "genre",
+            "values": ["bookitem"]
+          }],
           "value": false,
           "errormessage": {
             "swedish": "måste fyllas i",
@@ -1378,6 +1460,10 @@
       }],
       "validation": {
         "required": {
+          "criteria": [{
+            "field": "genre",
+            "values": ["article"]
+          }],
           "value": false,
           "errormessage": {
             "swedish": "måste fyllas i",
@@ -1501,7 +1587,17 @@
         "values": ["article","bookitem"]
       }],
       "validation": {
-        "required": false
+        "required": {
+          "criteria": [{
+            "field": "genre",
+            "values": ["bookitem"]
+          }],
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
       }
     },
     "tpages": {
@@ -1556,9 +1652,9 @@
     },
     "dateneededby": {
       "documentation": [
-	"Fält där användaren kan ange senaste datum för sin beställings leverans",
-	"Sätt ett default-datum(antal dagar framåt från dagens datum) som redan är ifyllt",
-	"Sätt ett minimi-datum(antal dagar framåt från dagens datum) som begränsning"
+        "Fält där användaren kan ange senaste datum för sin beställings leverans",
+        "Sätt ett default-datum(antal dagar framåt från dagens datum) som redan är ifyllt",
+        "Sätt ett minimi-datum(antal dagar framåt från dagens datum) som begränsning"
       ],
       "label": {
         "swedish": "Jag behöver min beställning senast (minimum 14 dagar) ",
@@ -1576,7 +1672,7 @@
       "showcriteria": [{
         "field": "genre",
         "values": ["article", "book", "bookitem"],
-	    "documentation": [
+        "documentation": [
           "Sätt values till de genrevärden som det ska visas för: article, book, bookitem",
           "Sätt values till none om fältet inte ska visas(t ex under sommartid)"
         ]

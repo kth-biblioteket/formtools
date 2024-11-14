@@ -99,6 +99,8 @@
       "<div>@@username</div></p>",
       "<p><strong>E-postadress</strong>",
       "<div>@@emailadress</div></p>",
+      "<p showcritera='@@willingtocopyright'><strong>Accepterar villkor för copyright</strong>",
+      "<div>@@willingtocopyright</div></p>",
       "<p showcritera='@@cost'><strong>Accepterar kostnad</strong>",
       "<div>@@cost</div></p>",
       "<p showcritera='@@dateneededby'><strong>Jag behöver min beställning senast</strong>",
@@ -140,6 +142,8 @@
       "<div>@@username</div></p>",
       "<p><strong>E-mailaddress</strong>",
       "<div>@@emailadress</div></p>",
+      "<p showcritera='@@willingtocopyright'><strong>Accept terms for copyright</strong>",
+      "<div>@@willingtocopyright</div></p>",
       "<p showcritera='@@cost'><strong>Accept costs</strong>",
       "<div>@@cost</div></p>",
       "<p showcritera='@@dateneededby'><strong>Date needed by</strong>",
@@ -193,6 +197,8 @@
       "<div><strong>E-postadress</strong></div>",
       "<div>@@emailadress</div>",
       "<br>",
+      "<div showcritera='@@willingtocopyright'><strong>Accepterar villkor för copyright</strong></div>",
+      "<div>@@willingtocopyright</div>",
       "<div showcritera='@@cost'><strong>Accepterar kostnad</strong></div>",
       "<div>@@cost</div>",
       "<br>",
@@ -247,6 +253,8 @@
       "<div><strong>Email address</strong></div>",
       "<div>@@emailadress</div>",
       "<br>",
+      "<div showcritera='@@willingtocopyright'><strong>Accept terms for copyright</strong></div>",
+      "<div>@@willingtocopyright</div>",
       "<div showcritera='@@cost'><strong>Accepting fees</strong></div>",
       "<div>@@cost</div>",
       "<br>",
@@ -305,7 +313,7 @@
       "english": "Article in journal"
     },
     "bookitem": {
-      "swedish": "Kaptiel i bok",
+      "swedish": "Kapitel i bok",
       "english": "Chapter in book"
     },
     "journal": {
@@ -761,7 +769,7 @@
         },
         {
           "field": "genre",
-          "values": ["article"]
+          "values": ["none"]
         }
       ]
     },
@@ -798,7 +806,7 @@
         },
         {
           "field": "genre",
-          "values": ["bookitem"]
+          "values": ["none"]
         }
       ],
       "validation": {
@@ -827,7 +835,7 @@
         },
         {
           "field": "genre",
-          "values": ["book","bookitem","article"]
+          "values": ["book"]
         }
       ],
       "options": [
@@ -1043,6 +1051,71 @@
           "values": ["journal"]
         }
       ]
+    },
+    "copyrightinfobox": {
+      "label": {
+        "swedish": "copyrightinfobox",
+        "english": "copyrightinfobox"
+      },
+      "description": {
+        "placement": "after",
+        "swedish": "Kopian tillhandahålls av KTH Biblioteket och får endast användas för privat bruk, eller i forsknings- och undervisningssyfte. Det åligger beställaren att följa gällande upphovsrättslagstiftning.",
+        "english": "The copy is made available by KTH Royal Institute of Technology Library for research and educational purposes, or private use only. The requester agrees to comply with all rules regarding the protection of copyright"
+      },
+      "value": "informationbox",
+      "type": "informationboxalert",
+      "enabled": false,
+      "openurlenabled": true,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": [
+            "student", "employee"
+          ]
+        },
+        {
+          "field": "genre",
+          "values": [
+            "bookitem",
+            "article"
+          ]
+        }
+      ]
+    },
+    "willingtocopyright": {
+      "label": {
+        "swedish": "Jag accepterar gällande upphovsrättslagstiftning",
+        "english": "I accept all rules regarding the protection of copyright"
+      },
+      "value": "",
+      "type": "checkbox",
+      "enabled": false,
+      "showcriteria": [
+        {
+          "field": "iam",
+          "values": ["student", "employee"]
+        },
+        {
+          "field": "genre",
+          "values": ["bookitem","article"]
+        }
+      ],
+      "validation": {
+        "required": {
+          "value": true,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        },
+        "pattern": {
+          "value": "^yes$",
+          "errormessage": {
+            "swedish": "Villkoren måste accepteras",
+            "english": "Please accept terms of use"
+          }
+        }
+      }
     },
     "genredetails": {
       "label": {
@@ -1320,6 +1393,10 @@
       }],
       "validation": {
         "required": {
+          "criteria": [{
+            "field": "genre",
+            "values": ["book","article","bookitem"]
+          }],
           "value": false,
           "errormessage": {
             "swedish": "måste fyllas i",
@@ -1376,6 +1453,10 @@
       }],
       "validation": {
         "required": {
+          "criteria": [{
+            "field": "genre",
+            "values": ["bookitem"]
+          }],
           "value": false,
           "errormessage": {
             "swedish": "måste fyllas i",
@@ -1407,6 +1488,10 @@
       }],
       "validation": {
         "required": {
+          "criteria": [{
+            "field": "genre",
+            "values": ["article"]
+          }],
           "value": false,
           "errormessage": {
             "swedish": "måste fyllas i",
@@ -1530,7 +1615,17 @@
         "values": ["article","bookitem"]
       }],
       "validation": {
-        "required": false
+        "required": {
+          "criteria": [{
+            "field": "genre",
+            "values": ["bookitem"]
+          }],
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
       }
     },
     "tpages": {
