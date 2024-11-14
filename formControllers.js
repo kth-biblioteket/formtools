@@ -124,6 +124,24 @@ async function requestMaterial(req, res) {
         // Hämta användaren från Alma (catch error om användaren inte existerar)
         const almauser = await axios.get(process.env.ALMA_API_URL + 'users/' + req.body.form.username + '?apikey=' + process.env.ALMA_API_KEY);
         const almauserobject = almauser.data
+        let kthuser = false;
+        // Kontrollera om beställaren är KTH-Ansluten(student, personal och other(member etc)). Alma User groups: 10, 20 och 40
+        if (req.body.form.iam == 'student' || req.body.form.iam == 'employee') {
+            const allowedUserGroups = process.env.ALLOWED_USER_GROUPS ? process.env.ALLOWED_USER_GROUPS.split(", ") : [];
+            if (allowedUserGroups.length > 0) {
+                if (allowedUserGroups.includes(almauserobject.user_group.value)) {
+                    kthuser = true;
+                }
+            }
+        }
+        if (!kthuser) {
+            if (req.query.language == 'swedish') {
+                return res.status(400).send({'message': 'Användarnamnet "' + req.body.form.username + '" är inte registrerat som student eller personal på KTH.'});
+            } else {
+                return res.status(400).send({'message': 'Username "' + req.body.form.username + '" is not registered as a student or staff at KTH '});
+            }
+        }
+
         let almafullname = almauserobject.full_name;
         let almapreferredemail ='';
         almauserobject.contact_info.email.forEach(email => {
