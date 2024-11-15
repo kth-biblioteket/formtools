@@ -1084,8 +1084,8 @@
     },
     "willingtocopyright": {
       "label": {
-        "swedish": "Jag accepterar gällande upphovsrättslagstiftning",
-        "english": "I accept all rules regarding the protection of copyright"
+        "swedish": "Jag samtycker till att följa gällande upphovsrättsregler.",
+        "english": "I agree to comply with current copyright regulations."
       },
       "value": "",
       "type": "checkbox",
