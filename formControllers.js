@@ -250,10 +250,18 @@ async function requestMaterial(req, res) {
                     create_request = false
                     send_edge_mail = true
                     send_user_mail = false
-                } else {
-                    create_request = true
-                    send_edge_mail = false
-                    send_user_mail = true
+                } 
+                else {
+                    //Företag får inte utnyttja RapidILL, skickas till Edge istället
+                    if (req.body.form.iam == 'business') {
+                        create_request = false
+                        send_edge_mail = true
+                        send_user_mail = false
+                    } else {
+                        create_request = true
+                        send_edge_mail = false
+                        send_user_mail = true
+                    }
                 }
                 break;
             // Beställning från Formulär(polopoly)
@@ -263,9 +271,16 @@ async function requestMaterial(req, res) {
                     send_edge_mail = true
                     send_user_mail = false
                 } else {
-                    create_request = true
-                    send_edge_mail = false
-                    send_user_mail = true
+                    //Företag får inte utnyttja RapidILL, skickas till Edge istället
+                    if (req.body.form.iam == 'business') {
+                        create_request = false
+                        send_edge_mail = true
+                        send_user_mail = false
+                    } else {
+                        create_request = true
+                        send_edge_mail = false
+                        send_user_mail = true
+                    }
                 }
                 break;
             default:
