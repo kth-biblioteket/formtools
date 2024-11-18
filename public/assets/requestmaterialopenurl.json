@@ -40,8 +40,8 @@
       "english": "Thank you for ordering."
     },
     "text": {
-      "swedish": "Vi meddelar dig när materialet är tillgängligt. Gäller beställningen en artikel skickas den av upphovsrättsliga skäl i utskrivet format till din kontorsadress. Kontrollera att den adress du angivit på ditt bibliotekskonto <a href='https://www.kth.se/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001'>https://www.kth.se/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001</a> är korrekt. Om du inte har en kontorsadress ange hemadress. <strong>Observera att KTH Biblioteket inte tar ansvar för artiklar som kommer i retur på grund av felaktigt angiven adress.</strong>",
-      "english": "We will let you know when the material is available. Due to copyright law, article copies will be sent in print format to the office address registered on your library account <a href='https://www.kth.se/en/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001'>https://www.kth.se/en/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001.</a> Please make sure that the address is correct. In case you do not have an office address, register your home address. <strong>NB: the KTH Library is not responsible for articles that are undeliverable due to an inaccurate address.</strong>"
+      "swedish": "<p>Materialet kommer att levereras antingen digitalt eller i utskrivet format. Vilket format det blir styrs av gällande upphovsrätt i varje enskilt fall.</p>För att eventuellt tryckt material ska kunna levereras måste du ha aktuell postadress registrerad på ditt bibliotekskonto. Kontrollera gärna din kontorsadress <a href='https://www.kth.se/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001'>https://www.kth.se/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001</a></p><p>Har du ingen kontorsadress ange hemadress.</p><p><strong>NB: KTH Biblioteket ansvarar inte för artiklar som inte kan levereras på grund av felaktigt angiven adress.</strong></p>",
+      "english": "<p>You will receive an electronic or a print copy of the requested material. The format is according to the copyright in each case.</p><p>Please make sure your office address is correct <a href='https://www.kth.se/en/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001'>https://www.kth.se/en/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001.</a></p><p>In case you do not have an office address, register your home address.</p><p><strong>NB: the KTH Library is not responsible for articles that are undeliverable due to an inaccurate address.</strong></p>"
     }
   },
   "posterrorresponseinfo" : {
@@ -160,7 +160,12 @@
   "emailtobodyuser": {
     "swedish": [
       "<div><p>Hej,</p></div>",
-      "<div><p>Tack för din beställning!</p><p>Vi meddelar dig när materialet är tillgängligt. Gäller beställningen en artikel skickas den av upphovsrättsliga skäl i utskrivet format till din kontorsadress. Kontrollera att den adress du angivit på ditt bibliotekskonto <a href='https://www.kth.se/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001'>https://www.kth.se/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001</a> är korrekt. Om du inte har en kontorsadress ange hemadress. <strong>Observera att KTH Biblioteket inte tar ansvar för artiklar som kommer i retur på grund av felaktigt angiven adress.</strong></p></div>",
+      "<div>",
+      "<p>Materialet kommer att levereras antingen digitalt eller i utskrivet format. Vilket format det blir styrs av gällande upphovsrätt i varje enskilt fall.</p>",
+      "<p>För att eventuellt tryckt material ska kunna levereras måste du ha aktuell postadress registrerad på ditt bibliotekskonto. Kontrollera gärna din kontorsadress <a href='https://www.kth.se/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001'>https://www.kth.se/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001</a></p>",
+      "<p>Har du ingen kontorsadress ange hemadress.</p>",
+      "<p><strong>NB: KTH Biblioteket ansvarar inte för artiklar som inte kan levereras på grund av felaktigt angiven adress.</strong></p>",
+      "</div>",
       "<div><strong>Materialtyp</strong></div>",
       "<div>@@genre</div>",
 	    "<br>",
@@ -215,8 +220,12 @@
       "<div>www.kth.se/biblioteket</div>"
     ],
     "english": [
-      "<div><p>Hi,</p></div>",
-      "<div><p>Thank you for your request. We will let you know when the material is available. Due to copyright law, article copies will be sent in print format to the office address registered on your library account <a href='https://www.kth.se/en/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001'>https://www.kth.se/en/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001.</a> Please make sure that the address is correct. In case you do not have an office address, register your home address. <strong>NB: the KTH Library is not responsible for articles that are undeliverable due to an inaccurate address.</strong></p></div>",
+      "<div>",
+      "<p>You will receive an electronic or a print copy of the requested material. The format is according to the copyright in each case.</p>",
+      "<p>Please make sure your office address is correct <a href='https://www.kth.se/en/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001'>https://www.kth.se/en/biblioteket/anvanda-biblioteket/mitt-bibliotekskonto-1.853001.</a></p>",
+      "<p>In case you do not have an office address, register your home address.</p>", 
+      "<p><strong>NB: the KTH Library is not responsible for articles that are undeliverable due to an inaccurate address.</strong></p>",
+      "</div>",
       "<div><strong>Material type</strong></div>",
       "<div>@@genre</div>",
 	    "<br>",
