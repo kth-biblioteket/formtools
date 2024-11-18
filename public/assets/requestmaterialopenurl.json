@@ -214,10 +214,8 @@
       "<div showcritera='@@message'><strong>Meddelande från beställare</strong></div>",
       "<div>@@message</div>",
 	    "<br>",
-	    "<div><p>Vänligen</p></div>",
-      "<div>KTH Biblioteket</div>",
-      "<div>Telefon: 08-790 70 88</div>",
-      "<div>www.kth.se/biblioteket</div>"
+	    "<div><p>Med vänliga hälsningar</p></div>",
+      "<div>KTH Biblioteket</div>"
     ],
     "english": [
       "<div>",
@@ -275,9 +273,7 @@
       "<div>@@message</div>",
 	    "<br>",
 	    "<div><p>Kind regards</p></div>",
-      "<div>KTH Library</div>",
-      "<div>Phone: 08-790 70 88</div>",
-      "<div>www.kth.se/en/biblioteket</div>"
+      "<div>KTH Library</div>"
     ]
   },
   "emailfromaddresslibrary": {
