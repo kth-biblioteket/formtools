@@ -133,12 +133,12 @@ async function requestMaterial(req, res) {
                     kthuser = true;
                 }
             }
-        }
-        if (!kthuser) {
-            if (req.query.language == 'swedish') {
-                return res.status(400).send({'message': 'Användarnamnet "' + req.body.form.username + '" är inte registrerat som student eller personal på KTH.'});
-            } else {
-                return res.status(400).send({'message': 'Username "' + req.body.form.username + '" is not registered as a student or staff at KTH '});
+            if (!kthuser) {
+                if (req.query.language == 'swedish') {
+                    return res.status(400).send({'message': 'Användarnamnet "' + req.body.form.username + '" är inte registrerat som student eller personal på KTH.'});
+                } else {
+                    return res.status(400).send({'message': 'Username "' + req.body.form.username + '" is not registered as a student or staff at KTH '});
+                }
             }
         }
 
