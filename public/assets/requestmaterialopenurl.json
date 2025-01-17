@@ -1464,11 +1464,8 @@
         "values": ["article"]
       }],
       "validation": {
+        "comment": "required criteria borttaget på openurlbokningar(primo) då det ibland saknas issn. Kravet var genre article. /Thomas 2025-01-17",
         "required": {
-          "criteria": [{
-            "field": "genre",
-            "values": ["article"]
-          }],
           "value": false,
           "errormessage": {
             "swedish": "måste fyllas i",
