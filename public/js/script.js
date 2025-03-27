@@ -122,6 +122,15 @@ let generateForm = (formdata) => {
             openurljson['ctitle'] = '';
             }
 
+            //Hantera proceeding/dissertation
+            if(openurljson['genre'] == 'proceeding') {
+                openurljson['genre'] = 'article'
+            }
+
+            if(openurljson['genre'] == 'dissertation') {
+                openurljson['genre'] = 'book'
+            }
+
             //Skapa HTML för att skriva ut "beställningen" i en ruta överst på sidan.
             openurlboxhtml = 
             `<label>${language=='swedish' ? formdata.openurlboxlabel.swedish : formdata.openurlboxlabel.english}</label>
@@ -154,6 +163,11 @@ let generateForm = (formdata) => {
             let el = document.getElementById('openurlbox')
             el.innerHTML = openurlboxhtml
         } else {
+            //Skicka användaren till tomt formulär
+            let cleanUrl = window.location.origin + window.location.pathname;
+            if (window.location.search) {
+                window.location.replace(cleanUrl);
+            }
             openurlboxhtml = 
                 `<label>${language=='swedish' ? formdata.openurlboxlabel.swedish : formdata.openurlboxlabel.english}</label>
                 <div class="card">
@@ -786,9 +800,12 @@ let validateform = () => {
     //gå igenom alla fält och validera
     for (let key of Object.keys(formdata.formfields)) {
         if(formdata.formfields[key].enabled && formdata.formfields[key].validation) {
+            //endast fält som är "required" ska valideras
+            if(formdata.formfields[key].enabled && formdata.formfields[key].validation.required.value) {
             fieldissvalid = validatefield(key)
-            if (formisvalid && !fieldissvalid) {
-                formisvalid = false;
+                if (formisvalid && !fieldissvalid) {
+                    formisvalid = false;
+                }
             }
         }  
     }

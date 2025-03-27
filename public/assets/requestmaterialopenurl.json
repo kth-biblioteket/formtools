@@ -634,11 +634,33 @@
         },
         {
           "label": {
+            "swedish": "Tidskriftsartikel",
+            "english": "Article in journal"
+          },
+          "value": "proceeding",
+          "enabled": true,
+          "documentation": [
+            "Proceeding räknas som artikel för beställningar"
+          ]
+        },
+        {
+          "label": {
             "swedish": "Bok",
             "english": "Book"
           },
           "value": "book",
           "enabled": true
+        },
+        {
+          "label": {
+            "swedish": "Bok",
+            "english": "Book"
+          },
+          "value": "dissertation",
+          "enabled": true,
+          "documentation": [
+            "Dissertation räknas som bok för beställningar"
+          ]
         },
         {
           "label": {
