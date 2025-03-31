@@ -124,7 +124,7 @@ let generateForm = (formdata) => {
 
             //Hantera proceeding/dissertation
             if(openurljson['genre'] == 'proceeding') {
-                openurljson['genre'] = 'article'
+                openurljson['genre'] = 'bookitem'
             }
 
             if(openurljson['genre'] == 'dissertation') {
