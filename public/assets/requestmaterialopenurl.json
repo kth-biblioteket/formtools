@@ -1952,7 +1952,7 @@
             "english": "Södertälje"
           },
           "value": "TELGE",
-          "enabled": true,
+          "enabled": false,
           "hidden": false
         }
       ],
