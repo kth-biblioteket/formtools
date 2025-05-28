@@ -1919,6 +1919,7 @@
         "swedish": "Hämtas i",
         "english": "Pick up at"
       },
+      "defaultvalue": "MAIN",
       "value": "",
       "type": "radio",
       "enabled": false,
