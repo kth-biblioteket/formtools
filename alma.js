@@ -130,56 +130,10 @@ async function createUser(requestInput){
                 }
             ]`
         if (requestInput[requestInputkey]['otherinfo']) {
-            //Note för de som har borgensförbindelse
-            if (requestInput[requestInputkey]['otherinfo'] == '16_18' || requestInput[requestInputkey]['otherinfo'] == '18_not_swedish') {
+            // Födelsedatum för icke svensk
+            if (requestInput[requestInputkey]['otherinfo'] == '16_not_swedish') {
     jsonuser += `,
-            "user_note": [
-                {
-                    "segment_type": "Internal",
-                    "note_type": {
-                        "value": "POPUP"
-                    },
-                    "note_text": "Användare med borgensförbindelse",
-                    "user_viewable": false,
-                    "popup_note": true,
-                    "created_by": "kthb_forms",
-                    "created_date": "${formatDate(new Date())}Z",
-                    "note_owner": ""
-                }
-            ]`
-            }
-            //Block för under 18
-            if (requestInput[requestInputkey]['otherinfo'] == '16_18') {
-    jsonuser += `,
-            "user_block": [
-                    {
-                        "block_type": {
-                            "value": "USER"
-                        },
-                        "block_description": {
-                            "value": "UNDER18"
-                        },
-                        "block_status": "ACTIVE",
-                        "created_by": "kthb_forms"
-                    }
-                ]`
-            }
-            //Block och födelsedatum för icke svensk
-            if (requestInput[requestInputkey]['otherinfo'] == '18_not_swedish') {
-    jsonuser += `,
-                "birth_date": "${formatDate(new Date(requestInput[requestInputkey]['birthdate'])) ? formatDate(new Date(requestInput[requestInputkey]['birthdate'])) : ""}Z",
-                "user_block": [
-                    {
-                        "block_type": {
-                            "value": "USER"
-                        },
-                        "block_description": {
-                            "value": "EJ_FOLKBOKFORD"
-                        },
-                        "block_status": "ACTIVE",
-                        "created_by": "kthb_forms"
-                    }
-                ]`
+                "birth_date": "${formatDate(new Date(requestInput[requestInputkey]['birthdate'])) ? formatDate(new Date(requestInput[requestInputkey]['birthdate'])) : ""}Z"`
             } else {
                 //Personnummer för övriga
     jsonuser += `, 
