@@ -167,7 +167,10 @@
       "enabled": false,
       "showcriteria": [{
         "field": "otherinfo",
-        "values": ["16_18","18_not_swedish"]
+        "values": ["16_18","18_not_swedish_REMOVED"],
+        "documentation": [
+          "2025-09-02; Över 18 som inte är folkbokförd i Sverige behöver inte längre borgensförbindelse"
+        ]
       }],
       "validation": {
         "required": {
