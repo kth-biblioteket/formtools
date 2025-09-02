@@ -99,19 +99,22 @@
       "options": [
         { 
           "label": {
-            "swedish": "Över 18 år, folkbokförd i Sverige",
-            "english": "Over 18 years old, registered as a Swedish resident"
+            "swedish": "Över 16 år, folkbokförd i Sverige",
+            "english": "Over 16 years old, registered as a Swedish resident"
           }, 
           "value": "other",
           "enabled": true
         },
         { 
           "label": {
-            "swedish": "Över 18 år, men inte folkbokförd i Sverige",
-            "english": "Over 18 years old but not registered as a Swedish resident"
+            "swedish": "Över 16 år, men inte folkbokförd i Sverige",
+            "english": "Over 16 years old but not registered as a Swedish resident"
           }, 
-          "value": "18_not_swedish",
-          "enabled": true
+          "value": "16_not_swedish",
+          "enabled": true,
+          "documentation": [
+            "2025-09-02; Numera gäller det alla över 16"
+          ]
         },
         { 
           "label": {
@@ -119,7 +122,10 @@
             "english": "Between 16 and 18 years old"
           }, 
           "value": "16_18",
-          "enabled": true
+          "enabled": false,
+          "documentation": [
+            "2025-09-02; Används inte längre"
+          ]
         },
         { 
           "label": {
@@ -167,7 +173,7 @@
       "enabled": false,
       "showcriteria": [{
         "field": "otherinfo",
-        "values": ["16_18","18_not_swedish_REMOVED"],
+        "values": ["16_18_REMOVED","18_not_swedish_REMOVED"],
         "documentation": [
           "2025-09-02; Över 18 som inte är folkbokförd i Sverige behöver inte längre borgensförbindelse"
         ]
@@ -293,7 +299,10 @@
       "enabled": false,
       "showcriteria": [{
         "field": "otherinfo",
-        "values": ["18_not_swedish"]
+        "values": ["16_not_swedish"],
+        "documentation": [
+          "2025-09-02; Numera gäller det alla över 16"
+        ]
       }],
       "validation": {
         "required": {
