@@ -101,6 +101,12 @@ let generateForm = (formdata) => {
             formdata.formfields[prop].value = next_date.toISOString().slice(0, 10)
             formdata.formfields[prop].minDate = minDate.toISOString().slice(0, 10);
         }
+
+        //Hantera eventuellt defaultvärde från JSON
+        //Om det inte finns ett värde valt så används defaultvalue
+        if (formdata.formfields[prop].type == "radio" && formdata.formfields[prop].hasdefaultvalue && formdata.formfields[prop].value == "") {
+           formdata.formfields[prop].value = formdata.formfields[prop].defaultvalue
+        }
     }
 
     //OpenURL, matcha fält i formulär mot openurlparametrar 
@@ -280,13 +286,15 @@ let createformfield = (field, fieldkey) => {
                     formhtml += `<input type="radio" 
                         value="${field.options[key].value}"> ${language == 'swedish' ? field.options[key].label.swedish : field.options[key].label.english}`
                 } else {
+                    const radiovalue = field.options[key].value
+                    const checked = field.options[key].value == field.value ? 'checked' : ''
                     formhtml += `
                         <input type="radio"
                             name="${fieldkey}"
                             id="${fieldkey + key}"
                             formControlName="${field.options[key].key}"
-                            value="${field.options[key].value}"
-                            ${field.options[key].value == field.value ? 'checked' : ''}> ${language == 'swedish' ? field.options[key].label.swedish : field.options[key].label.english}`
+                            value="${radiovalue}"
+                            ${checked}> ${language == 'swedish' ? field.options[key].label.swedish : field.options[key].label.english}`
                 }
                 formhtml += `</label></div>`
             }

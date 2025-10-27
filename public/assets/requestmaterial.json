@@ -1926,9 +1926,10 @@
     },
     "pickup": {
       "label": {
-        "swedish": "Hämtas i",
+        "swedish": "Hämtas på",
         "english": "Pick up at"
       },
+      "hasdefaultvalue": true,
       "defaultvalue": "MAIN",
       "value": "",
       "type": "radio",
@@ -1941,8 +1942,8 @@
       "options": [
         {
           "label": {
-            "swedish": "Huvudbiblioteket",
-            "english": "Main Library"
+            "swedish": "KTH Biblioteket",
+            "english": "KTH Library"
           },
           "value": "MAIN",
           "enabled": true,
