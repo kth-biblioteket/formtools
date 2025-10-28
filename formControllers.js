@@ -1007,6 +1007,7 @@ async function searchISNB(req, res, next) {
       });
     }
 
+    /*
     // === 2️⃣ Om Libris inte hittar något → försök Google Books ===
     const googleRes = await axios.get(googleUrl, { timeout: 5000 });
     const googleItem = googleRes.data.items?.[0]?.volumeInfo;
@@ -1025,6 +1026,7 @@ async function searchISNB(req, res, next) {
         status: "ok"
       });
     }
+    */
 
     // === 3️⃣ Om varken Libris eller Google hittar något ===
     return res.status(404).json({
