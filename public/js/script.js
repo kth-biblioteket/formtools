@@ -557,6 +557,27 @@ let createlisteners = () => {
             el.addEventListener('change',function(e){onFileChange(e, '${fieldkey}')});
         });
     }
+
+    // 3️⃣ Lyssna på input i ISBN-fältet
+    if (document.getElementById("isbn")) {
+        const isbnInput = document.getElementById("isbn");
+        let lastValue = "";
+
+        isbnInput.addEventListener("input", () => {
+            const value = isbnInput.value.trim();
+
+            // Om värdet är samma som förra gången → gör inget
+            if (value === lastValue) return;
+            lastValue = value;
+
+            if (isValidISBN(value)) {
+                onValidISBN(value);
+            } else {
+                //.getElementById("result").innerText = "";
+            }
+        });
+    }
+
 }
 
 let escapeHtml = (text) => {
@@ -1191,6 +1212,47 @@ let submitform =  (event) => {
         window.scroll(0,0)
     }
     return false;
+}
+
+// 1️⃣ Funktion för att validera ISBN (format)
+function isValidISBN(isbn) {
+  const cleaned = isbn.replace(/[\s-]/g, '');
+
+  // ISBN-10: 9 siffror + 1 siffra eller X
+  if (/^\d{9}[\dX]$/i.test(cleaned)) return true;
+
+  // ISBN-13: 13 siffror
+  if (/^\d{13}$/.test(cleaned)) return true;
+
+  return false;
+}
+
+// 2️⃣ Funktion som triggas när ett giltigt ISBN fyllts i
+function onValidISBN(isbn) {
+  console.log("Giltigt ISBN:", isbn);
+  
+  // Här kan du kalla ditt API, t.ex.:
+  fetch(`/formtools/api/v1/searchisbn/${isbn}`)
+    .then(res => {
+      if (!res.ok) throw new Error("Boken hittades inte");
+      return res.json();
+    })
+    .then(data => {
+        const title = data?.title || "";
+        const authors = Array.isArray(data?.authors)
+            ? data.authors.join(", ")
+            : (typeof data?.authors === "string" ? data.authors : "");
+        const publisher = data?.publisher || "";
+        const year = data?.publishedDate || "";
+
+        document.getElementById("btitle").value = title;
+        document.getElementById("au").value = authors;
+        document.getElementById("publisher").value = publisher;
+        document.getElementById("year").value = year;
+    })
+    .catch(err => {
+      //document.getElementById("result").innerText = err.message;
+    });
 }
 
 ////////////////////////////////////////////////////

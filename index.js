@@ -101,6 +101,9 @@ apiRoutes.post(process.env.API_PATH + "/literaturesearch", formController.sendLi
 // Sida för form
 apiRoutes.get(process.env.API_PATH + "/kthbform", formController.generateKthbForm)
 
+// Sök ISBN
+apiRoutes.get(process.env.API_PATH + "/searchisbn/:isbn",formController.searchISNB)
+
 // Root
 apiRoutes.get(process.env.API_PATH + "/", async function (req, res) {
     res.json("Welcome to KTH Library forms API")
