@@ -1034,7 +1034,7 @@ async function searchISNB(req, res, next) {
     });
 
   } catch (err) {
-    console.error("Fel vid hämtning:", err.message);
+    console.error("Fel vid hämtning:", err);
     res.status(500).json({
       status: "error",
       message: "Ett fel uppstod vid hämtning av bokdata.",
