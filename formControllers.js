@@ -988,7 +988,7 @@ async function searchISNB(req, res, next) {
   const googleUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
 
   try {
-    // === 1️⃣ Försök hämta från Libris först ===
+    // === 1️⃣ Försök hämta från Libris ===
     const librisRes = await axios.get(librisUrl, { timeout: 5000 });
     const librisList = librisRes.data?.xsearch?.list || [];
     const librisItem = librisList.length > 0 ? librisList[0] : null;
@@ -1005,33 +1005,12 @@ async function searchISNB(req, res, next) {
         cover: librisItem.cover || null,
         status: "ok"
       });
-    }
+    } 
 
-    /*
-    // === 2️⃣ Om Libris inte hittar något → försök Google Books ===
-    const googleRes = await axios.get(googleUrl, { timeout: 5000 });
-    const googleItem = googleRes.data.items?.[0]?.volumeInfo;
-
-    if (googleItem) {
-      return res.json({
-        source: "google",
-        isbn,
-        title: googleItem.title || null,
-        authors: googleItem.authors || [],
-        publisher: googleItem.publisher || null,
-        publishedDate: googleItem.publishedDate || null,
-        language: googleItem.language || null,
-        description: googleItem.description || null,
-        cover: googleItem.imageLinks?.thumbnail || null,
-        status: "ok"
-      });
-    }
-    */
-
-    // === 3️⃣ Om varken Libris eller Google hittar något ===
+    // === 2️⃣ Om Libris inte hittar något ===
     return res.status(404).json({
       status: "not_found",
-      message: "Ingen bokinformation hittades i Libris eller Google Books.",
+      message: "Ingen bokinformation hittades i Libris.",
       isbn
     });
 

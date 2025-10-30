@@ -1214,7 +1214,11 @@ let submitform =  (event) => {
     return false;
 }
 
-// 1️⃣ Funktion för att validera ISBN (format)
+////////////////////////////////////////////////////
+//
+// Funktion för att validera ISBN (format)
+//
+////////////////////////////////////////////////////
 function isValidISBN(isbn) {
   const cleaned = isbn.replace(/[\s-]/g, '');
 
@@ -1227,32 +1231,110 @@ function isValidISBN(isbn) {
   return false;
 }
 
-// 2️⃣ Funktion som triggas när ett giltigt ISBN fyllts i
+////////////////////////////////////////////////////
+//
+// Funktion som triggas när ett giltigt ISBN fyllts i
+//
+////////////////////////////////////////////////////
 function onValidISBN(isbn) {
-  console.log("Giltigt ISBN:", isbn);
+  const isbnInput = document.getElementById("isbn");
+  let suggestionBox = document.getElementById("isbnSuggestions");
+
+  // Skapa container för dropdown om den inte finns
+  if (!suggestionBox) {
+    suggestionBox = document.createElement("div");
+    suggestionBox.id = "isbnSuggestions";
+    suggestionBox.className = "suggestions";
+    isbnInput.insertAdjacentElement("afterend", suggestionBox);
+  }
+
+  suggestionBox.innerHTML = ""; // töm tidigare förslag
   
   // Här kan du kalla ditt API, t.ex.:
   fetch(`/formtools/api/v1/searchisbn/${isbn}`)
-    .then(res => {
-      if (!res.ok) throw new Error("Boken hittades inte");
+    .then(async res => {
+      if (!res.ok) {
+        const errorText = await res.text();
+        const error = new Error(errorText || "Boken hittades inte");
+        error.status = res.status;
+        throw error;
+      }
       return res.json();
     })
     .then(data => {
-        const title = data?.title || "";
-        const authors = Array.isArray(data?.authors)
-            ? data.authors.join(", ")
-            : (typeof data?.authors === "string" ? data.authors : "");
-        const publisher = data?.publisher || "";
-        const year = data?.publishedDate || "";
 
-        document.getElementById("btitle").value = title;
-        document.getElementById("au").value = authors;
-        document.getElementById("publisher").value = publisher;
-        document.getElementById("year").value = year;
+      // Hantera både enstaka och flera träffar
+      const results = Array.isArray(data.results) ? data.results : [data];
+
+      if (!results.length) {
+        suggestionBox.innerHTML = "<div class='suggestion-item'>(inga träffar)</div>";
+        return;
+      }
+
+      if (!results.length) {
+        // Visa "ingen träff" i dropdown
+        const noResultDiv = document.createElement("div");
+        noResultDiv.className = "suggestion-item";
+        noResultDiv.innerText = "(ingen bok hittades)";
+        noResultDiv.style.fontStyle = "italic";
+        suggestionBox.appendChild(noResultDiv);
+        return;
+      }
+
+      results.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "suggestion-item";
+        div.innerText = `${item.title || "(okänd titel)"} – ${Array.isArray(item.authors) ? item.authors.join(", ") : item.authors || "okänd författare"}`;
+        div.addEventListener("click", () => {
+          populateBookFields(item);
+          suggestionBox.innerHTML = "";
+        });
+        suggestionBox.appendChild(div);
+      });
     })
     .catch(err => {
-      //document.getElementById("result").innerText = err.message;
+        console.log(err);
+        suggestionBox.innerHTML = "";
+        const div = document.createElement("div");
+        div.className = "suggestion-item";
+        div.style.fontStyle = "italic";
+
+        if (err.status === 404) {
+            div.innerText = "(ingen bok hittades)";
+            // Klick på "ingen bok hittades" rensar alla fält
+            div.addEventListener("click", () => {
+                document.getElementById("btitle").value = "";
+                document.getElementById("au").value = "";
+                document.getElementById("publisher").value = "";
+                document.getElementById("year").value = "";
+                suggestionBox.innerHTML = "";
+            });
+        } else {
+            div.innerText = "(fel vid hämtning)";
+            console.warn("Fel vid hämtning:", err.message);
+        }
+
+        suggestionBox.appendChild(div);
     });
+}
+
+////////////////////////////////////////////////////
+//
+// Hjälpfunktion för att fylla i formuläret
+//
+////////////////////////////////////////////////////
+function populateBookFields(data) {
+    const title = data?.title || "";
+    const authors = Array.isArray(data?.authors)
+        ? data.authors.join(", ")
+        : (typeof data?.authors === "string" ? data.authors : "");
+    const publisher = data?.publisher || "";
+    const year = data?.publishedDate || "";
+
+    document.getElementById("btitle").value = title;
+    document.getElementById("au").value = authors;
+    document.getElementById("publisher").value = publisher;
+    document.getElementById("year").value = year;
 }
 
 ////////////////////////////////////////////////////
