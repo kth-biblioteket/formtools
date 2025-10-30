@@ -1303,10 +1303,10 @@ function onValidISBN(isbn) {
             div.innerText = "(ingen bok hittades)";
             // Klick på "ingen bok hittades" rensar alla fält
             div.addEventListener("click", () => {
-                document.getElementById("btitle").value = "";
-                document.getElementById("au").value = "";
-                document.getElementById("publisher").value = "";
-                document.getElementById("year").value = "";
+                setValueAndTrigger(document.getElementById("btitle"), "");
+                setValueAndTrigger(document.getElementById("au"), "");
+                setValueAndTrigger(document.getElementById("publisher"), "");
+                setValueAndTrigger(document.getElementById("year"), "");
                 suggestionBox.innerHTML = "";
             });
         } else {
@@ -1331,10 +1331,15 @@ function populateBookFields(data) {
     const publisher = data?.publisher || "";
     const year = data?.publishedDate || "";
 
-    document.getElementById("btitle").value = title;
-    document.getElementById("au").value = authors;
-    document.getElementById("publisher").value = publisher;
-    document.getElementById("year").value = year;
+    setValueAndTrigger(document.getElementById("btitle"), title);
+    setValueAndTrigger(document.getElementById("au"), authors);
+    setValueAndTrigger(document.getElementById("publisher"), publisher);
+    setValueAndTrigger(document.getElementById("year"), year);
+}
+
+function setValueAndTrigger(el, value) {
+  el.value = value;
+  el.dispatchEvent(new Event('input', { bubbles: true }));
 }
 
 ////////////////////////////////////////////////////
