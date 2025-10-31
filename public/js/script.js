@@ -570,8 +570,9 @@ let createlisteners = () => {
             if (value === lastValue) return;
             lastValue = value;
 
-            if (isValidISBN(value)) {
-                onValidISBN(value);
+            const cleanISBN = isValidISBN(value);
+            if (cleanISBN) {
+                onValidISBN(cleanISBN);
             } else {
                 //.getElementById("result").innerText = "";
             }
@@ -1223,10 +1224,10 @@ function isValidISBN(isbn) {
   const cleaned = isbn.replace(/[\s-]/g, '');
 
   // ISBN-10: 9 siffror + 1 siffra eller X
-  if (/^\d{9}[\dX]$/i.test(cleaned)) return true;
+  if (/^\d{9}[\dX]$/i.test(cleaned)) return cleaned;
 
   // ISBN-13: 13 siffror
-  if (/^\d{13}$/.test(cleaned)) return true;
+  if (/^\d{13}$/.test(cleaned)) return cleaned;
 
   return false;
 }
@@ -1275,7 +1276,7 @@ function onValidISBN(isbn) {
         // Visa "ingen träff" i dropdown
         const noResultDiv = document.createElement("div");
         noResultDiv.className = "suggestion-item";
-        noResultDiv.innerText = "(ingen bok hittades)";
+        noResultDiv.innerText = "Ingen bok hittades för: " + isbn;
         noResultDiv.style.fontStyle = "italic";
         suggestionBox.appendChild(noResultDiv);
         return;
@@ -1300,7 +1301,7 @@ function onValidISBN(isbn) {
         div.style.fontStyle = "italic";
 
         if (err.status === 404) {
-            div.innerText = "(ingen bok hittades)";
+            div.innerText = "Ingen bok hittades för: " + isbn;
             // Klick på "ingen bok hittades" rensar alla fält
             div.addEventListener("click", () => {
                 setValueAndTrigger(document.getElementById("btitle"), "");
