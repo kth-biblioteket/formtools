@@ -574,7 +574,22 @@ let createlisteners = () => {
             if (cleanISBN) {
                 onValidISBN(cleanISBN);
             } else {
-                //.getElementById("result").innerText = "";
+                const isbnInput = document.getElementById("isbn");
+                let suggestionBox = document.getElementById("isbnSuggestions");
+                  
+                // Skapa container för dropdown om den inte finns
+                if (!suggestionBox) {
+                    suggestionBox = document.createElement("div");
+                    suggestionBox.id = "isbnSuggestions";
+                    suggestionBox.className = "suggestions";
+                    isbnInput.insertAdjacentElement("afterend", suggestionBox);
+                }
+                suggestionBox.innerHTML = ""; 
+                const noResultDiv = document.createElement("div");
+                noResultDiv.className = "suggestion-item";
+                noResultDiv.innerText = language == 'swedish' ? "Ogiltigt isbn" : "Invalid isbn"
+                noResultDiv.style.fontStyle = "italic";
+                suggestionBox.appendChild(noResultDiv);
             }
         });
     }
@@ -1241,7 +1256,6 @@ function onValidISBN(isbn) {
   const isbnInput = document.getElementById("isbn");
   let suggestionBox = document.getElementById("isbnSuggestions");
 
-  // Skapa container för dropdown om den inte finns
   if (!suggestionBox) {
     suggestionBox = document.createElement("div");
     suggestionBox.id = "isbnSuggestions";
@@ -1249,14 +1263,13 @@ function onValidISBN(isbn) {
     isbnInput.insertAdjacentElement("afterend", suggestionBox);
   }
 
-  suggestionBox.innerHTML = ""; // töm tidigare förslag
+  suggestionBox.innerHTML = "";
   
-  // Här kan du kalla ditt API, t.ex.:
   fetch(`/formtools/api/v1/searchisbn/${isbn}`)
     .then(async res => {
       if (!res.ok) {
         const errorText = await res.text();
-        const error = new Error(errorText || "Boken hittades inte");
+        const error = new Error(errorText || language == 'swedish' ? "Bok hittades inte" : "Book not found");
         error.status = res.status;
         throw error;
       }
@@ -1264,19 +1277,17 @@ function onValidISBN(isbn) {
     })
     .then(data => {
 
-      // Hantera både enstaka och flera träffar
       const results = Array.isArray(data.results) ? data.results : [data];
 
       if (!results.length) {
-        suggestionBox.innerHTML = "<div class='suggestion-item'>(inga träffar)</div>";
+        suggestionBox.innerHTML = "<div class='suggestion-item'>" + language == 'swedish' ? "Inga träffar" : "No result" + "</div>";
         return;
       }
 
       if (!results.length) {
-        // Visa "ingen träff" i dropdown
         const noResultDiv = document.createElement("div");
         noResultDiv.className = "suggestion-item";
-        noResultDiv.innerText = "Ingen bok hittades för: " + isbn;
+        noResultDiv.innerText = language == 'swedish' ? "Ingen bok hittades för: " + isbn : "No book found for: " + isbn;
         noResultDiv.style.fontStyle = "italic";
         suggestionBox.appendChild(noResultDiv);
         return;
@@ -1285,7 +1296,8 @@ function onValidISBN(isbn) {
       results.forEach(item => {
         const div = document.createElement("div");
         div.className = "suggestion-item";
-        div.innerText = `${item.title || "(okänd titel)"} – ${Array.isArray(item.authors) ? item.authors.join(", ") : item.authors || "okänd författare"}`;
+        div.innerText = `${item.title ?? (language == 'swedish' ? "Okänd titel" : "Unknown title")} – ${Array.isArray(item.authors) ? item.authors.join(", ") : (item.authors ?? "okänd författare")}`;
+
         div.addEventListener("click", () => {
           populateBookFields(item);
           suggestionBox.innerHTML = "";
@@ -1301,7 +1313,7 @@ function onValidISBN(isbn) {
         div.style.fontStyle = "italic";
 
         if (err.status === 404) {
-            div.innerText = "Ingen bok hittades för: " + isbn;
+            div.innerText = language == 'swedish' ? "Ingen bok hittades för: " + isbn : "No book found for: " + isbn;
             // Klick på "ingen bok hittades" rensar alla fält
             div.addEventListener("click", () => {
                 setValueAndTrigger(document.getElementById("btitle"), "");
@@ -1311,7 +1323,7 @@ function onValidISBN(isbn) {
                 suggestionBox.innerHTML = "";
             });
         } else {
-            div.innerText = "(fel vid hämtning)";
+            div.innerText = language == 'swedish' ? "Fel vid hämtning " : "Error fetching data: ";
             console.warn("Fel vid hämtning:", err.message);
         }
 
