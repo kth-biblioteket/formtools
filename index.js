@@ -101,8 +101,14 @@ apiRoutes.post(process.env.API_PATH + "/literaturesearch", formController.sendLi
 // Sida för form
 apiRoutes.get(process.env.API_PATH + "/kthbform", formController.generateKthbForm)
 
+// Sök DOI
+apiRoutes.get(process.env.API_PATH + "/searchdoi",formController.searchDOI)
+
 // Sök ISBN
 apiRoutes.get(process.env.API_PATH + "/searchisbn/:isbn",formController.searchISNB)
+
+// Sök Primo
+apiRoutes.get(process.env.API_PATH + "/searchprimo/:isbn",formController.searchPrimo)
 
 // Root
 apiRoutes.get(process.env.API_PATH + "/", async function (req, res) {

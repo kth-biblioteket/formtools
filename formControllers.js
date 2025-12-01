@@ -981,6 +981,56 @@ const handleValidationErrors = (req, res, next) => {
     next();
 };
 
+async function searchDOI(req, res, next) {
+  const { doi } = req.query;
+
+  const crossrefUrl = `https://api.crossref.org/works/${doi}`;
+
+  try {
+    // === 1️⃣ Försök hämta från Crossref ===
+    const crossrefRes = await axios.get(crossrefUrl, { timeout: 5000 });
+    const crossrefItem = crossrefRes.data?.status === "ok" ? crossrefRes.data.message : null;
+    if (crossrefItem) {
+      return res.json({
+        doi,
+        issn: crossrefItem.ISSN || [],
+        journaltitle: crossrefItem["container-title"] || null,
+        articletitle: crossrefItem.title[0] || null,
+        authors: crossrefItem.author || [],
+        publisher: crossrefItem.publisher || null,
+        publishedDate: crossrefItem.published["date-parts"] || null,
+        volume: crossrefItem.volume || null,
+        issue: crossrefItem.issue || null,
+        pages: crossrefItem.page || null,
+        status: "ok"
+      });
+    } 
+
+    // === 2️⃣ Om Crossref inte hittar något ===
+    return res.status(404).json({
+      status: "not_found",
+      message: "Ingen artikelinformation hittades i Crossref.",
+      doi
+    });
+
+  } catch (err) {
+    
+    if (err.response && err.response.status === 404) {
+        return res.status(404).json({
+            status: "not_found",
+            message: "Ingen artikelinformation hittades i Crossref.",
+            doi
+            })
+    }
+    console.error("Fel vid hämtning:");
+    res.status(500).json({
+      status: "error",
+      message: "Ett fel uppstod vid hämtning av artikeldata.",
+      doi
+    });
+  }
+};
+
 async function searchISNB(req, res, next) {
   const { isbn } = req.params;
 
@@ -1024,6 +1074,45 @@ async function searchISNB(req, res, next) {
   }
 };
 
+async function searchPrimo(req, res, next) {
+  const { isbn } = req.params;
+
+  const primoUrl = `https://kth-ch.primo.exlibrisgroup.com/primaws/rest/pub/pnxs?acTriggered=false&blendFacetsSeparately=false&citationTrailFilterByAvailability=true&disableCache=false&getMore=0&inst=46KTH_INST&isCDSearch=false&lang=sv&limit=10&newspapersActive=false&newspapersSearch=false&offset=0&otbRanking=false&pcAvailability=false&q=isbn,contains,${isbn}&qExclude=&qInclude=&rapido=false&refEntryActive=false&rtaLinks=true&scope=MyInst_and_CI&searchInFulltextUserSelection=false&skipDelivery=Y&sort=rank&tab=Everything&vid=46KTH_INST:46KTH_VU1_L`;
+  
+  try {
+    // === 1️⃣ Försök hämta från Primo ===
+    const primoRes = await axios.get(primoUrl, { timeout: 5000 });
+    const primoLocalItems = primoRes.data?.info?.totalResultsLocal || [];
+
+    const doc = primoRes.data?.docs[0] || null;
+   
+    if (primoLocalItems > 0) {
+      return res.json({
+        source: "primo",
+        isbn,
+        title: doc.pnx.display.title[0] || null,
+        primourl: `https://kth-ch.primo.exlibrisgroup.com/discovery/fulldisplay?docid=${doc.pnx.control.recordid[0]}&vid=46KTH_INST:46KTH_VU1_L&lang=en`,
+        status: "ok"
+      });
+    } 
+
+    // === 2️⃣ Om Primo inte hittar något ===
+    return res.status(404).json({
+      status: "not_found",
+      message: "Ingen bok hittades i Primo.",
+      isbn
+    });
+
+  } catch (err) {
+    console.error("Fel vid hämtning:", err);
+    res.status(500).json({
+      status: "error",
+      message: "Ett fel uppstod vid hämtning av bokdata från Primo.",
+      isbn
+    });
+  }
+};
+
 
 module.exports = {
     generateApp,
@@ -1038,5 +1127,7 @@ module.exports = {
     sendLiteraturesearchMail,
     substrInBetween,
     truncate,
-    searchISNB
+    searchDOI,
+    searchISNB,
+    searchPrimo
 };

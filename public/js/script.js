@@ -558,39 +558,76 @@ let createlisteners = () => {
         });
     }
 
-    // 3️⃣ Lyssna på input i ISBN-fältet
     if (document.getElementById("isbn")) {
         const isbnInput = document.getElementById("isbn");
         let lastValue = "";
 
         isbnInput.addEventListener("input", () => {
             const value = isbnInput.value.trim();
-
-            // Om värdet är samma som förra gången → gör inget
             if (value === lastValue) return;
             lastValue = value;
-
             const cleanISBN = isValidISBN(value);
             if (cleanISBN) {
                 onValidISBN(cleanISBN);
+                findInPrimo(cleanISBN);
             } else {
                 const isbnInput = document.getElementById("isbn");
                 let suggestionBox = document.getElementById("isbnSuggestions");
-                  
-                // Skapa container för dropdown om den inte finns
+                
                 if (!suggestionBox) {
                     suggestionBox = document.createElement("div");
                     suggestionBox.id = "isbnSuggestions";
                     suggestionBox.className = "suggestions";
                     isbnInput.insertAdjacentElement("afterend", suggestionBox);
                 }
-                suggestionBox.innerHTML = ""; 
+                suggestionBox.innerHTML = "";
+                if (isbnInput.value.trim() === "") {
+                    return;
+                }
                 const noResultDiv = document.createElement("div");
                 noResultDiv.className = "suggestion-item";
                 noResultDiv.innerText = language == 'swedish' ? "Ogiltigt isbn" : "Invalid isbn"
                 noResultDiv.style.fontStyle = "italic";
                 suggestionBox.appendChild(noResultDiv);
+                noResultDiv.addEventListener("click", () => {
+                    suggestionBox.innerHTML = "";
+                });
             }
+        });
+    }
+
+    if (document.getElementById("doi")) {
+        const doiInput = document.getElementById("doi");
+        let lastValue = "";
+        doiInput.addEventListener("input", () => {
+            const value = doiInput.value.trim();
+            if (value === lastValue) return;
+            lastValue = value;
+            if(isValidDOI(value)) {
+                onValidDOI(value);
+            } else {
+                const doiInput = document.getElementById("doi");
+                let suggestionBox = document.getElementById("doiSuggestions");
+                  
+                if (!suggestionBox) {
+                    suggestionBox = document.createElement("div");
+                    suggestionBox.id = "doiSuggestions";
+                    suggestionBox.className = "suggestions";
+                    doiInput.insertAdjacentElement("afterend", suggestionBox);
+                }
+                suggestionBox.innerHTML = "";
+                if (doiInput.value.trim() === "") {
+                    return;
+                }
+                const noResultDiv = document.createElement("div");
+                noResultDiv.className = "suggestion-item";
+                noResultDiv.innerText = language == 'swedish' ? "Ogiltig doi" : "Invalid doi"
+                noResultDiv.style.fontStyle = "italic";
+                suggestionBox.appendChild(noResultDiv);
+                noResultDiv.addEventListener("click", () => {
+                    suggestionBox.innerHTML = "";
+                });
+            }        
         });
     }
 
@@ -1249,6 +1286,149 @@ function isValidISBN(isbn) {
 
 ////////////////////////////////////////////////////
 //
+// Funktion för att validera DOI (format)
+//
+////////////////////////////////////////////////////
+function isValidDOI(doi) {
+  const cleaned = doi.replace(/\s+/g, '');
+
+  if (/^10.[1-9]\d{3}\d*(\.\d+)*\/.?/.test(cleaned)) return cleaned;
+
+  return false;
+}
+
+////////////////////////////////////////////////////
+//
+// Funktion som triggas när ett giltigt DOI fyllts i
+//
+////////////////////////////////////////////////////
+function onValidDOI(doi) {
+  const doiInput = document.getElementById("doi");
+  let suggestionBox = document.getElementById("doiSuggestions");
+
+  if (!suggestionBox) {
+    suggestionBox = document.createElement("div");
+    suggestionBox.id = "doiSuggestions";
+    suggestionBox.className = "suggestions";
+    doiInput.insertAdjacentElement("afterend", suggestionBox);
+  }
+
+  suggestionBox.innerHTML = "";
+  
+  //fetch(`${formserver}/formtools/api/v1/searchdoi/${doi}`)
+  fetch(`${formserver}/formtools/api/v1/searchdoi?doi=${doi}`)
+    .then(async res => {
+      if (!res.ok) {
+        const errorText = await res.text();
+        const error = new Error(errorText || language == 'swedish' ? "Artikel hittades inte" : "Article not found");
+        error.status = res.status;
+        throw error;
+      }
+      return res.json();
+    })
+    .then(data => {
+
+      const results = Array.isArray(data.results) ? data.results : [data];
+
+      if (!results.length) {
+        suggestionBox.innerHTML = "<div class='suggestion-item'>" + language == 'swedish' ? "Inga träffar" : "No result" + "</div>";
+        return;
+      }
+
+      if (!results.length) {
+        const noResultDiv = document.createElement("div");
+        noResultDiv.className = "suggestion-item";
+        noResultDiv.innerText = language == 'swedish' ? "Ingen artikel hittades för: " + doi : "No article found for: " + doi;
+        noResultDiv.style.fontStyle = "italic";
+        suggestionBox.appendChild(noResultDiv);
+        return;
+      }
+
+      results.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "suggestion-item";
+        div.innerText = `${item.articletitle ?? (language == 'swedish' ? "Okänd titel" : "Unknown title")}`;
+
+        div.addEventListener("click", () => {
+          populateArticleFields(item);
+          suggestionBox.innerHTML = "";
+        });
+        suggestionBox.appendChild(div);
+      });
+    })
+    .catch(err => {
+        console.log(err);
+        suggestionBox.innerHTML = "";
+        const div = document.createElement("div");
+        div.className = "suggestion-item";
+        div.style.fontStyle = "italic";
+
+        if (err.status === 404) {
+            div.innerText = language == 'swedish' ? "Ingen artikel hittades för: " + doi : "No article found for: " + doi;
+            div.addEventListener("click", () => {
+                setValueAndTrigger(document.getElementById("atitle"), "");
+                setValueAndTrigger(document.getElementById("jtitle"), "");
+                setValueAndTrigger(document.getElementById("au"), "");
+                setValueAndTrigger(document.getElementById("year"), "");
+                setValueAndTrigger(document.getElementById("pages"), "");
+                setValueAndTrigger(document.getElementById("issn"), "");
+                setValueAndTrigger(document.getElementById("volume"), "");
+                setValueAndTrigger(document.getElementById("issue"), "");
+                suggestionBox.innerHTML = "";
+            });
+        } else {
+            div.innerText = language == 'swedish' ? "Fel vid hämtning " : "Error fetching data: ";
+            console.warn("Fel vid hämtning:", err.message);
+        }
+
+        suggestionBox.appendChild(div);
+    });
+}
+
+////////////////////////////////////////////////////
+//
+// Hjälpfunktion för att fylla i formuläret
+//
+////////////////////////////////////////////////////
+function populateArticleFields(data) {
+    const atitle = data?.articletitle || "";
+    const jtitle = data?.journaltitle || "";
+    const authors = Array.isArray(data?.authors)
+        ? data.authors
+            .map(a => [a.given, a.family].filter(Boolean).join(" "))
+            .join("; ")
+        : (typeof data?.authors === "string" ? data.authors : "");
+    let year = "";
+    const publishedDate = data?.publishedDate;
+    if (publishedDate?.length > 0) {
+        const dateParts = publishedDate[0]; // ta första arrayen
+        const y = dateParts[0];
+        const m = dateParts[1] ?? 1;       // default till januari
+        const d = dateParts[2] ?? 1;       // default till dag 1
+
+        const month = String(m).padStart(2, "0");
+        const day = String(d).padStart(2, "0");
+
+        year = `${y}`;
+    }
+
+    const pages = data?.pages || "";
+    const issn = data?.issn || "";
+    const volume = data?.volume || "";
+    const issue = data?.issue || "";
+
+    setValueAndTrigger(document.getElementById("atitle"), atitle);
+    setValueAndTrigger(document.getElementById("jtitle"), jtitle);
+    setValueAndTrigger(document.getElementById("au"), authors);
+    setValueAndTrigger(document.getElementById("year"), year);
+    setValueAndTrigger(document.getElementById("pages"), pages);
+    setValueAndTrigger(document.getElementById("issn"), issn);
+    setValueAndTrigger(document.getElementById("volume"), volume);
+    setValueAndTrigger(document.getElementById("issue"), issue);
+}
+
+////////////////////////////////////////////////////
+//
 // Funktion som triggas när ett giltigt ISBN fyllts i
 //
 ////////////////////////////////////////////////////
@@ -1265,7 +1445,7 @@ function onValidISBN(isbn) {
 
   suggestionBox.innerHTML = "";
   
-  fetch(`/formtools/api/v1/searchisbn/${isbn}`)
+  fetch(`${formserver}/formtools/api/v1/searchisbn/${isbn}`)
     .then(async res => {
       if (!res.ok) {
         const errorText = await res.text();
@@ -1342,12 +1522,90 @@ function populateBookFields(data) {
         ? data.authors.join(", ")
         : (typeof data?.authors === "string" ? data.authors : "");
     const publisher = data?.publisher || "";
-    const year = data?.publishedDate || "";
+    const publishedDate = data?.publishedDate;
+    let year = "";
+
+    if (publishedDate) {
+        const text = Array.isArray(publishedDate)
+            ? publishedDate.join(",")
+            : String(publishedDate);
+
+        const match = text.match(/\d{4}/); // första årtal
+        year = match ? match[0] : "";
+    }
 
     setValueAndTrigger(document.getElementById("btitle"), title);
     setValueAndTrigger(document.getElementById("au"), authors);
     setValueAndTrigger(document.getElementById("publisher"), publisher);
     setValueAndTrigger(document.getElementById("year"), year);
+}
+
+////////////////////////////////////////////////////
+//
+// Funktion som triggas när ett giltigt ISBN fyllts i
+//
+////////////////////////////////////////////////////
+function findInPrimo(isbn, title, author) {
+  const isbnInput = document.getElementById("isbn");
+  let suggestionBox = document.getElementById("isbnSuggestions");
+
+  if (!suggestionBox) {
+    suggestionBox = document.createElement("div");
+    suggestionBox.id = "isbnSuggestions";
+    suggestionBox.className = "suggestions";
+    isbnInput.insertAdjacentElement("afterend", suggestionBox);
+  }
+
+  suggestionBox.innerHTML = "";
+  
+  fetch(`${formserver}/formtools/api/v1/searchprimo/${isbn}`)
+    .then(async res => {
+      if (!res.ok) {
+        const errorText = await res.text();
+        const error = new Error(errorText || language == 'swedish' ? "Bok hittades inte" : "Book not found");
+        error.status = res.status;
+        throw error;
+      }
+      return res.json();
+    })
+    .then(data => {
+        const results = Array.isArray(data.results) ? data.results : [data];
+        if (!results.length) {
+            return;
+        }
+
+        const item = results[0];
+        
+        const title = item.title ?? (language == 'swedish' ? "Okänd titel" : "Unknown title");
+
+        const modalHTML = `
+        <div class="modal fade" id="primoModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">${language == 'swedish' ? "Vi hittade den här boken i bibliotekets söktjänst(Primo)" : "We found this title in the library search tool(Primo)"}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                <a href="${item.primourl}" target="_blank" class="break-link">${title}</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        `;
+
+        const oldModal = document.getElementById("primoModal");
+        if (oldModal) oldModal.remove();
+
+        document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+        // Visa modalen automatiskt
+        const modal = new bootstrap.Modal(document.getElementById("primoModal"));
+        modal.show();
+    })
+    .catch(err => {
+        console.log(err);
+    });
 }
 
 function setValueAndTrigger(el, value) {
@@ -1363,11 +1621,12 @@ function setValueAndTrigger(el, value) {
 language = urlParams.get('language')  || "english"
 
 //Polopoly language
+const langAttr = document.documentElement.getAttribute('lang');
 
-if (document.querySelector("html").getAttribute('lang').indexOf('en')!= -1) {
-    language = 'english'
-} else {
-    language = 'swedish'
+if (langAttr?.includes('en')) {
+  language = 'english';
+} else if (langAttr) {
+  language = 'swedish';
 }
 
 getformdata()

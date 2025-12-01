@@ -1147,6 +1147,72 @@
         }
       }
     },
+    "isbn": {
+      "label": {
+        "swedish": "ISBN",
+        "english": "ISBN"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "isbn",
+        "primo": "ISBN",
+        "info:sid/libris.kb.se:libris": "rft.isbn",
+        "LeanLibrary": "ISBN"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["book","bookitem"]
+      }],
+      "validation": {
+        "required": {
+          "criteria": [{
+            "field": "genre",
+            "values": ["bookitem"]
+          }],
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
+    "doi": {
+      "label": {
+        "swedish": "DOI",
+        "english": "DOI"
+      },
+      "openurl": true,
+      "openurlnames": {
+        "standard": "doi",
+        "primo": "rft.doi",
+        "info:sid/libris.kb.se:libris": "rft.doi",
+        "LeanLibrary": "rft.doi"
+      },
+      "value": "",
+      "type": "text",
+      "isgrouped": true,
+      "group":"genredetails",
+      "enabled": false,
+      "showcriteria": [{
+        "field": "genre",
+        "values": ["article"]
+      }],
+      "validation": {
+        "required": {
+          "value": false,
+          "errormessage": {
+            "swedish": "måste fyllas i",
+            "english": "is required"
+          }
+        }
+      }
+    },
     "btitle": {
       "label": {
         "swedish": "Boktitel",
@@ -1403,7 +1469,7 @@
             "field": "genre",
             "values": ["book","article","bookitem"]
           }],
-          "value": false,
+          "value": true,
           "errormessage": {
             "swedish": "måste fyllas i",
             "english": "is required"
@@ -1428,41 +1494,6 @@
       "enabled": false,
       "validation": {
         "required": {
-          "value": false,
-          "errormessage": {
-            "swedish": "måste fyllas i",
-            "english": "is required"
-          }
-        }
-      }
-    },
-    "isbn": {
-      "label": {
-        "swedish": "ISBN",
-        "english": "ISBN"
-      },
-      "openurl": true,
-      "openurlnames": {
-        "standard": "isbn",
-        "primo": "ISBN",
-        "info:sid/libris.kb.se:libris": "rft.isbn",
-        "LeanLibrary": "ISBN"
-      },
-      "value": "",
-      "type": "text",
-      "isgrouped": true,
-      "group":"genredetails",
-      "enabled": false,
-      "showcriteria": [{
-        "field": "genre",
-        "values": ["book","bookitem"]
-      }],
-      "validation": {
-        "required": {
-          "criteria": [{
-            "field": "genre",
-            "values": ["bookitem"]
-          }],
           "value": false,
           "errormessage": {
             "swedish": "måste fyllas i",
@@ -1498,7 +1529,7 @@
             "field": "genre",
             "values": ["article"]
           }],
-          "value": false,
+          "value": true,
           "errormessage": {
             "swedish": "måste fyllas i",
             "english": "is required"
@@ -1651,37 +1682,6 @@
       "enabled": false,
       "validation": {
         "required": false
-      }
-    },
-    "doi": {
-      "label": {
-        "swedish": "DOI",
-        "english": "DOI"
-      },
-      "openurl": true,
-      "openurlnames": {
-        "standard": "doi",
-        "primo": "rft.doi",
-        "info:sid/libris.kb.se:libris": "rft.doi",
-        "LeanLibrary": "rft.doi"
-      },
-      "value": "",
-      "type": "text",
-      "isgrouped": true,
-      "group":"genredetails",
-      "enabled": false,
-      "showcriteria": [{
-        "field": "genre",
-        "values": ["article"]
-      }],
-      "validation": {
-        "required": {
-          "value": false,
-          "errormessage": {
-            "swedish": "måste fyllas i",
-            "english": "is required"
-          }
-        }
       }
     },
     "dateneededby": {
