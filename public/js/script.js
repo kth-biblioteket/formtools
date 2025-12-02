@@ -408,6 +408,15 @@ let createformfield = (field, fieldkey) => {
     // ---------- Slut Fälten ------------
 
     // Om placement=after
+
+    //Eventuell mini-information under fältet
+    if (field.miniinfo && field.miniinfo.placement=='after') {
+        formhtml += 
+            `<div>
+                ${language == 'swedish' ? field.miniinfo.swedish : field.miniinfo.english}
+            </div>`
+    }
+
     // Eventuell extra information/beskrivning med länk under
     if (field.description && field.description.placement=='after') {
         formhtml +=  `<div class="alert alert-info ${field.type=='informationboxalert' ? 'relativeposition' : ''} ${field.type=='informationbox' ? 'informationbox' : ''}">`
@@ -447,7 +456,6 @@ let createformfield = (field, fieldkey) => {
             </div>`
         }
     }
-    
 
     //Skicka-knapp
     if (field.type == "button") {
@@ -558,6 +566,21 @@ let createlisteners = () => {
         });
     }
 
+    document.addEventListener("click", (e) => {
+        const isbnInput = document.getElementById("isbn");
+        const suggestionBox = document.getElementById("suggestionBox");
+
+        if (!suggestionBox) return;
+
+        // Om klicket INTE var på input eller i boxen → rensa den
+        if (
+            e.target !== isbnInput &&
+            !suggestionBox.contains(e.target)
+        ) {
+            suggestionBox.innerHTML = "";
+        }
+    });
+
     if (document.getElementById("isbn")) {
         const isbnInput = document.getElementById("isbn");
         let lastValue = "";
@@ -572,18 +595,20 @@ let createlisteners = () => {
                 findInPrimo(cleanISBN);
             } else {
                 const isbnInput = document.getElementById("isbn");
-                let suggestionBox = document.getElementById("isbnSuggestions");
+                let suggestionBox = document.getElementById("suggestionBox");
                 
                 if (!suggestionBox) {
                     suggestionBox = document.createElement("div");
-                    suggestionBox.id = "isbnSuggestions";
+                    suggestionBox.id = "suggestionBox";
                     suggestionBox.className = "suggestions";
                     isbnInput.insertAdjacentElement("afterend", suggestionBox);
                 }
                 suggestionBox.innerHTML = "";
+                // Gör inget om fältet är tomt
                 if (isbnInput.value.trim() === "") {
                     return;
                 }
+
                 const noResultDiv = document.createElement("div");
                 noResultDiv.className = "suggestion-item";
                 noResultDiv.innerText = language == 'swedish' ? "Ogiltigt isbn" : "Invalid isbn"
@@ -607,11 +632,11 @@ let createlisteners = () => {
                 onValidDOI(value);
             } else {
                 const doiInput = document.getElementById("doi");
-                let suggestionBox = document.getElementById("doiSuggestions");
+                let suggestionBox = document.getElementById("suggestionBox");
                   
                 if (!suggestionBox) {
                     suggestionBox = document.createElement("div");
-                    suggestionBox.id = "doiSuggestions";
+                    suggestionBox.id = "suggestionBox";
                     suggestionBox.className = "suggestions";
                     doiInput.insertAdjacentElement("afterend", suggestionBox);
                 }
@@ -1304,11 +1329,11 @@ function isValidDOI(doi) {
 ////////////////////////////////////////////////////
 function onValidDOI(doi) {
   const doiInput = document.getElementById("doi");
-  let suggestionBox = document.getElementById("doiSuggestions");
+  let suggestionBox = document.getElementById("suggestionBox");
 
   if (!suggestionBox) {
     suggestionBox = document.createElement("div");
-    suggestionBox.id = "doiSuggestions";
+    suggestionBox.id = "suggestionBox";
     suggestionBox.className = "suggestions";
     doiInput.insertAdjacentElement("afterend", suggestionBox);
   }
@@ -1434,11 +1459,11 @@ function populateArticleFields(data) {
 ////////////////////////////////////////////////////
 function onValidISBN(isbn) {
   const isbnInput = document.getElementById("isbn");
-  let suggestionBox = document.getElementById("isbnSuggestions");
+  let suggestionBox = document.getElementById("suggestionBox");
 
   if (!suggestionBox) {
     suggestionBox = document.createElement("div");
-    suggestionBox.id = "isbnSuggestions";
+    suggestionBox.id = "suggestionBox";
     suggestionBox.className = "suggestions";
     isbnInput.insertAdjacentElement("afterend", suggestionBox);
   }
@@ -1547,11 +1572,11 @@ function populateBookFields(data) {
 ////////////////////////////////////////////////////
 function findInPrimo(isbn, title, author) {
   const isbnInput = document.getElementById("isbn");
-  let suggestionBox = document.getElementById("isbnSuggestions");
+  let suggestionBox = document.getElementById("suggestionBox");
 
   if (!suggestionBox) {
     suggestionBox = document.createElement("div");
-    suggestionBox.id = "isbnSuggestions";
+    suggestionBox.id = "suggestionBox";
     suggestionBox.className = "suggestions";
     isbnInput.insertAdjacentElement("afterend", suggestionBox);
   }

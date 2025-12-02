@@ -1152,6 +1152,11 @@
         "swedish": "ISBN",
         "english": "ISBN"
       },
+      "miniinfo": {
+        "placement": "after",
+        "swedish": "Ange ISBN för att automatiskt fylla i övrig information om boken",
+        "english": "Entering ISBN will automatically fill in information in other fields."
+      },
       "openurl": true,
       "openurlnames": {
         "standard": "isbn",
@@ -1186,6 +1191,11 @@
       "label": {
         "swedish": "DOI",
         "english": "DOI"
+      },
+      "miniinfo": {
+        "placement": "after",
+        "swedish": "Ange DOI för att automatiskt fylla i övrig information om boken",
+        "english": "Entering DOI will automatically fill in information in other fields."
       },
       "openurl": true,
       "openurlnames": {
