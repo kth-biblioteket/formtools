@@ -1604,7 +1604,7 @@ function findInPrimo(isbn, title, author) {
         const title = item.title ?? (language == 'swedish' ? "Okänd titel" : "Unknown title");
 
         const modalHTML = `
-        <div class="modal fade" id="primoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="primoModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
