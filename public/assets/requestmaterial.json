@@ -1179,7 +1179,7 @@
             "field": "genre",
             "values": ["bookitem"]
           }],
-          "value": false,
+          "value": true,
           "errormessage": {
             "swedish": "måste fyllas i",
             "english": "is required"
