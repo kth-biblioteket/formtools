@@ -567,6 +567,15 @@ let createlisteners = () => {
     }
 
     document.addEventListener("click", (e) => {
+
+        const primoModal = document.getElementById("primoModal");
+        const primoModalClose = document.getElementById("primoModalClose");
+
+        if (e.target === primoModalClose || e.target === primoModal) {
+            closePrimoModal();
+            return;
+        }
+
         const isbnInput = document.getElementById("isbn");
         const suggestionBox = document.getElementById("suggestionBox");
 
@@ -656,6 +665,29 @@ let createlisteners = () => {
         });
     }
 
+}
+
+////////////////////////////////////////////////////
+//
+// Skapa modals för atta visa info
+//
+////////////////////////////////////////////////////
+let createModals = () => {
+    const primomodalHTML = `
+        <div id="primoModal" class="custom-modal" role="dialog" aria-modal="true" hidden>
+            <div class="custom-modal-content">
+                <div class="custom-modal-header">
+                <h5 class="custom-modal-title" id="primoModalTitle"></h5>
+                <button id="primoModalClose" aria-label="Close">&times;</button>
+                </div>
+                <div class="custom-modal-body" id="primoModalBody"></div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML("beforeend", primomodalHTML);
+    const primoModalClose = document.getElementById("primoModalClose");
+    primoModalClose.addEventListener("click", closePrimoModal);
 }
 
 let escapeHtml = (text) => {
@@ -1347,65 +1379,61 @@ function onValidDOI(doi) {
         const errorText = await res.text();
         const error = new Error(errorText || language == 'swedish' ? "Artikel hittades inte" : "Article not found");
         error.status = res.status;
-        throw error;
+        return null;
       }
       return res.json();
     })
     .then(data => {
 
-      const results = Array.isArray(data.results) ? data.results : [data];
+        if (data.status === "ok") {
+            const results = Array.isArray(data.results) ? data.results : [data];
+            results.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "suggestion-item";
+                div.innerText = `${item.articletitle ?? (language == 'swedish' ? "Okänd titel" : "Unknown title")}`;
 
-      if (!results.length) {
-        suggestionBox.innerHTML = "<div class='suggestion-item'>" + language == 'swedish' ? "Inga träffar" : "No result" + "</div>";
-        return;
-      }
+                div.addEventListener("click", () => {
+                populateArticleFields(item);
+                suggestionBox.innerHTML = "";
+                });
+                suggestionBox.appendChild(div);
+            });
+        } else {
+            const results = Array.isArray(data.results) ? data.results : [data];
+            if (!results.length) {
+                suggestionBox.innerHTML = "<div class='suggestion-item'>" + language == 'swedish' ? "Inga träffar" : "No result" + "</div>";
+                return;
+            }
 
-      if (!results.length) {
-        const noResultDiv = document.createElement("div");
-        noResultDiv.className = "suggestion-item";
-        noResultDiv.innerText = language == 'swedish' ? "Ingen artikel hittades för: " + doi : "No article found for: " + doi;
-        noResultDiv.style.fontStyle = "italic";
-        suggestionBox.appendChild(noResultDiv);
-        return;
-      }
-
-      results.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "suggestion-item";
-        div.innerText = `${item.articletitle ?? (language == 'swedish' ? "Okänd titel" : "Unknown title")}`;
-
-        div.addEventListener("click", () => {
-          populateArticleFields(item);
-          suggestionBox.innerHTML = "";
-        });
-        suggestionBox.appendChild(div);
-      });
+            if (results.length) {
+                const noResultDiv = document.createElement("div");
+                noResultDiv.className = "suggestion-item";
+                noResultDiv.innerText = language == 'swedish' ? "Ingen artikel hittades för: " + doi : "No article found for: " + doi;
+                noResultDiv.style.fontStyle = "italic";
+                suggestionBox.appendChild(noResultDiv);
+                noResultDiv.addEventListener("click", () => {
+                    setValueAndTrigger(document.getElementById("atitle"), "");
+                    setValueAndTrigger(document.getElementById("jtitle"), "");
+                    setValueAndTrigger(document.getElementById("au"), "");
+                    setValueAndTrigger(document.getElementById("year"), "");
+                    setValueAndTrigger(document.getElementById("pages"), "");
+                    setValueAndTrigger(document.getElementById("issn"), "");
+                    setValueAndTrigger(document.getElementById("volume"), "");
+                    setValueAndTrigger(document.getElementById("issue"), "");
+                    suggestionBox.innerHTML = "";
+                });
+                return;
+            }
+        }
     })
     .catch(err => {
-        console.log(err);
         suggestionBox.innerHTML = "";
         const div = document.createElement("div");
         div.className = "suggestion-item";
         div.style.fontStyle = "italic";
 
-        if (err.status === 404) {
-            div.innerText = language == 'swedish' ? "Ingen artikel hittades för: " + doi : "No article found for: " + doi;
-            div.addEventListener("click", () => {
-                setValueAndTrigger(document.getElementById("atitle"), "");
-                setValueAndTrigger(document.getElementById("jtitle"), "");
-                setValueAndTrigger(document.getElementById("au"), "");
-                setValueAndTrigger(document.getElementById("year"), "");
-                setValueAndTrigger(document.getElementById("pages"), "");
-                setValueAndTrigger(document.getElementById("issn"), "");
-                setValueAndTrigger(document.getElementById("volume"), "");
-                setValueAndTrigger(document.getElementById("issue"), "");
-                suggestionBox.innerHTML = "";
-            });
-        } else {
-            div.innerText = language == 'swedish' ? "Fel vid hämtning " : "Error fetching data: ";
-            console.warn("Fel vid hämtning:", err.message);
-        }
-
+        div.innerText = language == 'swedish' ? "Fel vid hämtning " : "Error fetching data: ";
+        console.warn("Fel vid hämtning:", err.message);
         suggestionBox.appendChild(div);
     });
 }
@@ -1476,62 +1504,57 @@ function onValidISBN(isbn) {
         const errorText = await res.text();
         const error = new Error(errorText || language == 'swedish' ? "Bok hittades inte" : "Book not found");
         error.status = res.status;
-        throw error;
+        return null
       }
       return res.json();
     })
     .then(data => {
+        if (data.status === "ok") {
+            const results = Array.isArray(data.results) ? data.results : [data];
 
-      const results = Array.isArray(data.results) ? data.results : [data];
+            results.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "suggestion-item";
+                div.innerText = `${item.title ?? (language == 'swedish' ? "Okänd titel" : "Unknown title")} – ${Array.isArray(item.authors) ? item.authors.join(", ") : (item.authors ?? "okänd författare")}`;
 
-      if (!results.length) {
-        suggestionBox.innerHTML = "<div class='suggestion-item'>" + language == 'swedish' ? "Inga träffar" : "No result" + "</div>";
-        return;
-      }
+                div.addEventListener("click", () => {
+                populateBookFields(item);
+                suggestionBox.innerHTML = "";
+                });
+                suggestionBox.appendChild(div);
+            });
+        } else {
+            const results = Array.isArray(data.results) ? data.results : [data];
+            if (!results.length) {
+                suggestionBox.innerHTML = "<div class='suggestion-item'>" + language == 'swedish' ? "Inga träffar" : "No result" + "</div>";
+                return;
+            }
 
-      if (!results.length) {
-        const noResultDiv = document.createElement("div");
-        noResultDiv.className = "suggestion-item";
-        noResultDiv.innerText = language == 'swedish' ? "Ingen bok hittades för: " + isbn : "No book found for: " + isbn;
-        noResultDiv.style.fontStyle = "italic";
-        suggestionBox.appendChild(noResultDiv);
-        return;
-      }
-
-      results.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "suggestion-item";
-        div.innerText = `${item.title ?? (language == 'swedish' ? "Okänd titel" : "Unknown title")} – ${Array.isArray(item.authors) ? item.authors.join(", ") : (item.authors ?? "okänd författare")}`;
-
-        div.addEventListener("click", () => {
-          populateBookFields(item);
-          suggestionBox.innerHTML = "";
-        });
-        suggestionBox.appendChild(div);
-      });
+            if (results.length) {
+                const noResultDiv = document.createElement("div");
+                noResultDiv.className = "suggestion-item";
+                noResultDiv.innerText = language == 'swedish' ? "Ingen bok hittades för: " + isbn : "No book found for: " + isbn;
+                noResultDiv.style.fontStyle = "italic";
+                suggestionBox.appendChild(noResultDiv);
+                noResultDiv.addEventListener("click", () => {
+                    setValueAndTrigger(document.getElementById("btitle"), "");
+                    setValueAndTrigger(document.getElementById("au"), "");
+                    setValueAndTrigger(document.getElementById("publisher"), "");
+                    setValueAndTrigger(document.getElementById("year"), "");
+                    suggestionBox.innerHTML = "";
+                });
+                return;
+            }
+        }
+            
     })
     .catch(err => {
-        console.log(err);
         suggestionBox.innerHTML = "";
         const div = document.createElement("div");
         div.className = "suggestion-item";
         div.style.fontStyle = "italic";
-
-        if (err.status === 404) {
-            div.innerText = language == 'swedish' ? "Ingen bok hittades för: " + isbn : "No book found for: " + isbn;
-            // Klick på "ingen bok hittades" rensar alla fält
-            div.addEventListener("click", () => {
-                setValueAndTrigger(document.getElementById("btitle"), "");
-                setValueAndTrigger(document.getElementById("au"), "");
-                setValueAndTrigger(document.getElementById("publisher"), "");
-                setValueAndTrigger(document.getElementById("year"), "");
-                suggestionBox.innerHTML = "";
-            });
-        } else {
-            div.innerText = language == 'swedish' ? "Fel vid hämtning " : "Error fetching data: ";
-            console.warn("Fel vid hämtning:", err.message);
-        }
-
+        div.innerText = language == 'swedish' ? "Fel vid hämtning " : "Error fetching data: ";
+        console.warn("Fel vid hämtning:", err.message);
         suggestionBox.appendChild(div);
     });
 }
@@ -1589,48 +1612,46 @@ function findInPrimo(isbn, title, author) {
         const errorText = await res.text();
         const error = new Error(errorText || language == 'swedish' ? "Bok hittades inte" : "Book not found");
         error.status = res.status;
-        throw error;
+        return null;
       }
       return res.json();
     })
     .then(data => {
-        const results = Array.isArray(data.results) ? data.results : [data];
-        if (!results.length) {
-            return;
-        }
-
-        const item = results[0];
+        if (data.status === "ok") {
+            const results = Array.isArray(data.results) ? data.results : [data];
+            const item = results[0];
         
-        const title = item.title ?? (language == 'swedish' ? "Okänd titel" : "Unknown title");
+            const title = item.title ?? (language == 'swedish' ? "Okänd titel" : "Unknown title");
 
-        const modalHTML = `
-        <div class="modal fade" id="primoModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title">${language == 'swedish' ? "Vi hittade den här boken i bibliotekets söktjänst(Primo)" : "We found this title in the library search tool(Primo)"}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                <a href="${item.primourl}" target="_blank" class="break-link">${title}</a>
-                </div>
-            </div>
-            </div>
-        </div>
-        `;
+            const titleText =
+            language === 'swedish'
+                ? "Vi hittade den här boken i bibliotekets söktjänst (Primo)"
+                : "We found this title in the library search tool (Primo)";
 
-        const oldModal = document.getElementById("primoModal");
-        if (oldModal) oldModal.remove();
-
-        document.body.insertAdjacentHTML("beforeend", modalHTML);
-
-        // Visa modalen automatiskt
-        const modal = new bootstrap.Modal(document.getElementById("primoModal"));
-        modal.show();
+            showPrimoModal(titleText, item.title, item.primourl);
+        } else {
+            if (!results.length) {
+                return;
+            }
+        }
     })
     .catch(err => {
-        console.log(err);
     });
+}
+
+function showPrimoModal(titleText, linkText, linkUrl) {
+    const primoModal = document.getElementById("primoModal");
+    const primoModalTitle = document.getElementById("primoModalTitle");
+    const primoModalBody = document.getElementById("primoModalBody");
+    primoModalTitle.textContent = titleText;
+    primoModalBody.innerHTML = `<a href="${linkUrl}" class="break-link" target="_blank">${linkText}</a>`;
+    primoModal.removeAttribute("hidden");
+    primoModal.focus();
+}
+
+function closePrimoModal() {
+    const primoModal = document.getElementById("primoModal");
+    primoModal.setAttribute("hidden", "");
 }
 
 function setValueAndTrigger(el, value) {
@@ -1654,4 +1675,8 @@ if (langAttr?.includes('en')) {
   language = 'swedish';
 }
 
-getformdata()
+document.addEventListener("DOMContentLoaded", () => {
+    createModals()
+    getformdata()
+});
+

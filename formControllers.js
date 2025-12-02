@@ -1007,7 +1007,7 @@ async function searchDOI(req, res, next) {
     } 
 
     // === 2️⃣ Om Crossref inte hittar något ===
-    return res.status(404).json({
+    return res.json({
       status: "not_found",
       message: "Ingen artikelinformation hittades i Crossref.",
       doi
@@ -1016,7 +1016,7 @@ async function searchDOI(req, res, next) {
   } catch (err) {
     
     if (err.response && err.response.status === 404) {
-        return res.status(404).json({
+        return res.json({
             status: "not_found",
             message: "Ingen artikelinformation hittades i Crossref.",
             doi
@@ -1058,7 +1058,7 @@ async function searchISNB(req, res, next) {
     } 
 
     // === 2️⃣ Om Libris inte hittar något ===
-    return res.status(404).json({
+    return res.json({
       status: "not_found",
       message: "Ingen bokinformation hittades i Libris.",
       isbn
@@ -1097,7 +1097,7 @@ async function searchPrimo(req, res, next) {
     } 
 
     // === 2️⃣ Om Primo inte hittar något ===
-    return res.status(404).json({
+    return res.json({
       status: "not_found",
       message: "Ingen bok hittades i Primo.",
       isbn
