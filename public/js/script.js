@@ -1675,8 +1675,7 @@ if (langAttr?.includes('en')) {
   language = 'swedish';
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    createModals()
-    getformdata()
-});
+
+createModals()
+getformdata()
 
