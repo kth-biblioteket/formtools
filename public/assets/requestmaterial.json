@@ -297,6 +297,32 @@
       "english": "Please see text marked as red below"
     }
   },
+  "autocompleteinfo": {
+    "noResults": {
+      "swedish": "Inga förslag hittades",
+      "english": "No suggestions found"
+    },
+    "notFoundArticle": {
+      "swedish": "Artikeln kunde inte hittas. Fyll i uppgifterna manuellt.",
+      "english": "The article could not be found. Please fill in the details manually."
+    },
+    "notFoundBook": {
+      "swedish": "Boken kunde inte hittas. Fyll i uppgifterna manuellt.",
+      "english": "The book could not be found. Please fill in the details manually."
+    },
+    "errorFetch": {
+      "swedish": "Ett fel uppstod vid sökningen. Fyll i uppgifterna manuellt.",
+      "english": "An error occurred during the search. Please fill in the details manually."
+    },
+    "unknownTitle": {
+      "swedish": "Okänd titel",
+      "english": "Unknown title"
+    },
+    "primoFound": {
+      "swedish": "Hittades i KTH Bibliotekets samlingar. Klicka på länken för att visa i Primo.",
+      "english": "Found in the KTH Library collections. Click the link to view in Primo."
+    }
+  },
   "openurlboxlabel": {
     "swedish": "Beställningsinformation",
     "english": "Request information"
@@ -1194,7 +1220,7 @@
       },
       "miniinfo": {
         "placement": "after",
-        "swedish": "Ange DOI för att automatiskt fylla i övrig information om boken",
+        "swedish": "Ange DOI för att automatiskt fylla i övrig information om artikeln",
         "english": "Entering DOI will automatically fill in information in other fields."
       },
       "openurl": true,
