@@ -212,6 +212,12 @@ let createformfield = (field, fieldkey) => {
         //TODO LABEL ska inte ha FOR om det är en grupp(t ex radioknappar eller en grouplabel)
         
         if (field.type == "radio" || field.type == "grouplabel") {
+            //Använd fieldset/legend för radioknappar och grouplabel?
+            const html = `<fieldset class="${field.isgrouped ? 'isgrouped' : ''} ${!field.isgrouped ? 'isnotgrouped' : ''}">
+                            <legend ${forlabel} class="${field.type == 'grouplabel' ? 'grouplabellegend' : ''}">${language == 'swedish' ? field.label.swedish : field.label.english}
+                            </legend>
+                        </fieldset>`;
+                        
             forlabel = ``;
         }
         
@@ -727,7 +733,7 @@ let checkboxchange = (event, propkey = '') => {
 
     // Validera formulär(endast efter ett första försök att skicka)
     if (is_submitted_once) {
-        validatefield(event.target.name)
+        validateform()
     }
 }
 
@@ -847,11 +853,8 @@ let showhidefields = () => {
                 formdata.formfields[prop].hidden = true;
             }
 
-            //ett openurl-fält ska inte valideras och inte heller vara synligt för användaren
+            //ett openurl-fält ska inte vara synligt för användaren
             if (isopenurl && formdata.formfields[prop].openurl) {
-                if ( formdata.formfields[prop].validation ) {
-                    formdata.formfields[prop].validation.required.value = false
-                }
                 formdata.formfields[prop].hidden = true;                
             }
             
@@ -909,12 +912,14 @@ let onFileChange = (event, propkey = '') => {
 let validateform = () => {
     formisvalid = true;
     let fieldissvalid = false;
+    let requiredfield = null;
     //gå igenom alla fält och validera
     for (let key of Object.keys(formdata.formfields)) {
         if(formdata.formfields[key].enabled && formdata.formfields[key].validation) {
+            requiredfield = checkifrequired(key);
             //endast fält som är "required" ska valideras
-            if(formdata.formfields[key].enabled && formdata.formfields[key].validation.required.value) {
-            fieldissvalid = validatefield(key)
+            if(requiredfield) {
+                fieldissvalid = validatefield(key)
                 if (formisvalid && !fieldissvalid) {
                     formisvalid = false;
                 }
@@ -936,6 +941,7 @@ let validateform = () => {
 ////////////////////////////////////////////////////
 //
 // Validera fält
+// Anropas om fält är obligatoriskt.
 //
 ////////////////////////////////////////////////////
 let validatefield = (field_id) => {
@@ -946,29 +952,22 @@ let validatefield = (field_id) => {
 
     //Hämta element för att visa om ett fält är felaktigt
     let el = document.getElementById('invalid_' + field_id)
-    // Om fältet är required utför validering(validera även övriga fält?)
-    
-    let validatefield = checkifrequired(field_id);
-
-    //if(formdata.formfields[field_id].validation.required.value) {
-    if(validatefield) {
-        //Fältet måste ha ett ifyllt värde
-        if(formdata.formfields[field_id].value == '') {
-            el.innerHTML = formdata.formfields[field_id].label[language] + ' ' + formdata.formfields[field_id].validation.required.errormessage[language]
-            el.classList.remove("hideelement")
-            validfield = false
-        } else {
-            //Värdet måste matcha ett visst mönster(exvis email, personnummer etc)
-            if (formdata.formfields[field_id].validation.pattern) { 
-                if (!formdata.formfields[field_id].value.match(formdata.formfields[field_id].validation.pattern.value)) {
-                    el.innerHTML = formdata.formfields[field_id].validation.pattern.errormessage[language]
-                    el.classList.remove("hideelement")
-                    validfield = false
-                }
+    //Fältet måste ha ett ifyllt värde
+    if(formdata.formfields[field_id].value == '') {
+        el.innerHTML = formdata.formfields[field_id].label[language] + ' ' + formdata.formfields[field_id].validation.required.errormessage[language]
+        el.classList.remove("hideelement")
+        validfield = false
+    } else {
+        //Värdet måste matcha ett visst mönster(exvis email, personnummer etc)
+        if (formdata.formfields[field_id].validation.pattern) { 
+            if (!formdata.formfields[field_id].value.match(formdata.formfields[field_id].validation.pattern.value)) {
+                el.innerHTML = formdata.formfields[field_id].validation.pattern.errormessage[language]
+                el.classList.remove("hideelement")
+                validfield = false
             }
         }
-
     }
+
 
     //En datebox kan ha ett min- och eller maxvärde. Kontrollera om värdet är inom gränserna
     if(formdata.formfields[field_id].type == "datebox") {
@@ -1012,27 +1011,32 @@ let validatefield = (field_id) => {
 }
 
 let checkifrequired = (field_id) => {
+    //ett openurl-fält ska inte valideras
+    if (isopenurl && formdata.formfields[field_id].openurl) {
+        return false;              
+    }
+    
     //Fältet ska bara valideras om det uppfyller criterias(fields + value ) för validation
     let validatefield = false;
-    //Fältet ska alltid valideras om required = true
-    if (formdata.formfields[field_id].validation.required.value) {
-        validatefield = true;
-    } else {
-        if (formdata?.formfields?.[field_id]?.validation?.required.criteria) {
-            for (let index1 of formdata.formfields[field_id].validation.required.criteria) {
-                //Gå igenom alla critera values och kolla om 
-                for (let index2 of index1.values) {
-                    // om värdet på aktuellt fälts critera-fält(criteria.field) i formuläret finns i godkända values för aktuellt fält så är det required
-                    // tex om det aktuella värdet för formulärets genre-fält är "article" och "article" är ett av värdena i critera.values så är det required
-                    if (formdata.formfields[index1.field].value == index2 || index2 == "any") {
-                        validatefield = true;
-                        break;
-                    } else {
-                        validatefield = false;
-                    }
+    if (formdata?.formfields?.[field_id]?.validation?.required.criteria) {
+        for (let index1 of formdata.formfields[field_id].validation.required.criteria) {
+            //Gå igenom alla critera values och kolla om 
+            for (let index2 of index1.values) {
+                // om värdet på aktuellt fälts critera-fält(criteria.field) i formuläret finns i godkända values för aktuellt fält så är det required
+                // tex om det aktuella värdet för formulärets genre-fält är "article" och "article" är ett av värdena i critera.values så är det required
+                if (formdata.formfields[index1.field].value == index2 || index2 == "any") {
+                    formdata.formfields[field_id].validation.required.value = true;
+                    validatefield = true;
+                    break;
+                } else {
+                    formdata.formfields[field_id].validation.required.value = false;
+                    validatefield = false;
                 }
             }
         }
+    } else {
+        //Finns inga crieteria så sätt reuquired till värdet från json-konfigurationen
+        validatefield = formdata.formfields[field_id].validation.required.value;
     }
 
     return validatefield
