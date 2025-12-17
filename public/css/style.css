@@ -38,13 +38,12 @@
   padding: 6px 10px;
   cursor: pointer;
   padding: 10px 15px;
-    margin-top: 5px; /* Lite utrymme från input-fältet */
-    border: 1px solid #cceeff; /* Ljusblå kant */
-    background-color: #e6f7ff; /* Lätt blå bakgrund */
-    color: #004085; /* Mörkblå text */
+    margin-top: 5px;
+    border: 1px solid #b6b6b6;
+    background-color: #ffffff;
+    color: #000000;
     border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer; /* Indikerar klickbarhet om du väljer att ha det */
+    cursor: pointer;
 }
 .suggestion-item:hover {
   background-color: #f0f0f0;
