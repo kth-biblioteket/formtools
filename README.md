@@ -5,7 +5,7 @@ KTH Bibliotekets formulärtjänst
 Startas i en Dockercontainer
 
 ###
-Deploy via github actions som anropar en webhook
+Deploy via github actions som anropar en webhook. Ny ver 260727
 
 #### Dependencies
 
