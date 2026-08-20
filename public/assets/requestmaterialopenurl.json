@@ -1700,7 +1700,7 @@
       "openurlenabled": true,
       "showcriteria": [{
         "field": "genre",
-        "values": ["none"],
+        "values": ["article", "book", "bookitem"],
         "values_to_use_when_not_summer": ["article", "book", "bookitem"],
         "documentation": [
           "Sätt values till de genrevärden som det ska visas för: article, book, bookitem",
