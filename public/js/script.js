@@ -48,6 +48,13 @@ let getformdata = () => {
     rfr_id = urlParams.get('rfr_id');
     cleanrfrSource = rfr_id; // Standardfallback om den redan är ren (som ProQuest)
 
+    if(urlParams.get('genre') == 'proceeding') {
+        cleanrfrSource += ' - [proceeding]'
+    }
+    if(urlParams.get('genre') == 'dissertation') {
+        cleanrfrSource += ' - [dissertation]'
+    }
+
    if (rfr_id) {
     // Avkoda eventuella specialtecken (t.ex. %3A till : och %2F till /)
     let decodedSource = decodeURIComponent(rfr_id);
@@ -158,12 +165,10 @@ let generateForm = (formdata) => {
             //Hantera proceeding/dissertation
             if(openurljson['genre'] == 'proceeding') {
                 openurljson['genre'] = 'bookitem'
-                cleanrfrSource += ' - [proceeding]'
             }
 
             if(openurljson['genre'] == 'dissertation') {
                 openurljson['genre'] = 'book'
-                cleanrfrSource += ' - [dissertation]'
             }
 
             //Skapa HTML för att skriva ut "beställningen" i en ruta överst på sidan.
