@@ -470,7 +470,7 @@ async function createUserResourceSharingRequests(formconfig, language, request, 
 
         let sourceVal = request.form.source ? request.form.source : "";
         if (rfr_id && rfr_id.trim() !== "") {
-            sourceVal += ` - [${rfr_id}]`;
+            sourceVal += ` - ${rfr_id}`;
         }
 
         let rsrobject = `{
