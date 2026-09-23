@@ -72,12 +72,12 @@ let getformdata = () => {
     }
 
     if(urlParams.get('genre') == 'proceeding') {
-        cleanrfrSource += ' - [proceeding]'
+        cleanrfrSource += ' - proceeding'
     }
     if(urlParams.get('genre') == 'dissertation') {
-        cleanrfrSource += ' - [dissertation]'
+        cleanrfrSource += ' - dissertation'
     }
-    
+
     if(openurlsource != null && openurlsource != "") {
         isopenurl = true;
         openurlsuffix = "openurl";
