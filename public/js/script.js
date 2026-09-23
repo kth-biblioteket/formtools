@@ -18,6 +18,8 @@ let formserver
 let isopenurl
 let openurlsuffix = ""
 let openurlsource
+let rfr_id
+let cleanrfrSource
 let openurljson
 let formid
 let formdataurl
@@ -42,7 +44,32 @@ try {
 let getformdata = () => {
     // Finns det en sourceparameter i url:en?
     // I så fall är det ett anrop via "openurl" från t ex Primo
-    openurlsource = urlParams.get('source') || urlParams.get('rfr.id')
+    openurlsource = urlParams.get('source') || urlParams.get('rfr.id');
+    rfr_id = urlParams.get('rfr_id');
+    cleanrfrSource = rfr_id; // Standardfallback om den redan är ren (som ProQuest)
+
+   if (rfr_id) {
+    // Avkoda eventuella specialtecken (t.ex. %3A till : och %2F till /)
+    let decodedSource = decodeURIComponent(rfr_id);
+    
+    // 2. Om strängen börjar med eller innehåller "info:sid/", städa bort det
+    if (decodedSource.includes('info:sid/')) {
+        // Ta allt som kommer efter "info:sid/" -> "webofscience.com:WOS:WOSCC"
+        let rawClean = decodedSource.split('info:sid/')[1];
+        
+        // Ta bara första biten innan nästa kolon -> "webofscience.com"
+        cleanrfrSource = rawClean.split(':')[0];
+    } else {
+        // Om det inte fanns något "info:sid/", ta bara första biten före ett eventuellt kolon
+        cleanrfrSource = decodedSource.split(':')[0];
+    }
+
+    //Om sökning kommer från en sökning i Primo
+    let primoPrefix = 'primo.exlibrisgroup.com-';
+    if (cleanrfrSource.startsWith(primoPrefix)) {
+        cleanrfrSource = cleanrfrSource.slice(primoPrefix.length);
+    }
+   }
     if(openurlsource != null && openurlsource != "") {
         isopenurl = true;
         openurlsuffix = "openurl";
@@ -131,10 +158,12 @@ let generateForm = (formdata) => {
             //Hantera proceeding/dissertation
             if(openurljson['genre'] == 'proceeding') {
                 openurljson['genre'] = 'bookitem'
+                cleanrfrSource += ' - [proceeding]'
             }
 
             if(openurljson['genre'] == 'dissertation') {
                 openurljson['genre'] = 'book'
+                cleanrfrSource += ' - [dissertation]'
             }
 
             //Skapa HTML för att skriva ut "beställningen" i en ruta överst på sidan.
@@ -1092,6 +1121,7 @@ let submitform =  (event) => {
             kthbformData.append("source", formdata.formfields['source'].value)
         } else {
             kthbformData.append("source", openurlsource)
+            kthbformData.append("rfr_id", cleanrfrSource);
         }
 
         let kthbformDataObject = {}
@@ -1565,4 +1595,3 @@ const lookupConfig = {
         populate: populateBookFields
     }
 };
-

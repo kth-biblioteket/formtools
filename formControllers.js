@@ -463,6 +463,16 @@ async function createUserResourceSharingRequests(formconfig, language, request, 
             last_interest_date  = '"last_interest_date": "' +  dateneededby + '",';
         }
 
+	    let rfr_id ="";
+        if (request && request.form && request.form.rfr_id) {
+	        rfr_id = request.form.rfr_id;
+        }
+
+        let sourceVal = request.form.source ? request.form.source : "";
+        if (rfr_id && rfr_id.trim() !== "") {
+            sourceVal += ` - [${rfr_id}]`;
+        }
+
         let rsrobject = `{
             "format": {
                 "value": "${format}",
@@ -483,7 +493,7 @@ async function createUserResourceSharingRequests(formconfig, language, request, 
             "chapter_title": "${request.form.ctitle ? request.form.ctitle : ""}",
             "pages": "${request.form.pages ? request.form.pages : ""}",
             "part": null,
-            "source": "${request.form.source ? request.form.source : ""}",
+            "source": "${sourceVal}",
             "doi": "${request.form.doi ? request.form.doi : ""}",
             "pmid": null,
             "call_number": null,
