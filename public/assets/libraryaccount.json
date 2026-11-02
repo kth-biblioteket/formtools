@@ -433,10 +433,10 @@
           }
         },
         "pattern": {
-          "value": ".{8,}",
+          "value": ".{15,}",
           "errormessage": {
-            "swedish": "måste innehålla minst 8 tecken.",
-            "english": "must contain at least 8 characters."
+            "swedish": "måste innehålla minst 15 tecken.",
+            "english": "must contain at least 15 characters."
           }
         }
       }
