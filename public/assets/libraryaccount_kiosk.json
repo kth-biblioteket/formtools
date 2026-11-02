@@ -423,8 +423,8 @@
     },
     "password": {
       "label": {
-        "swedish": "Lösenord till ditt bibliotekskonto (8 tecken)",
-        "english": "Password for your library account (8 characters)"
+        "swedish": "Lösenord till ditt bibliotekskonto (15 tecken)",
+        "english": "Password for your library account (15 characters)"
       },
       "value": "",
       "type": "password",
